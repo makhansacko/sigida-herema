@@ -103,7 +103,7 @@
 						<div>
 							<p class="kick">Où ce changement se produit</p>
 							<div class="chips">
-								{#each i.node as n}<button class="chip to-map" onclick={() => showInSystem(n)}>{nodeLabel(n)} · voir dans le modèle logique →</button>{/each}
+								<button class="chip to-map" onclick={() => showInSystem(i.node[0])} title={i.node.map(nodeLabel).join(', ')}>Modèle logique →</button>
 							</div>
 							{#if themesOf(i).length}
 								<div class="q-tags" style="margin-top:6px">{#each themesOf(i) as t}<span class="qt pif">PIF · {PIF_THEMES[t].label}</span>{/each}</div>
