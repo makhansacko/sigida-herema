@@ -2,7 +2,7 @@
  * Carte systémique du projet Sigida Herema, organisée autour des interventions.
  *
  * Flux de gauche à droite :
- *   Ceux qui pilotent → Ce que Search fait (appui) → Ceux qui portent la voix
+ *   Ceux qui pilotent → Activités du projet (appui) → Ceux qui portent la voix
  *   → Comment ils atteignent les cibles (interventions) → Ceux que le projet veut atteindre → Objectifs
  *
  * - `COLS` : colonnes. `fam` relie une colonne à une famille d'acteurs (fond coloré).
@@ -22,7 +22,7 @@ export const H = 975;
 
 export const COLS = [
 	{ id: 'pilote', x: 110, label: 'Ceux qui pilotent', sub: 'Financement, mise en œuvre', fam: 'pil' },
-	{ id: 'appui', x: 360, label: 'Ce que Search fait', sub: 'Appui et renforcement', fam: 'pil' },
+	{ id: 'appui', x: 360, label: 'Activités du projet', sub: 'Appui et renforcement', fam: 'pil' },
 	{ id: 'porteur', x: 620, label: 'Ceux qui portent la voix', sub: 'Et ce qui change chez eux', fam: 'voix' },
 	{ id: 'inter', x: 880, label: 'Leurs interventions', sub: 'Comment ils atteignent les cibles', fam: 'voix' },
 	{ id: 'cible', x: 1150, label: 'Ceux que le projet veut atteindre', sub: 'Et ce qui change chez eux', fam: 'cible' },
@@ -45,7 +45,7 @@ export const NODES = [
 	{ id: 'bailleur', kind: 'pilote', x: 110, y: 303 },
 	{ id: 'search', kind: 'pilote', x: 110, y: 456 },
 
-	// ---------- Ce que Search fait pour appuyer ceux qui portent la voix ----------
+	// ---------- Activités du projet pour appuyer ceux qui portent la voix ----------
 	{
 		id: 's_osc', kind: 'appui', x: 360, y: 231, icon: 'appui',
 		label: 'Appui technique et financier au réseau d’OSC',

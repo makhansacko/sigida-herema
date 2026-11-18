@@ -159,7 +159,7 @@
 	const interOf = (id) => NODES.filter((n) => n.kind === 'inter' && n.who.some(([w]) => w === id));
 	const KIND = {
 		pilote: 'Ceux qui pilotent',
-		appui: 'Ce que Search fait',
+		appui: 'Activités du projet',
 		porteur: 'Ceux qui portent la voix',
 		inter: 'Intervention',
 		cible: 'Ceux que le projet veut atteindre',
@@ -199,7 +199,7 @@
 <section id="systeme">
 	<h2 class="sh">Le modèle logique <span>du projet</span></h2>
 	<p class="intro">
-		De gauche à droite : ce que <b>Search</b> fait pour appuyer <b>ceux qui portent la voix</b>, les <b>interventions</b> par
+		De gauche à droite : les <b>activités du projet</b> qui appuient <b>ceux qui portent la voix</b>, les <b>interventions</b> par
 		lesquelles ils atteignent <b>les cibles</b>, ce qui doit changer chez ces cibles, et comment cela mène aux <b>objectifs</b>.
 		Chaque changement indique comment il sera mesuré. Survolez ou cliquez un élément pour suivre sa chaîne.
 	</p>
@@ -353,7 +353,7 @@
 			{#if sel.kind === 'pilote'}
 				<p>{STAKE[sel.id].role}</p>
 				{#if sel.id === 'search'}
-					<div><p class="kick">Ce que Search fait pour appuyer ceux qui portent la voix</p>{@render chips(down)}</div>
+					<div><p class="kick">Activités du projet pour appuyer ceux qui portent la voix</p>{@render chips(down)}</div>
 					<div><p class="kick">Interventions que Search facilite directement</p>{@render chips(interOf('search'))}</div>
 				{:else}
 					<div><p class="kick">Finance</p>{@render chips(down)}</div>
