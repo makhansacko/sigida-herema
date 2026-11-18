@@ -200,8 +200,9 @@ footer{margin:40px 0 30px}
 /* ===== Carte systémique ===== */
 .sys-bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:16px}
 .sys-bar .lab{font:800 .72rem/1 var(--head);text-transform:uppercase;color:var(--muted);margin-right:6px}
-.sys-wrap{position:relative;left:50%;transform:translateX(-50%);width:min(1440px,calc(100vw - 48px));margin-top:14px;border:1.5px solid var(--line);border-radius:14px;background:linear-gradient(#f7fafd,#fff 40%);padding:10px 8px;overflow-x:auto}
-.sysmap{min-width:980px;width:100%;height:auto;font-family:var(--head)}
+.sys-wrap{margin-top:12px;border:1.5px solid var(--line);border-radius:14px;background:linear-gradient(#f7fafd,#fff 40%);padding:8px;overflow-x:auto}
+.sysmap{display:block;width:100%;height:auto;max-height:calc(100vh - 120px);margin:0 auto;font-family:var(--head)}
+@media (max-width:800px){.sysmap{min-width:880px;max-height:none}}
 .sysmap .col line{stroke:var(--line);stroke-dasharray:2 5}
 .sysmap .col-l{font:800 16px var(--head);fill:var(--blue)}
 .sysmap .col-s{font:700 9.5px var(--head);fill:var(--muted);letter-spacing:.08em}
