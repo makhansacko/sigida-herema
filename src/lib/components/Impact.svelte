@@ -203,7 +203,6 @@
 		<ul class="arr">
 			<li>Les résultats présentent la <b>contribution</b> du projet, argumentée maillon par maillon le long du modèle logique, et non un impact attribué.</li>
 			<li>Les résultats par sous-groupe (région, sexe, âge) sont donnés avec leurs <b>intervalles de confiance</b>, comme résultats indicatifs.</li>
-			<li>L’<b>échelle des effets</b> est annoncée d’emblée : des changements rapides attendus en fin de projet aux changements lents, plus ambitieux.</li>
 			<li>Pour l’indicateur 1 : un recensement du réseau d’OSC, ou à défaut un panel, faute de quoi un gain de 13 points ne sera pas démontrable.</li>
 		</ul>
 	</div>

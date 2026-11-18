@@ -306,16 +306,6 @@ footer{margin:40px 0 30px}
 .chip.actor-chip svg{width:24px;height:24px;flex:none}
 .drawer .m{--cc:var(--teal);--tc:var(--t-agency)}
 
-/* Horizons des changements */
-.sysmap .hz rect{fill:#e7f6f2} .sysmap .hz text{font:800 8.5px var(--head);fill:var(--t-agency);text-transform:uppercase;letter-spacing:.04em}
-.sysmap .hz.moyen rect{fill:#fdeedb} .sysmap .hz.moyen text{fill:var(--t-polar)}
-.sysmap .hz.lent rect{fill:#efe6f6} .sysmap .hz.lent text{fill:#7a4f9b}
-.hz-line{font-size:.88rem;border-left:4px solid var(--teal);padding:4px 10px;background:#f2faf8;border-radius:0 6px 6px 0}
-.hz-line.moyen{border-color:var(--orange);background:#fff7ec}
-.hz-line.lent{border-color:#9b72bd;background:#f6f0fa}
-.sys-legend .hzk{width:12px;height:12px;border-radius:6px;border:0}
-.sys-legend .hzk.rapide{background:#bfe6db} .sys-legend .hzk.moyen{background:#f6d6a8} .sys-legend .hzk.lent{background:#d9c6ea}
-
 /* ===== Évaluer l'impact ===== */
 .imp-two{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:18px;align-items:start}
 @media (max-width:900px){.imp-two{grid-template-columns:1fr}}

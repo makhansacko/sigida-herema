@@ -11,7 +11,6 @@
  *   `who` (interventions) = acteurs impliqués, avec leur rôle.
  *   `m` = mesures : { ind, b (base %), c (cible %), src (clé de SRC) }.
  *   `os` = 1 ou 2 : objectif auquel le nœud contribue (couleur).
- *   `hz` = horizon du changement : rapide | moyen | lent (échelle des effets, du plus facile au plus ambitieux).
  * - `LINKS` : [de, vers, type]. type = finance | appui | porte | vise | objectif | frein | hypothese.
  *
  * Source : TDR Search n° SFCG ML 03-172026 (août 2026). La répartition des rôles et les effets
@@ -71,21 +70,21 @@ export const NODES = [
 
 	// ---------- Ceux qui portent la voix (et ce qui change chez eux) ----------
 	{
-		id: 'osc', kind: 'porteur', x: 620, y: 231, os: 1, hz: 'rapide',
+		id: 'osc', kind: 'porteur', x: 620, y: 231, os: 1,
 		m: [
 			{ ind: 'Indicateur 1 · % de membres d’OSC indiquant une meilleure collaboration entre médias et OSC pour le plaidoyer', b: 57, c: 70, src: 'osc' },
 			{ ind: '% de membres d’OSC estimant avoir la capacité de mener des plaidoyers constructifs sur des questions sensibles', src: 'osc' }
 		]
 	},
 	{
-		id: 'medias', kind: 'porteur', x: 620, y: 429, os: 1, hz: 'rapide',
+		id: 'medias', kind: 'porteur', x: 620, y: 429, os: 1,
 		m: [
 			{ ind: '% d’acteurs médias et OSC ayant accès à des sources d’information diverses, sans restriction et à temps (co-créé)', src: 'osc' },
 			{ ind: 'Indicateur 1 · Collaboration médias-OSC pour le plaidoyer (mesurée aussi côté médias)', b: 57, c: 70, src: 'osc' }
 		]
 	},
 	{
-		id: 'urtel', kind: 'porteur', x: 620, y: 636, os: 2, hz: 'rapide',
+		id: 'urtel', kind: 'porteur', x: 620, y: 636, os: 2,
 		m: [{ ind: 'Radios ayant diffusé, volume et langues des émissions, audience estimée', src: 'urtel' }]
 	},
 
@@ -129,28 +128,28 @@ export const NODES = [
 	// ---------- Ceux que le projet veut atteindre (et ce qui change chez eux) ----------
 	{ id: 'etat', kind: 'cible', x: 1150, y: 89 },
 	{
-		id: 'c_voice', kind: 'change', x: 1150, y: 157, os: 1, hz: 'moyen',
+		id: 'c_voice', kind: 'change', x: 1150, y: 157, os: 1,
 		label: 'Associent OSC et médias aux décisions',
 		what: 'Les autorités font davantage participer les OSC et les médias aux processus de décision et à la formulation des politiques sur l’espace civique.',
 		m: [{ ind: '% d’acteurs médias et OSC dont la participation aux processus décisionnels s’est améliorée', src: 'osc' }],
 		check: 'Croiser avec les KII auprès des autorités.'
 	},
 	{
-		id: 'c_protect', kind: 'change', x: 1150, y: 242, os: 1, hz: 'lent',
+		id: 'c_protect', kind: 'change', x: 1150, y: 242, os: 1,
 		label: 'Protègent mieux journalistes et défenseurs',
 		what: 'Ceux qui travaillent sur l’espace civique bénéficient de plus de protection et de soutien des décideurs. Mesuré auprès des médias et OSC.',
 		m: [{ ind: 'Indicateur 0.1 · % d’acteurs médias et OSC estimant que la protection des défenseurs et des journalistes s’est améliorée', b: 33, c: 50, src: 'osc' }]
 	},
 	{ id: 'coutume', kind: 'cible', x: 1150, y: 323 },
 	{
-		id: 'c_lead', kind: 'change', x: 1150, y: 388, os: 2, hz: 'moyen',
+		id: 'c_lead', kind: 'change', x: 1150, y: 388, os: 2,
 		label: 'Relaient le dialogue dans les communautés',
 		what: 'Les leaders coutumiers et communautaires portent les messages de dialogue et facilitent la participation de leurs communautés.',
 		m: [{ ind: 'Réponse du projet aux attentes des leaders coutumiers ; rôle joué dans les dialogues', src: 'kii' }]
 	},
 	{ id: 'pop', kind: 'cible', x: 1150, y: 467 },
 	{
-		id: 'c_trust', kind: 'change', x: 1150, y: 535, os: 2, hz: 'moyen',
+		id: 'c_trust', kind: 'change', x: 1150, y: 535, os: 2,
 		label: 'Font confiance aux médias et aux OSC',
 		what: 'La population considère les médias et les OSC comme des sources fiables sur les enjeux de l’espace civique.',
 		m: [
@@ -160,7 +159,7 @@ export const NODES = [
 		check: 'Cible 0.2 revue à la hausse en janvier 2026. Pas de valeur de base pour 2.3.'
 	},
 	{
-		id: 'c_rights', kind: 'change', x: 1150, y: 627, os: 2, hz: 'rapide',
+		id: 'c_rights', kind: 'change', x: 1150, y: 627, os: 2,
 		label: 'Connaissent leurs droits et agissent',
 		what: 'La population se sent informée de ses droits et devoirs et passe à l’action sur ce qui lui tient à cœur.',
 		m: [
@@ -169,7 +168,7 @@ export const NODES = [
 		]
 	},
 	{
-		id: 'c_heard', kind: 'change', x: 1150, y: 719, os: 2, hz: 'lent',
+		id: 'c_heard', kind: 'change', x: 1150, y: 719, os: 2,
 		label: 'Se sentent entendus par les autorités',
 		what: 'La population pense que ses opinions sont prises en compte dans la décision publique et se dit satisfaite des services demandés aux autorités.',
 		m: [
@@ -179,7 +178,7 @@ export const NODES = [
 		check: 'Le plus gros écart à combler : +28 points.'
 	},
 	{
-		id: 'c_cohesion', kind: 'change', x: 1150, y: 809, os: 2, hz: 'lent',
+		id: 'c_cohesion', kind: 'change', x: 1150, y: 809, os: 2,
 		label: 'Se méfient moins des autres groupes',
 		what: 'Les écarts entre groupes se réduisent : confiance dans l’information et dans les interactions, rejet de la violence.',
 		m: [{ ind: 'Écart entre groupes démographiques : confiance, conviction que la violence est parfois nécessaire (MEAL global)', src: 'menages' }],
@@ -301,10 +300,3 @@ export function chainOf(id, { withContext = true } = {}) {
 	for (const [t, cs] of Object.entries(TARGET_CHANGES)) if (cs.some((c) => s.has(c))) s.add(t);
 	return s;
 }
-
-/** Horizon des changements : quand peut-on raisonnablement s'attendre à les voir bouger ? */
-export const HORIZON = {
-	rapide: { label: 'Rapide', text: 'Devrait avoir bougé à la fin du projet. Si ce n’est pas le cas, c’est un signal fort.' },
-	moyen: { label: 'Moyen', text: 'Peut avoir commencé à bouger. Un changement partiel est un résultat honnête.' },
-	lent: { label: 'Lent', text: 'Effet ambitieux, qui demande souvent plus de temps que la durée du projet. Une absence de changement n’est pas forcément un échec.' }
-};
