@@ -201,7 +201,7 @@ footer{margin:40px 0 30px}
 .sys-bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:16px}
 .sys-bar .lab{font:800 .72rem/1 var(--head);text-transform:uppercase;color:var(--muted);margin-right:6px}
 .sys-wrap{margin-top:12px;border:1.5px solid var(--line);border-radius:14px;background:linear-gradient(#f7fafd,#fff 40%);padding:8px;overflow-x:auto}
-.sysmap{display:block;width:100%;height:auto;max-height:calc(100vh - 120px);margin:0 auto;font-family:var(--head)}
+.sysmap{display:block;width:100%;height:auto;max-height:calc(100vh - 70px);margin:0 auto;font-family:var(--head)}
 @media (max-width:800px){.sysmap{min-width:880px;max-height:none}}
 .sysmap .col line{stroke:var(--line);stroke-dasharray:2 5}
 .sysmap .col-l{font:800 16px var(--head);fill:var(--blue)}
