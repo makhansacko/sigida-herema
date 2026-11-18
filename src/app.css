@@ -366,3 +366,13 @@ footer{margin:40px 0 30px}
 .dem li.done b{text-decoration:line-through;color:var(--t-agency)}
 .dem .why{font-size:.84rem;color:var(--muted);display:block;margin-top:2px}
 .dem .q-tags{padding-left:30px}
+
+/* Couleurs PIF dans les indicateurs */
+.ind-row{border-left:5px solid var(--pc,#8d98a8)}
+.ind-main .code{color:var(--pc);display:grid;gap:3px;filter:saturate(1.1) brightness(.8)}
+.ind-main .code small{font:800 .58rem/1.15 var(--head);text-transform:uppercase;letter-spacing:.02em}
+.ind-row .mini-g .gp{background:color-mix(in srgb,var(--pc) 55%,#fff)}
+.ind-row .mini-g .dt.c{background:var(--pc)}
+.qt.pif-c{color:#fff;border-color:transparent;text-shadow:0 0 2px rgba(0,0,0,.25)}
+.pif-key{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-top:14px;font:700 .78rem var(--head)}
+.pif-key i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}

@@ -6,6 +6,8 @@
 
 	const nodeLabel = (id) => STAKE[id]?.short ?? nodeById[id]?.label ?? id;
 	const themesOf = (i) => [...new Set(i.node.map((n) => nodeById[n]?.pif).filter(Boolean))];
+	/** Couleur du thème PIF principal de l'indicateur (gris s'il n'en a pas). */
+	const colorOf = (i) => PIF_THEMES[themesOf(i)[0]]?.color ?? '#8d98a8';
 
 	let fAp = $state('all');
 	let fPub = $state('all');
@@ -55,15 +57,19 @@
 		</p>
 	{/if}
 
+	<div class="pif-key">
+		<span class="muted">Couleur = thème du PIF du changement mesuré :</span>
+		{#each Object.values(PIF_THEMES) as th}<span><i style="background:{th.color}"></i>{th.label}</span>{/each}
+	</div>
 	<div class="ind-table" role="table" aria-label="Indicateurs de l'évaluation">
 		<div class="ind-head" role="row">
 			<span role="columnheader">N°</span><span role="columnheader">Indicateur</span><span role="columnheader">Public</span><span role="columnheader">Base → cible</span><span role="columnheader">Approche</span><span></span>
 		</div>
 		{#each list as i (i.code)}
 			{@const isOpen = ui.openInd.includes(i.code)}
-			<div class="ind-row" class:open={isOpen} role="row" id="ind-{i.code.replace('.', '-')}">
+			<div class="ind-row" class:open={isOpen} role="row" id="ind-{i.code.replace('.', '-')}" style="--pc:{colorOf(i)}">
 				<button class="ind-main" onclick={() => toggle(i.code)} aria-expanded={isOpen}>
-					<span class="code">{i.code}</span>
+					<span class="code">{i.code}{#if themesOf(i).length}<small>{PIF_THEMES[themesOf(i)[0]].label}</small>{/if}</span>
 					<span class="t"><small>{i.table}</small>{i.t}</span>
 					<span class="pub-tag {i.pub}">{PUBLICS[i.pub].label}</span>
 					<span class="bc">
@@ -106,7 +112,7 @@
 								<button class="chip to-map" onclick={() => showInSystem(i.node[0])} title={i.node.map(nodeLabel).join(', ')}>Modèle logique →</button>
 							</div>
 							{#if themesOf(i).length}
-								<div class="q-tags" style="margin-top:6px">{#each themesOf(i) as t}<span class="qt pif">PIF · {PIF_THEMES[t].label}</span>{/each}</div>
+								<div class="q-tags" style="margin-top:6px">{#each themesOf(i) as t}<span class="qt pif-c" style="background:{PIF_THEMES[t].color}">PIF · {PIF_THEMES[t].label}</span>{/each}</div>
 							{/if}
 							<p class="kick" style="margin-top:8px">Ce qu’on pourra affirmer</p>
 							<p>{i.claim}</p>
