@@ -1,10 +1,11 @@
 <script>
 	import { INDICATEURS, PUBLICS, APPROCHES, ANALYSES } from '$lib/data/indicateurs.js';
-	import { nodeById } from '$lib/data/systeme.js';
+	import { nodeById, PIF_THEMES } from '$lib/data/systeme.js';
 	import { STAKE } from '$lib/data/projet.js';
 	import { showInSystem, ui } from '$lib/state.svelte.js';
 
 	const nodeLabel = (id) => STAKE[id]?.short ?? nodeById[id]?.label ?? id;
+	const themesOf = (i) => [...new Set(i.node.map((n) => nodeById[n]?.pif).filter(Boolean))];
 
 	let fAp = $state('all');
 	let fPub = $state('all');
@@ -104,6 +105,9 @@
 							<div class="chips">
 								{#each i.node as n}<button class="chip to-map" onclick={() => showInSystem(n)}>{nodeLabel(n)} · voir dans le modèle logique →</button>{/each}
 							</div>
+							{#if themesOf(i).length}
+								<div class="q-tags" style="margin-top:6px">{#each themesOf(i) as t}<span class="qt pif">PIF · {PIF_THEMES[t].label}</span>{/each}</div>
+							{/if}
 							<p class="kick" style="margin-top:8px">Ce qu’on pourra affirmer</p>
 							<p>{i.claim}</p>
 							<p class="kick" style="margin-top:8px">Points d’attention</p>

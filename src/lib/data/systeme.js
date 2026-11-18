@@ -11,6 +11,7 @@
  *   `who` (interventions) = acteurs impliqués, avec leur rôle.
  *   `m` = mesures : { ind, b (base %), c (cible %), src (clé de SRC) }.
  *   `os` = 1 ou 2 : objectif auquel le nœud contribue (couleur).
+ *   `pif` = thème du Cadre d'impact pour la paix (clé de PIF_THEMES) auquel le changement se rattache.
  * - `LINKS` : [de, vers, type]. type = finance | appui | porte | vise | objectif | frein | hypothese.
  *
  * Source : TDR Search n° SFCG ML 03-172026 (août 2026). La répartition des rôles et les effets
@@ -61,7 +62,7 @@ export const NODES = [
 		check: 'Distinguer compétences techniques et capacités relationnelles et stratégiques (question d’efficacité).'
 	},
 	{
-		id: 's_urtel', kind: 'appui', x: 360, y: 636, icon: 'reseau',
+		id: 's_urtel', kind: 'appui', pif: 'invest', x: 360, y: 636, icon: 'reseau',
 		label: 'Partenariat avec l’URTEL',
 		what: 'Search mobilise le réseau de l’URTEL (383 radios membres) pour diffuser les émissions et campagnes. Ce partenariat a été ajouté après l’approche prévue en octobre 2025, pour toucher plus de monde à moindre coût.',
 		m: [{ ind: 'Coût par personne atteinte, comparé à l’approche initiale d’octobre 2025', src: 'urtel' }],
@@ -70,21 +71,21 @@ export const NODES = [
 
 	// ---------- Ceux qui portent la voix (et ce qui change chez eux) ----------
 	{
-		id: 'osc', kind: 'porteur', x: 620, y: 231, os: 1,
+		id: 'osc', kind: 'porteur', pif: 'agency', x: 620, y: 231, os: 1,
 		m: [
 			{ ind: 'Indicateur 1 · % de membres d’OSC indiquant une meilleure collaboration entre médias et OSC pour le plaidoyer', b: 57, c: 70, src: 'osc' },
 			{ ind: '% de membres d’OSC estimant avoir la capacité de mener des plaidoyers constructifs sur des questions sensibles', src: 'osc' }
 		]
 	},
 	{
-		id: 'medias', kind: 'porteur', x: 620, y: 429, os: 1,
+		id: 'medias', kind: 'porteur', pif: 'legit', x: 620, y: 429, os: 1,
 		m: [
 			{ ind: '% d’acteurs médias et OSC ayant accès à des sources d’information diverses, sans restriction et à temps (co-créé)', src: 'osc' },
 			{ ind: 'Indicateur 1 · Collaboration médias-OSC pour le plaidoyer (mesurée aussi côté médias)', b: 57, c: 70, src: 'osc' }
 		]
 	},
 	{
-		id: 'urtel', kind: 'porteur', x: 620, y: 636, os: 2,
+		id: 'urtel', kind: 'porteur', pif: 'invest', x: 620, y: 636, os: 2,
 		m: [{ ind: 'Radios ayant diffusé, volume et langues des émissions, audience estimée', src: 'urtel' }]
 	},
 
@@ -97,7 +98,7 @@ export const NODES = [
 		change: 'Les autorités associent davantage les OSC et les médias aux décisions sur l’espace civique.'
 	},
 	{
-		id: 'forum', kind: 'inter', x: 880, y: 285, icon: 'forum', os: 1, res: 'R1.2',
+		id: 'forum', kind: 'inter', pif: 'invest', x: 880, y: 285, icon: 'forum', os: 1, res: 'R1.2',
 		label: 'Forums OSC-Gouvernement',
 		what: 'Des espaces réguliers où la société civile et les régulateurs se rencontrent pour se comprendre et collaborer sur la protection de l’espace civique.',
 		who: [['osc', 'participent'], ['etat', 'participent'], ['search', 'facilite']],
@@ -128,28 +129,28 @@ export const NODES = [
 	// ---------- Ceux que le projet veut atteindre (et ce qui change chez eux) ----------
 	{ id: 'etat', kind: 'cible', x: 1150, y: 89 },
 	{
-		id: 'c_voice', kind: 'change', x: 1150, y: 157, os: 1,
+		id: 'c_voice', kind: 'change', pif: 'legit', x: 1150, y: 157, os: 1,
 		label: 'Associent OSC et médias aux décisions',
 		what: 'Les autorités font davantage participer les OSC et les médias aux processus de décision et à la formulation des politiques sur l’espace civique.',
 		m: [{ ind: '% d’acteurs médias et OSC dont la participation aux processus décisionnels s’est améliorée', src: 'osc' }],
 		check: 'Croiser avec les KII auprès des autorités.'
 	},
 	{
-		id: 'c_protect', kind: 'change', x: 1150, y: 242, os: 1,
+		id: 'c_protect', kind: 'change', pif: 'violence', x: 1150, y: 242, os: 1,
 		label: 'Protègent mieux journalistes et défenseurs',
 		what: 'Ceux qui travaillent sur l’espace civique bénéficient de plus de protection et de soutien des décideurs. Mesuré auprès des médias et OSC.',
 		m: [{ ind: 'Indicateur 0.1 · % d’acteurs médias et OSC estimant que la protection des défenseurs et des journalistes s’est améliorée', b: 33, c: 50, src: 'osc' }]
 	},
 	{ id: 'coutume', kind: 'cible', x: 1150, y: 323 },
 	{
-		id: 'c_lead', kind: 'change', x: 1150, y: 388, os: 2,
+		id: 'c_lead', kind: 'change', pif: 'polar', x: 1150, y: 388, os: 2,
 		label: 'Relaient le dialogue dans les communautés',
 		what: 'Les leaders coutumiers et communautaires portent les messages de dialogue et facilitent la participation de leurs communautés.',
 		m: [{ ind: 'Réponse du projet aux attentes des leaders coutumiers ; rôle joué dans les dialogues', src: 'kii' }]
 	},
 	{ id: 'pop', kind: 'cible', x: 1150, y: 467 },
 	{
-		id: 'c_trust', kind: 'change', x: 1150, y: 535, os: 2,
+		id: 'c_trust', kind: 'change', pif: 'legit', x: 1150, y: 535, os: 2,
 		label: 'Font confiance aux médias et aux OSC',
 		what: 'La population considère les médias et les OSC comme des sources fiables sur les enjeux de l’espace civique.',
 		m: [
@@ -159,7 +160,7 @@ export const NODES = [
 		check: 'Cible 0.2 revue à la hausse en janvier 2026. Pas de valeur de base pour 2.3.'
 	},
 	{
-		id: 'c_rights', kind: 'change', x: 1150, y: 627, os: 2,
+		id: 'c_rights', kind: 'change', pif: 'agency', x: 1150, y: 627, os: 2,
 		label: 'Connaissent leurs droits et agissent',
 		what: 'La population se sent informée de ses droits et devoirs et passe à l’action sur ce qui lui tient à cœur.',
 		m: [
@@ -168,7 +169,7 @@ export const NODES = [
 		]
 	},
 	{
-		id: 'c_heard', kind: 'change', x: 1150, y: 719, os: 2,
+		id: 'c_heard', kind: 'change', pif: 'legit', x: 1150, y: 719, os: 2,
 		label: 'Se sentent entendus par les autorités',
 		what: 'La population pense que ses opinions sont prises en compte dans la décision publique et se dit satisfaite des services demandés aux autorités.',
 		m: [
@@ -178,7 +179,7 @@ export const NODES = [
 		check: 'Le plus gros écart à combler : +28 points.'
 	},
 	{
-		id: 'c_cohesion', kind: 'change', x: 1150, y: 809, os: 2,
+		id: 'c_cohesion', kind: 'change', pif: 'polar', x: 1150, y: 809, os: 2,
 		label: 'Se méfient moins des autres groupes',
 		what: 'Les écarts entre groupes se réduisent : confiance dans l’information et dans les interactions, rejet de la violence.',
 		m: [{ ind: 'Écart entre groupes démographiques : confiance, conviction que la violence est parfois nécessaire (MEAL global)', src: 'menages' }],
@@ -300,3 +301,12 @@ export function chainOf(id, { withContext = true } = {}) {
 	for (const [t, cs] of Object.entries(TARGET_CHANGES)) if (cs.some((c) => s.has(c))) s.add(t);
 	return s;
 }
+
+/** Les 5 thèmes du Cadre d'impact pour la paix (PIF), pour classer les changements du modèle logique. */
+export const PIF_THEMES = {
+	agency: { label: 'Pouvoir d’agir', q: 'Les gens se sentent-ils capables d’agir sur leur société ?', color: '#64c2b0' },
+	legit: { label: 'Légitimité', q: 'Les institutions, médias compris, gagnent-elles la confiance de ceux qu’elles servent ?', color: '#a157ab' },
+	polar: { label: 'Polarisation', q: 'La méfiance entre groupes recule-t-elle ?', color: '#fbb960' },
+	invest: { label: 'Investissements', q: 'Reste-t-il des ressources pour la paix après le projet ?', color: '#4d7fc5' },
+	violence: { label: 'Violence', q: 'Les gens sont-ils plus en sécurité ?', color: '#e0b43c' }
+};

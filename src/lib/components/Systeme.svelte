@@ -1,5 +1,5 @@
 <script>
-	import { W, H, COLS, NODES, LINKS, SRC, CTX_TYPES, TARGET_CHANGES, nodeById, chainOf } from '$lib/data/systeme.js';
+	import { W, H, COLS, NODES, LINKS, SRC, CTX_TYPES, TARGET_CHANGES, PIF_THEMES, nodeById, chainOf } from '$lib/data/systeme.js';
 	import { STAKE, FAMILY, TINT, FAMILY_LABEL } from '$lib/data/projet.js';
 	import { vignette, viewBoxOf } from '$lib/iso/vignettes.js';
 	import { sys } from '$lib/state.svelte.js';
@@ -123,6 +123,7 @@
 		['os1', 'Objectif 1 · acteurs'],
 		['os2', 'Objectif 2 · public'],
 		['mesure', 'Ce qui est mesuré'],
+		['pif', 'Thèmes du PIF'],
 		['ctx', 'Contexte et hypothèse']
 	];
 	const focus = $derived(hover ?? sys.sel);
@@ -132,6 +133,7 @@
 		if (lens === 'os1') return chainOf('os1', { withContext: false });
 		if (lens === 'os2') return chainOf('os2', { withContext: false });
 		if (lens === 'mesure') return new Set(NODES.filter((n) => n.m && n.kind !== 'appui').map((n) => n.id));
+		if (lens === 'pif') return new Set(NODES.filter((n) => n.pif).map((n) => n.id));
 		if (lens === 'ctx') {
 			const s = new Set();
 			for (const [a, b, t] of LINKS) if (isCtx(t)) (s.add(a), s.add(b));
@@ -260,6 +262,12 @@
 					onpointerleave={() => (hover = null)}
 				>
 					<rect class="box" width={g.w} height={g.h} rx="9" />
+					{#if lens === 'pif' && n.pif}
+						{@const th = PIF_THEMES[n.pif]}
+						{@const tw = th.label.length * 6 + 16}
+						<rect class="pif-ring" width={g.w} height={g.h} rx="9" style="stroke:{th.color}" />
+						<g transform="translate({g.w - tw - 6},-8)"><rect width={tw} height="16" rx="8" style="fill:{th.color}" /><text x={tw / 2} y="11.5" text-anchor="middle" class="pif-t">{th.label}</text></g>
+					{/if}
 
 					{#if n.kind === 'pilote' || n.kind === 'porteur'}
 						{@const vh = n.kind === 'pilote' ? g.h - 8 : 70}
@@ -325,6 +333,12 @@
 		</svg>
 	</div>
 
+	{#if lens === 'pif'}
+		<div class="pif-legend">
+			{#each Object.values(PIF_THEMES) as th}<span><i style="background:{th.color}"></i><b>{th.label}</b> {th.q}</span>{/each}
+			<span class="muted">Le PIF classe les changements en 5 thèmes ; il ne change ni la mesure ni le dispositif d’évaluation.</span>
+		</div>
+	{/if}
 	<div class="sys-legend">
 		<span><i class="sw pil"></i>Ceux qui pilotent</span>
 		<span><i class="sw voix"></i>Ceux qui portent la voix</span>
@@ -336,6 +350,7 @@
 	{#if sel}
 		<aside class="drawer" aria-live="polite">
 			<button class="close" onclick={() => (sys.sel = null)} aria-label="Fermer">×</button>
+			{#if sel.pif}<p class="pif-line" style="border-color:{PIF_THEMES[sel.pif].color}">PIF · <b>{PIF_THEMES[sel.pif].label}</b> · {PIF_THEMES[sel.pif].q}</p>{/if}
 			{#if isActor(sel)}
 				<div class="dr-head">
 					<svg viewBox={viewBoxOf(sel.id)} aria-hidden="true"><Shapes shapes={tinted[sel.id]} /></svg>

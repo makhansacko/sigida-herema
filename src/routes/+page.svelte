@@ -4,6 +4,7 @@
 	import Systeme from '$lib/components/Systeme.svelte';
 	import Indicateurs from '$lib/components/Indicateurs.svelte';
 	import Questions from '$lib/components/Questions.svelte';
+	import Demandes from '$lib/components/Demandes.svelte';
 </script>
 
 <svelte:head>
@@ -18,6 +19,7 @@
 	<Systeme />
 	<Indicateurs />
 	<Questions />
+	<Demandes />
 </main>
 
 <footer class="wrap">
