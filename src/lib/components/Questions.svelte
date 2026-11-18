@@ -1,6 +1,10 @@
 <script>
 	import { CRITERES, SOURCES } from '$lib/data/questions.js';
 	import { showIndicator } from '$lib/state.svelte.js';
+	import { PIF_THEMES } from '$lib/data/systeme.js';
+
+	/** Couleur d'une dimension PIF à partir de son nom (même code couleur que le modèle logique et les indicateurs). */
+	const colorOf = (label) => Object.values(PIF_THEMES).find((t) => t.label === label)?.color ?? '#8d98a8';
 </script>
 
 <section id="questions">
@@ -21,7 +25,7 @@
 							<div class="q-tags">
 								{#each q.ind as code}<button class="qt ind" onclick={() => showIndicator(code)}>Ind. {code}</button>{/each}
 								{#each q.src as s}<span class="qt src">{SOURCES[s]}</span>{/each}
-								{#each q.pif ?? [] as d}<span class="qt pif">PIF · {d}</span>{/each}
+								{#each q.pif ?? [] as d}<span class="qt pif-c" style="background:{colorOf(d)}">PIF · {d}</span>{/each}
 							</div>
 						</li>
 					{/each}
