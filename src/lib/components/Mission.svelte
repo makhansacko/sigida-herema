@@ -9,11 +9,6 @@
 		['Rapport final et bases', "60 pages maximum, canevas Search, tableau récapitulatif des indicateurs ; données brutes, apurées et script d'apurement."],
 		['Diffusion', 'PowerPoint, présentation virtuelle de 1 à 2 h, note de synthèse de 2 pages.']
 	];
-	const NOTES = [
-		['Compréhension des TDR et analyse critique', 25, '#30ad96'],
-		['Démarche méthodologique, qualité, éthique', 40, '#1254b2'],
-		['Expérience du cabinet et des consultants', 35, '#faad45']
-	];
 	const VIGILANCES = [
 		["La Violence n'est rattachée à aucune question des TDR.", "Elle n'apparaît qu'à travers la sécurité ressentie des participants et l'opinion selon laquelle « la violence est parfois nécessaire ». À traiter explicitement, ou à justifier comme thème secondaire pour un projet centré sur l'espace civique."],
 		['Les Investissements ne reposent que sur la durabilité.', "La mesure alignée « valeur du temps et des ressources investis dans la paix » peut relier l'efficience (levier des 383 radios) à ce thème."],
@@ -26,24 +21,12 @@
 
 <section id="mission">
 	<h2 class="sh">La mission <span>pas à pas</span></h2>
-	<div class="two">
+	<div style="max-width:780px">
 		<ol class="road">
 			{#each ETAPES as [t, m]}
 				<li><div><b>{t}</b><p class="muted">{m}</p></div></li>
 			{/each}
 		</ol>
-		<div class="panel">
-			<p class="kick">Notation des offres</p>
-			<div style="display:grid;gap:10px">
-				{#each NOTES as [t, n, c]}
-					<div>
-						<div style="display:flex;justify-content:space-between;font-size:.88rem"><span>{t}</span><b style="font-variant-numeric:tabular-nums">{n} pts</b></div>
-						<div style="height:8px;background:#eef2f7;border-radius:4px"><div style="width:{(n / 40) * 100}%;height:8px;background:{c};border-radius:4px"></div></div>
-					</div>
-				{/each}
-			</div>
-			<p class="muted">Seuil technique de 70/100. Note finale : 80 % technique, 20 % financière.</p>
-		</div>
 	</div>
 	<div class="warn">
 		<p class="kick" style="color:var(--t-polar)">Points de vigilance pour le rapport de démarrage</p>
