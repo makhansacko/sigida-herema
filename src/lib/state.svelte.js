@@ -8,7 +8,7 @@ export function showInSystem(id) {
 }
 
 // Indicateurs dépliés dans la section Indicateurs (partagé : la section Questions peut en ouvrir un).
-export const ui = $state({ openInd: ['0.2'] });
+export const ui = $state({ openInd: [] });
 
 /** Déplie un indicateur et fait défiler jusqu'à sa ligne. */
 export function showIndicator(code) {
