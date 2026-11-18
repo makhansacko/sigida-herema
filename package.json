@@ -1,0 +1,22 @@
+{
+  "name": "sigida-pif",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Évaluation finale Sigida Herema : visualisation du Cadre d'Impact pour la Paix (PIF) de Search for Common Ground. Sahel Analytics.",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-static": "^3.0.5",
+    "@sveltejs/kit": "^2.7.0",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "svelte": "^5.1.0",
+    "svelte-check": "^4.0.5",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  }
+}
