@@ -1,9 +1,8 @@
-// État partagé entre sections : acteur ou intervention sélectionné dans l'écosystème.
-export const eco = $state({ sh: null, inter: null });
+// État partagé entre sections : élément sélectionné dans la carte systémique.
+export const sys = $state({ sel: null });
 
-/** Sélectionne un acteur et fait défiler jusqu'à la scène. */
-export function showInScene(sh) {
-	eco.inter = null;
-	eco.sh = sh;
-	document.getElementById('ecosysteme')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+/** Sélectionne un élément (acteur, intervention…) et fait défiler jusqu'à la carte. */
+export function showInSystem(id) {
+	sys.sel = id;
+	document.getElementById('systeme')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }

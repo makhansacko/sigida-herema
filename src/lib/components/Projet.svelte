@@ -1,7 +1,7 @@
 <script>
 	import { STAKE, ACTORS } from '$lib/data/projet.js';
 	import { vignette, viewBoxOf } from '$lib/iso/vignettes.js';
-	import { showInScene } from '$lib/state.svelte.js';
+	import { showInSystem } from '$lib/state.svelte.js';
 	import Shapes from './Shapes.svelte';
 
 	const num = Object.fromEntries(ACTORS.map((k, i) => [k, i + 1]));
@@ -65,7 +65,7 @@
 							<div class="ac-body">
 								<div class="ac-name"><span class="n">{num[k]}</span>{STAKE[k].name}</div>
 								<p>{STAKE[k].brief}</p>
-								<button class="link small" onclick={() => showInScene(k)}>Voir dans la scène →</button>
+								<button class="link small" onclick={() => showInSystem(k)}>Voir dans le système →</button>
 							</div>
 						</article>
 					{/each}

@@ -68,8 +68,8 @@ export function makeIso(P) {
 
 	function house(g, x, y, z, col) {
 		box(g, x, y, z, 2, 2, 1.6, '#f4efe6');
-		const p = P(x + 2, y + 1.3, z);
-		add(g, 'rect', { x: p[0] - 4.5, y: p[1] - 12, width: 4, height: 7, fill: '#8a6a4a', transform: `skewY(-30 ${p[0]} ${p[1]})` });
+		// porte sur la face droite
+		add(g, 'polygon', { points: pts([P(x + 2, y + 0.75, z), P(x + 2, y + 1.25, z), P(x + 2, y + 1.25, z + 0.95), P(x + 2, y + 0.75, z + 0.95)]), fill: '#8a6a4a' });
 		return roof(g, x - 0.15, y - 0.15, z + 1.6, 2.3, 2.3, 1.4, col);
 	}
 

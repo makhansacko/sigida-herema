@@ -1,7 +1,7 @@
 <script>
 	import Cover from '$lib/components/Cover.svelte';
 	import Projet from '$lib/components/Projet.svelte';
-	import Ecosysteme from '$lib/components/Ecosysteme.svelte';
+	import Systeme from '$lib/components/Systeme.svelte';
 	import Loupe from '$lib/components/Loupe.svelte';
 	import Piliers from '$lib/components/Piliers.svelte';
 	import Matrice from '$lib/components/Matrice.svelte';
@@ -18,7 +18,7 @@
 
 <main class="wrap">
 	<Projet />
-	<Ecosysteme />
+	<Systeme />
 	<Loupe />
 	<Piliers />
 	<Matrice />

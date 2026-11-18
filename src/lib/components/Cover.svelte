@@ -22,7 +22,7 @@
 <nav class="toc" aria-label="Sections">
 	<div class="wrap">
 		<a href="#projet">Le projet</a>
-		<a href="#ecosysteme">Écosystème</a>
+		<a href="#systeme">Système</a>
 		<a href="#themes">5 thèmes</a>
 		<a href="#piliers">3 piliers</a>
 		<a href="#matrice">OCDE × PIF</a>
