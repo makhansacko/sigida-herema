@@ -306,11 +306,7 @@ footer{margin:40px 0 30px}
 .chip.actor-chip svg{width:24px;height:24px;flex:none}
 .drawer .m{--cc:var(--teal);--tc:var(--t-agency)}
 
-/* Rangée « quand mesurer » et horizons */
-.sysmap .when rect{fill:#fff;stroke:#c9d3e0}
-.sysmap .when circle{fill:none;stroke:var(--muted);stroke-width:1.1}
-.sysmap .when path{fill:none;stroke:var(--muted);stroke-width:1.1;stroke-linecap:round}
-.sysmap .when text{font:700 9.5px var(--head);fill:var(--muted)}
+/* Horizons des changements */
 .sysmap .hz rect{fill:#e7f6f2} .sysmap .hz text{font:800 8.5px var(--head);fill:var(--t-agency);text-transform:uppercase;letter-spacing:.04em}
 .sysmap .hz.moyen rect{fill:#fdeedb} .sysmap .hz.moyen text{fill:var(--t-polar)}
 .sysmap .hz.lent rect{fill:#efe6f6} .sysmap .hz.lent text{fill:#7a4f9b}

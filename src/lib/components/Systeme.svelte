@@ -205,8 +205,7 @@
 	<p class="intro">
 		De gauche à droite : ce que <b>Search</b> fait pour appuyer <b>ceux qui portent la voix</b>, les <b>interventions</b> par
 		lesquelles ils atteignent <b>les cibles</b>, ce qui doit changer chez ces cibles, et comment cela mène aux <b>objectifs</b>.
-		Chaque changement indique comment il sera mesuré, et son <b>horizon</b> : rapide, moyen ou lent à faire bouger. La rangée du haut
-		dit quand chaque colonne se mesure. Survolez ou cliquez un élément pour suivre sa chaîne.
+		Chaque changement indique comment il sera mesuré, et son <b>horizon</b> : rapide, moyen ou lent à faire bouger. Survolez ou cliquez un élément pour suivre sa chaîne.
 	</p>
 
 	<div class="sys-bar">
@@ -233,14 +232,6 @@
 			{#each COLS as c}
 				<text x={c.x} y="34" class="col-l" text-anchor="middle">{c.label}</text>
 				<text x={c.x} y="51" class="col-s" text-anchor="middle">{c.sub.toUpperCase()}</text>
-				{#if c.when}
-					{@const tw = c.when.length * 5.6 + 26}
-					<g class="when" transform="translate({c.x - tw / 2},62)">
-						<rect width={tw} height="17" rx="8.5" />
-						<circle cx="10" cy="8.5" r="4.2" /><path d="M10,6 V8.5 L11.8,9.8" />
-						<text x="19" y="12">{c.when}</text>
-					</g>
-				{/if}
 			{/each}
 			<text class="col-s" x="30" y={H - 86}>CONTEXTE ET HYPOTHÈSE</text>
 
