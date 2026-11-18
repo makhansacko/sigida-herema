@@ -259,8 +259,8 @@
 					<ul class="blist">{#each stake.ind as x}<li>{x}</li>{/each}</ul>
 				</div>
 				<div class="force">
-					<p class="kick">Comment l'écouter pendant l'évaluation</p>
-					<p>{stake.listen}</p>
+					<p class="kick">Méthodes de collecte auprès de cet acteur</p>
+					<p>{stake.collecte}</p>
 				</div>
 			{:else}
 				<p class="kick">Lire la scène</p>

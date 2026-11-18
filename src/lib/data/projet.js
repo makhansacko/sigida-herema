@@ -11,7 +11,7 @@ export const STAKE = {
 		role: "Conçoit et met en œuvre le projet avec l'approche du terrain d'entente. Porte le cadre MEAL et le PIF, valide la méthodologie et les livrables, facilite l'accès aux bénéficiaires et aux autorités.",
 		dims: [],
 		ind: ['Cadre MEAL global (3 indicateurs)', 'Matrice de définition à compléter'],
-		listen: "Entretiens avec l'équipe projet et MEAL ; revue documentaire (cadre logique, plan MEAL, rapports d'activités, étude de base)."
+		collecte: "Entretiens avec l'équipe projet et MEAL ; revue documentaire (cadre logique, plan MEAL, rapports d'activités, étude de base)."
 	},
 	bailleur: {
 		name: 'Gouvernement de Belgique',
@@ -20,7 +20,7 @@ export const STAKE = {
 		role: "Finance le projet. Utilisera l'évaluation pour comprendre ce qui a été accompli, apprécier l'efficacité de l'investissement et orienter ses financements futurs.",
 		dims: ['invest'],
 		ind: ['Efficience et rapport coût-résultats'],
-		listen: 'Entretien au cadrage ; relecture du rapport provisoire ; restitution finale, présentation virtuelle et note de synthèse de 2 pages.'
+		collecte: 'Entretien au cadrage ; relecture du rapport provisoire ; restitution finale, présentation virtuelle et note de synthèse de 2 pages.'
 	},
 	urtel: {
 		name: 'URTEL et ses 383 radios',
@@ -29,7 +29,7 @@ export const STAKE = {
 		role: "Union des radios et télévisions libres. Ses radios membres diffusent les émissions et campagnes ; c'est le principal levier d'échelle et d'efficience du projet, introduit après l'approche prévue en octobre 2025.",
 		dims: ['polar', 'legit', 'invest'],
 		ind: ['2.3 Émissions favorisant le dialogue', '0.2 Confiance envers les médias', "Efficience par rapport à l'approche initiale"],
-		listen: "KII avec les responsables URTEL et les radios partenaires ; elles font partie des 40 acteurs médias de l'échantillon raisonné."
+		collecte: "KII avec les responsables URTEL et les radios partenaires ; elles font partie des 40 acteurs médias de l'échantillon raisonné."
 	},
 	osc: {
 		name: 'Réseau Sigida Herema',
@@ -38,7 +38,7 @@ export const STAKE = {
 		role: "OSC ayant reçu des appuis techniques et financiers. Elles mènent le plaidoyer collaboratif, animent les dialogues et portent l'intégration du genre et de l'inclusion.",
 		dims: ['agency', 'polar', 'invest'],
 		ind: ['1 Collaboration médias-OSC pour le plaidoyer', 'Capacité de plaidoyer constructif', 'Participation aux dialogues avec les autorités', 'Espace civique perçu comme diversifié'],
-		listen: "Enquête auprès de 80 acteurs OSC (choix raisonné) ; KII avec des représentants d'OSC ; récits de changement (MSC)."
+		collecte: "Enquête auprès de 80 acteurs OSC (choix raisonné) ; KII avec des représentants d'OSC ; récits de changement (MSC)."
 	},
 	medias: {
 		name: 'Médias, journalistes, blogueurs',
@@ -47,7 +47,7 @@ export const STAKE = {
 		role: 'Journalistes, jeunes journalistes du programme Youth Talk, influenceurs, blogueurs et activistes. Renforcés en fact-checking et en production sensible aux conflits.',
 		dims: ['legit', 'polar', 'violence'],
 		ind: ['0.1 Protection des journalistes et défenseurs', 'Accès à des sources diverses sans restriction', 'Participation aux processus décisionnels'],
-		listen: 'Enquête auprès de 40 acteurs médias ; KII avec des influenceurs, des blogueurs et des participants de Youth Talk.'
+		collecte: 'Enquête auprès de 40 acteurs médias ; KII avec des influenceurs, des blogueurs et des participants de Youth Talk.'
 	},
 	etat: {
 		name: 'Autorités et régulateurs',
@@ -56,7 +56,7 @@ export const STAKE = {
 		role: 'Autorités administratives, régulateurs gouvernementaux, services étatiques, maires et conseillers. Ce sont les interlocuteurs du plaidoyer et des forums OSC-Gouvernement.',
 		dims: ['legit', 'invest'],
 		ind: ['2.1 Opinions prises en compte dans les décisions', 'Satisfaction envers les services des autorités', 'Institutionnalisation des forums'],
-		listen: 'KII avec des autorités locales et des acteurs gouvernementaux, après introduction par Search.'
+		collecte: 'KII avec des autorités locales et des acteurs gouvernementaux, après introduction par Search.'
 	},
 	coutume: {
 		name: 'Leaders coutumiers et communautaires',
@@ -65,7 +65,7 @@ export const STAKE = {
 		role: "Autorités coutumières et leaders communautaires : relais des dialogues sous l'arbre à palabres et garants de la cohésion locale. Leurs attentes sont visées par une question de pertinence.",
 		dims: ['legit', 'polar'],
 		ind: ['Attentes des cibles (pertinence)', 'Qualité des relations entre groupes'],
-		listen: 'KII avec les leaders communautaires ; observation des dialogues ; FGD séparés si nécessaire.'
+		collecte: 'KII avec les leaders communautaires ; observation des dialogues ; FGD séparés si nécessaire.'
 	},
 	pop: {
 		name: 'Communautés',
@@ -74,7 +74,7 @@ export const STAKE = {
 		role: "Public des émissions et des dialogues, cible de l'objectif 2. Une attention particulière va aux femmes rurales et aux jeunes déplacés (intersectionnalité).",
 		dims: ['agency', 'legit', 'polar', 'violence'],
 		ind: ['0.2 Confiance envers médias et OSC', '2.1 Prise en compte des opinions', '2.2 Connaissance des droits et devoirs', 'Safeguarding : sécurité, signalement, voix'],
-		listen: 'Enquête ménages représentative (base : 384) ; 12 FGD homogènes ; questions de safeguarding aux participants.'
+		collecte: 'Enquête ménages représentative (base : 384) ; 12 FGD homogènes ; questions de safeguarding aux participants.'
 	}
 };
 
