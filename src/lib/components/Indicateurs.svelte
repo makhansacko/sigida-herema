@@ -1,17 +1,19 @@
 <script>
 	import { INDICATEURS, PUBLICS, APPROCHES, ANALYSES } from '$lib/data/indicateurs.js';
+	import { nodeById } from '$lib/data/systeme.js';
+	import { STAKE } from '$lib/data/projet.js';
+	import { showInSystem, ui } from '$lib/state.svelte.js';
+
+	const nodeLabel = (id) => STAKE[id]?.short ?? nodeById[id]?.label ?? id;
 
 	let fAp = $state('all');
 	let fPub = $state('all');
-	let open = $state(new Set(['0.2']));
 
 	const count = (k, v) => INDICATEURS.filter((i) => i[k] === v).length;
 	const list = $derived(INDICATEURS.filter((i) => (fAp === 'all' || i.ap === fAp) && (fPub === 'all' || i.pub === fPub)));
 
 	function toggle(code) {
-		const s = new Set(open);
-		s.has(code) ? s.delete(code) : s.add(code);
-		open = s;
+		ui.openInd = ui.openInd.includes(code) ? ui.openInd.filter((c) => c !== code) : [...ui.openInd, code];
 	}
 </script>
 
@@ -57,8 +59,8 @@
 			<span role="columnheader">N°</span><span role="columnheader">Indicateur</span><span role="columnheader">Public</span><span role="columnheader">Base → cible</span><span role="columnheader">Approche</span><span></span>
 		</div>
 		{#each list as i (i.code)}
-			{@const isOpen = open.has(i.code)}
-			<div class="ind-row" class:open={isOpen} role="row">
+			{@const isOpen = ui.openInd.includes(i.code)}
+			<div class="ind-row" class:open={isOpen} role="row" id="ind-{i.code.replace('.', '-')}">
 				<button class="ind-main" onclick={() => toggle(i.code)} aria-expanded={isOpen}>
 					<span class="code">{i.code}</span>
 					<span class="t"><small>{i.table}</small>{i.t}</span>
@@ -98,7 +100,11 @@
 							<p>{ANALYSES[i.ap]}</p>
 						</div>
 						<div>
-							<p class="kick">Ce qu’on pourra affirmer</p>
+							<p class="kick">Où ce changement se produit</p>
+							<div class="chips">
+								{#each i.node as n}<button class="chip to-map" onclick={() => showInSystem(n)}>{nodeLabel(n)} · voir dans le modèle logique →</button>{/each}
+							</div>
+							<p class="kick" style="margin-top:8px">Ce qu’on pourra affirmer</p>
 							<p>{i.claim}</p>
 							<p class="kick" style="margin-top:8px">Points d’attention</p>
 							<ul class="arr">{#each i.watch as w}<li>{w}</li>{/each}</ul>

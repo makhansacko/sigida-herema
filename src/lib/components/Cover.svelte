@@ -22,5 +22,6 @@
 		<a href="#projet">Le projet</a>
 		<a href="#systeme">Modèle logique</a>
 		<a href="#indicateurs">Indicateurs</a>
+		<a href="#questions">Questions d’évaluation</a>
 	</div>
 </nav>

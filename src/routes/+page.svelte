@@ -3,6 +3,7 @@
 	import Projet from '$lib/components/Projet.svelte';
 	import Systeme from '$lib/components/Systeme.svelte';
 	import Indicateurs from '$lib/components/Indicateurs.svelte';
+	import Questions from '$lib/components/Questions.svelte';
 </script>
 
 <svelte:head>
@@ -16,6 +17,7 @@
 	<Projet />
 	<Systeme />
 	<Indicateurs />
+	<Questions />
 </main>
 
 <footer class="wrap">
