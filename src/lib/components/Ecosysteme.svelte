@@ -3,6 +3,7 @@
 	import { STAKE, INTER, ACTORS, FUNDING } from '$lib/data/projet.js';
 	import Shapes from './Shapes.svelte';
 	import Pill from './Pill.svelte';
+	import { eco } from '$lib/state.svelte.js';
 
 	const scene = buildScene();
 	const num = Object.fromEntries(ACTORS.map((k, i) => [k, i + 1]));
@@ -11,8 +12,9 @@
 	const hits = [...scene.objs].sort((a, b) => b.hit.w * b.hit.h - a.hit.w * a.hit.h);
 
 	// État : aucune sélection = vue d'ensemble
-	let curSh = $state(null);
-	let curInter = $state(null);
+	// curSh / curInter vivent dans l'état partagé (la section Projet peut sélectionner un acteur)
+	const curSh = $derived(eco.sh);
+	const curInter = $derived(eco.inter);
 	let hoverId = $state(null);
 	let hoverSh = $state(null);
 
@@ -61,16 +63,16 @@
 	const stakeInters = $derived(curSh ? INTER.filter((i) => i.sh.includes(curSh)) : []);
 
 	function pickSh(sh) {
-		curInter = null;
-		curSh = curSh === sh ? null : sh;
+		eco.inter = null;
+		eco.sh = eco.sh === sh ? null : sh;
 	}
 	function pickInter(id) {
-		curSh = null;
-		curInter = curInter === id ? null : id;
+		eco.sh = null;
+		eco.inter = eco.inter === id ? null : id;
 	}
 	function reset() {
-		curSh = null;
-		curInter = null;
+		eco.sh = null;
+		eco.inter = null;
 	}
 	function onKey(e, fn) {
 		if (e.key === 'Enter' || e.key === ' ') {
@@ -89,7 +91,7 @@
 </script>
 
 <section id="ecosysteme">
-	<h2 class="sh">Le projet <span>en un coup d'œil</span></h2>
+	<h2 class="sh">L'écosystème <span>en un coup d'œil</span></h2>
 	<p class="intro">
 		Qui fait quoi, où, et avec qui. Choisissez un <b>acteur</b> pour voir son rôle et ses relations, ou une <b>intervention</b> pour
 		suivre la chaîne qui va des acteurs au changement attendu, puis à sa mesure. Vous pouvez aussi cliquer directement dans la scène.
@@ -292,16 +294,4 @@
 		</aside>
 	</div>
 
-	<div class="obj-grid">
-		<div class="os">
-			<b class="code">Objectif spécifique 1</b>
-			<p>Favoriser un plaidoyer collaboratif des OSC et des médias en faveur d'un espace civique paisible, sensible et ouvert.</p>
-			<p class="muted">R1.1 Capacités et soutien pour un plaidoyer constructif sur la gouvernance · R1.2 Compréhension mutuelle et collaboration avec les régulateurs</p>
-		</div>
-		<div class="os t">
-			<b class="code">Objectif spécifique 2</b>
-			<p>Favoriser une meilleure compréhension et un soutien accru du public pour un espace civique libre et inclusif.</p>
-			<p class="muted">R2.1 Dialogues publics inclusifs favorisés et amplifiés · R2.2 Accès à une information crédible, transparente et sensible aux conflits liée aux élections</p>
-		</div>
-	</div>
 </section>

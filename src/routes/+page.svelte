@@ -1,5 +1,6 @@
 <script>
 	import Cover from '$lib/components/Cover.svelte';
+	import Projet from '$lib/components/Projet.svelte';
 	import Ecosysteme from '$lib/components/Ecosysteme.svelte';
 	import Loupe from '$lib/components/Loupe.svelte';
 	import Piliers from '$lib/components/Piliers.svelte';
@@ -16,6 +17,7 @@
 <Cover />
 
 <main class="wrap">
+	<Projet />
 	<Ecosysteme />
 	<Loupe />
 	<Piliers />
