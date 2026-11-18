@@ -1,6 +1,6 @@
 <script>
 	import { W, H, COLS, NODES, LINKS, SRC, CTX_TYPES, TARGET_CHANGES, nodeById, chainOf } from '$lib/data/systeme.js';
-	import { STAKE } from '$lib/data/projet.js';
+	import { STAKE, FAMILY, TINT, FAMILY_LABEL } from '$lib/data/projet.js';
 	import { vignette, viewBoxOf } from '$lib/iso/vignettes.js';
 	import { sys } from '$lib/state.svelte.js';
 	import Shapes from './Shapes.svelte';
@@ -29,6 +29,8 @@
 	// Vignettes isométriques (calculées une fois)
 	const vign = Object.fromEntries(NODES.filter(isActor).map((n) => [n.id, vignette(n.id)]));
 	const mini = Object.fromEntries(Object.keys(STAKE).map((k) => [k, vignette(k)]));
+	// Vignettes du panneau : même teinte de socle que dans « Les acteurs clés »
+	const tinted = Object.fromEntries(Object.keys(STAKE).map((k) => [k, vignette(k, TINT[FAMILY[k]])]));
 
 	// ---------- Géométrie des nœuds ----------
 	const geo = Object.fromEntries(
@@ -185,7 +187,13 @@
 {/snippet}
 
 {#snippet chips(list)}
-	<div class="chips">{#each list as d}<button class="chip" onclick={() => select(d.id)}>{isActor(d) ? shortOf(d.id) : d.label}</button>{/each}</div>
+	<div class="chips">
+		{#each list as d}
+			<button class="chip" class:actor-chip={isActor(d)} onclick={() => select(d.id)}>
+				{#if isActor(d)}<svg viewBox={viewBoxOf(d.id)} aria-hidden="true"><Shapes shapes={tinted[d.id]} /></svg>{/if}{isActor(d) ? shortOf(d.id) : d.label}
+			</button>
+		{/each}
+	</div>
 {/snippet}
 
 <section id="systeme">
@@ -328,8 +336,19 @@
 	{#if sel}
 		<aside class="drawer" aria-live="polite">
 			<button class="close" onclick={() => (sys.sel = null)} aria-label="Fermer">×</button>
-			<p class="kick">{KIND[sel.kind]}{sel.res ? ' · ' + sel.res : ''}</p>
-			<h3>{labelOf(sel)}</h3>
+			{#if isActor(sel)}
+				<div class="dr-head">
+					<svg viewBox={viewBoxOf(sel.id)} aria-hidden="true"><Shapes shapes={tinted[sel.id]} /></svg>
+					<div>
+						<p class="kick">{FAMILY_LABEL[FAMILY[sel.id]]}</p>
+						<h3>{labelOf(sel)}</h3>
+						<p class="muted">{STAKE[sel.id].tag}</p>
+					</div>
+				</div>
+			{:else}
+				<p class="kick">{KIND[sel.kind]}{sel.res ? ' · ' + sel.res : ''}</p>
+				<h3>{labelOf(sel)}</h3>
+			{/if}
 
 			{#if sel.kind === 'pilote'}
 				<p>{STAKE[sel.id].role}</p>
@@ -360,7 +379,10 @@
 						<span class="step">Acteurs impliqués</span>
 						<ul class="who">
 							{#each sel.who as [w, role]}
-								<li><button class="link" onclick={() => select(w)}>{shortOf(w)}</button><span class="muted">{role}</span></li>
+								<li>
+									<svg class="who-ico" viewBox={viewBoxOf(w)} aria-hidden="true"><Shapes shapes={tinted[w]} /></svg>
+									<div><button class="link" onclick={() => select(w)}>{shortOf(w)}</button><span class="muted">{role}</span></div>
+								</li>
 							{/each}
 						</ul>
 					</li>

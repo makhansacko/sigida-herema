@@ -85,3 +85,8 @@ export const STAKE = {
 		collecte: 'Enquête ménages représentative (base : 384) ; 12 FGD homogènes ; questions de safeguarding aux participants.'
 	}
 };
+
+/** Famille de chaque acteur (même découpage que la section « Les acteurs clés ») et teinte du socle de sa vignette. */
+export const FAMILY = { search: 'pil', bailleur: 'pil', urtel: 'voix', osc: 'voix', medias: 'voix', etat: 'cible', coutume: 'cible', pop: 'cible' };
+export const TINT = { pil: '#e3ecf8', voix: '#e2f4ef', cible: '#fdeedb' };
+export const FAMILY_LABEL = { pil: 'Ceux qui pilotent', voix: 'Ceux qui portent la voix', cible: 'Ceux que le projet veut atteindre' };
