@@ -5,8 +5,9 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 const config = {
 	preprocess: vitePreprocess(),
 	kit: {
-		// Site statique : `npm run build` produit le dossier build/, déployable sur n'importe quel hébergeur.
-		adapter: adapter({ pages: 'build', assets: 'build', fallback: undefined })
+		// Site statique. Sans options, adapter-static détecte Vercel (zéro configuration) ;
+		// en local, `npm run build` écrit toujours dans build/.
+		adapter: adapter()
 	}
 };
 
