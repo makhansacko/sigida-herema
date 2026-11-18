@@ -11,6 +11,19 @@
 		<rect x="-15" y="-13" width="30" height="20" rx="2" />
 		<path d="M-10,2 L-4,-4 L1,0 L9,-8" />
 		<path d="M-6,7 L-10,16 M6,7 L10,16 M0,7 V12" />
+	{:else if id === 'appui'}
+		<!-- main tendue et pièce -->
+		<path d="M-16,8 h8 l7,4 h9 a3,3 0 0 0 0,-6 h-7" />
+		<path d="M-8,8 l6,-5 h8 l8,4" />
+		<circle cx="6" cy="-9" r="6" />
+		<path d="M6,-12 v6" />
+	{:else if id === 'reseau'}
+		<!-- réseau d'antennes -->
+		<path d="M-12,14 L-8,-2 L-4,14 M-10,6 h4" />
+		<path d="M4,14 L8,-2 L12,14 M6,6 h4" />
+		<circle cx="-8" cy="-5" r="2" />
+		<circle cx="8" cy="-5" r="2" />
+		<path d="M-6,-9 Q0,-16 6,-9" stroke-dasharray="2 2" />
 	{:else if id === 'plaid'}
 		<!-- porte-voix -->
 		<path d="M-10,-5 L6,-13 L6,13 L-10,5 Z" />

@@ -271,3 +271,26 @@ footer{margin:40px 0 30px}
 .drawer .m p{font-size:.88rem}
 .drawer .chip{text-transform:none;letter-spacing:0;font-size:.78rem}
 @media (max-width:700px){.drawer{top:auto;bottom:0;right:0;width:100%;max-height:60vh;border-radius:14px 14px 0 0}}
+
+/* Carte systémique : familles et nœuds d'acteurs */
+.sysmap .fam{stroke:none}
+.sysmap .fam.pil{fill:#eef3fb}
+.sysmap .fam.voix{fill:#e8f5f1}
+.sysmap .fam.cible{fill:#fdf2e3}
+.sysmap .col-l{font:800 14.5px var(--head)}
+.sysmap .nd .sep{stroke:#e3e9f1;stroke-width:1}
+.sysmap .nd.pilote .box{stroke:#b9cbe6}
+.sysmap .nd.porteur .box{stroke:#a9dccf}
+.sysmap .nd.cible .box{fill:#fff7ec;stroke:#f3c98d}
+.sysmap .nd.cible .band{fill:var(--orange)}
+.sysmap .nd.appui .band{fill:var(--blue)}
+.sysmap .nd.inter.os1 .band{fill:var(--teal)} .sysmap .nd.inter.os2 .band{fill:var(--teal)}
+.sysmap .nd.change .band{fill:var(--orange)}
+.sysmap .lk.appui.on,.sysmap .lk.finance.on{stroke:var(--blue)}
+.sysmap .lk.porte.on{stroke:var(--teal)}
+.sysmap .lk.vise.on{stroke:var(--t-polar)}
+.sysmap .lk.objectif.on{stroke:var(--blue)}
+.sys-legend .sw.pil{background:#cfdcf0} .sys-legend .sw.voix{background:#bfe6db} .sys-legend .sw.cible{background:#f6d6a8}
+.drawer .who{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.drawer .who li{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.sysmap .mt{font:700 10.5px var(--head);fill:var(--muted);font-variant-numeric:tabular-nums}

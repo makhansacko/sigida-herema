@@ -1,26 +1,32 @@
 /**
- * Carte systémique du projet Sigida Herema (inspirée du system map de l'AI Productivity Atlas).
+ * Carte systémique du projet Sigida Herema, organisée autour des interventions.
  *
- * - `COLS` : colonnes de gauche à droite. `x` = centre de la colonne dans le viewBox (W × H).
- * - `NODES` : éléments. `kind` = acteur | inter | effet | change | objectif | contexte.
- *   `x`/`y` = centre du nœud ; déplacez un nœud en modifiant ces valeurs.
- *   `m` = mesures : { ind, b (valeur de base, %), c (cible, %), src (méthode de collecte) }.
- *   `os` = 1 ou 2 : objectif spécifique auquel le nœud contribue (couleur).
- * - `LINKS` : relations [de, vers, type]. type = agit | produit | contribue | objectif | frein | adapte | hypothese.
+ * Flux de gauche à droite :
+ *   Ceux qui pilotent → Ce que Search fait (appui) → Ceux qui portent la voix
+ *   → Comment ils atteignent les cibles (interventions) → Ceux que le projet veut atteindre → Objectifs
  *
- * Sources : TDR Search n° SFCG ML 03-172026 (août 2026). Les formulations des effets et changements
- * sont une reconstruction de la théorie du changement par Sahel Analytics, à valider au cadrage.
+ * - `COLS` : colonnes. `fam` relie une colonne à une famille d'acteurs (fond coloré).
+ * - `NODES` : `kind` = pilote | appui | porteur | inter | cible | change | objectif | contexte.
+ *   `x`/`y` = centre du nœud. Déplacez un nœud en modifiant ces valeurs.
+ *   `who` (interventions) = acteurs impliqués, avec leur rôle.
+ *   `m` = mesures : { ind, b (base %), c (cible %), src (clé de SRC) }.
+ *   `os` = 1 ou 2 : objectif auquel le nœud contribue (couleur).
+ * - `LINKS` : [de, vers, type]. type = finance | appui | porte | vise | objectif | frein | hypothese.
+ *
+ * Source : TDR Search n° SFCG ML 03-172026 (août 2026). La répartition des rôles et les effets
+ * intermédiaires sont une reconstruction de Sahel Analytics, à confirmer avec Search au cadrage.
  */
 
-export const W = 1400;
-export const H = 1010;
+export const W = 1480;
+export const H = 1060;
 
 export const COLS = [
-	{ id: 'acteurs', x: 115, label: 'Qui agit', sub: 'Acteurs du projet' },
-	{ id: 'inter', x: 385, label: 'Interventions', sub: 'Ce que le projet fait' },
-	{ id: 'effet', x: 660, label: 'Ce qu’elles produisent', sub: 'Effets immédiats' },
-	{ id: 'change', x: 940, label: 'Changements visés', sub: 'Chez les acteurs et le public' },
-	{ id: 'objectif', x: 1235, label: 'Objectifs', sub: 'Cadre logique' }
+	{ id: 'pilote', x: 105, label: 'Ceux qui pilotent', sub: 'Financement, mise en œuvre', fam: 'pil' },
+	{ id: 'appui', x: 345, label: 'Ce que Search fait', sub: 'Appui et renforcement', fam: 'pil' },
+	{ id: 'porteur', x: 590, label: 'Ceux qui portent la voix', sub: 'Et ce qui change chez eux', fam: 'voix' },
+	{ id: 'inter', x: 835, label: 'Leurs interventions', sub: 'Comment ils atteignent les cibles', fam: 'voix' },
+	{ id: 'cible', x: 1090, label: 'Ceux que le projet veut atteindre', sub: 'Et ce qui change chez eux', fam: 'cible' },
+	{ id: 'objectif', x: 1350, label: 'Objectifs', sub: 'Cadre logique' }
 ];
 
 export const SRC = {
@@ -29,106 +35,132 @@ export const SRC = {
 	kii: 'Entretiens informateurs clés (base : 33)',
 	fgd: 'Groupes de discussion (base : 12 FGD)',
 	part: 'Enquête auprès des participants (safeguarding)',
-	urtel: 'Données de diffusion URTEL et données financières'
+	urtel: 'Données de diffusion URTEL et données financières',
+	doc: 'Revue documentaire (rapports d’activités, suivi MEAL)'
 };
 
 /** @type {Array<any>} */
 export const NODES = [
-	// ---------- Acteurs (les textes détaillés viennent de data/projet.js) ----------
-	{ id: 'bailleur', kind: 'acteur', x: 115, y: 100 },
-	{ id: 'search', kind: 'acteur', x: 115, y: 200 },
-	{ id: 'osc', kind: 'acteur', x: 115, y: 300 },
-	{ id: 'medias', kind: 'acteur', x: 115, y: 400 },
-	{ id: 'urtel', kind: 'acteur', x: 115, y: 500 },
-	{ id: 'etat', kind: 'acteur', x: 115, y: 600 },
-	{ id: 'coutume', kind: 'acteur', x: 115, y: 700 },
-	{ id: 'pop', kind: 'acteur', x: 115, y: 800 },
+	// ---------- Ceux qui pilotent ----------
+	{ id: 'bailleur', kind: 'pilote', x: 105, y: 330 },
+	{ id: 'search', kind: 'pilote', x: 105, y: 500 },
 
-	// ---------- Interventions (textes : data/projet.js, INTER) ----------
-	{ id: 'capa', kind: 'inter', x: 385, y: 160, icon: 'capa', os: 1 },
-	{ id: 'plaid', kind: 'inter', x: 385, y: 285, icon: 'plaid', os: 1 },
-	{ id: 'forum', kind: 'inter', x: 385, y: 405, icon: 'forum', os: 1 },
-	{ id: 'camp', kind: 'inter', x: 385, y: 525, icon: 'camp', os: 2 },
-	{ id: 'info', kind: 'inter', x: 385, y: 645, icon: 'info', os: 2 },
-	{ id: 'dial', kind: 'inter', x: 385, y: 770, icon: 'dial', os: 2 },
-
-	// ---------- Effets immédiats ----------
+	// ---------- Ce que Search fait pour appuyer ceux qui portent la voix ----------
 	{
-		id: 'e_cap', kind: 'effet', x: 660, y: 155, os: 1,
-		label: 'Capacités renforcées : plaidoyer, fact-checking, production',
-		what: 'Les OSC, les journalistes et les radios maîtrisent mieux le plaidoyer constructif, la vérification des faits et la production d’émissions sensibles aux conflits, ainsi que le travail en réseau.',
-		m: [{ ind: '% de membres d’OSC estimant avoir la capacité de mener des plaidoyers constructifs sur des questions sensibles de gouvernance', src: 'osc' }],
-		check: 'Distinguer les compétences techniques des capacités relationnelles et stratégiques, comme le demande la question d’efficacité.'
+		id: 's_osc', kind: 'appui', x: 345, y: 250, icon: 'appui',
+		label: 'Appui technique et financier au réseau d’OSC',
+		what: 'Search soutient techniquement et financièrement les OSC du réseau Sigida Herema, qui mènent ensuite le plaidoyer et les dialogues.',
+		m: [{ ind: 'Appuis fournis aux OSC du réseau (nature, montants, calendrier)', src: 'doc' }],
+		check: 'L’appui est-il adapté aux besoins des OSC et ancré dans leurs pratiques ? (pertinence, durabilité)'
 	},
 	{
-		id: 'e_collab', kind: 'effet', x: 660, y: 285, os: 1,
-		label: 'OSC et médias collaborent pour le plaidoyer',
-		what: 'Au lieu d’agir chacun de son côté, OSC et médias préparent et portent ensemble des messages auprès des décideurs.',
-		m: [{ ind: 'Indicateur 1 · % de membres d’OSC indiquant une meilleure collaboration entre médias et OSC pour le plaidoyer', b: 57, c: 70, src: 'osc' }]
+		id: 's_capa', kind: 'appui', x: 345, y: 470, icon: 'capa',
+		label: 'Renforcement de capacités',
+		what: 'Formations au plaidoyer constructif, au fact-checking et à la production d’émissions sensibles aux conflits, ainsi qu’au réseautage et aux dialogues multi-acteurs. Pour les OSC, les journalistes (dont Youth Talk) et les radios.',
+		m: [{ ind: 'Personnes formées, par type d’acteur, sexe et âge', src: 'doc' }],
+		check: 'Distinguer compétences techniques et capacités relationnelles et stratégiques (question d’efficacité).'
 	},
 	{
-		id: 'e_canal', kind: 'effet', x: 660, y: 410, os: 1,
-		label: 'Un canal régulier entre OSC et autorités',
-		what: 'Les forums OSC-Gouvernement créent un espace où société civile et régulateurs se comprennent et travaillent ensemble sur la protection de l’espace civique.',
-		m: [{ ind: '% d’acteurs de la société civile ayant participé à des dialogues inclusifs sur la gouvernance avec les autorités (co-créé)', src: 'osc' }],
-		check: 'Les forums sont-ils institutionnalisés et peuvent-ils durer sans le projet ? (durabilité)'
-	},
-	{
-		id: 'e_portee', kind: 'effet', x: 660, y: 530, os: 2,
-		label: 'Messages de paix diffusés à grande échelle',
-		what: 'Les émissions sur la paix, la cohésion sociale et le vivre-ensemble sont diffusées par les radios URTEL, en langues locales, et relayées sur les réseaux sociaux.',
-		m: [
-			{ ind: 'Indicateur 2.3 · % d’auditeurs déclarant que les émissions favorisent le dialogue constructif et la compréhension mutuelle', c: 60, src: 'menages' },
-			{ ind: 'Portée et coût par personne atteinte, comparés à l’approche prévue en octobre 2025', src: 'urtel' }
-		],
-		check: 'Pas de valeur de base pour l’indicateur 2.3 : prévoir une question rétrospective ou une comparaison auditeurs / non-auditeurs.'
-	},
-	{
-		id: 'e_info', kind: 'effet', x: 660, y: 650, os: 2,
-		label: 'Information vérifiée et sensible aux conflits accessible',
-		what: 'Le public et les acteurs de l’espace civique ont accès à une information plus crédible et transparente, notamment sur les élections.',
-		m: [{ ind: '% d’acteurs médias et OSC ayant accès à des sources d’information diverses, sans restriction et à temps (co-créé)', src: 'osc' }]
-	},
-	{
-		id: 'e_dial', kind: 'effet', x: 660, y: 775, os: 2,
-		label: 'Des groupes différents se rencontrent et dialoguent',
-		what: 'Femmes, jeunes, leaders coutumiers, OSC et autorités débattent ensemble des questions civiques, dans un cadre sûr.',
-		m: [
-			{ ind: '% de participants qui se sentent en sécurité lors des activités', src: 'part' },
-			{ ind: '% de participants estimant que leur voix est prise en compte', src: 'part' }
-		],
-		check: 'Vérifier qui participe réellement : femmes rurales, jeunes déplacés (intersectionnalité).'
+		id: 's_urtel', kind: 'appui', x: 345, y: 700, icon: 'reseau',
+		label: 'Partenariat avec l’URTEL',
+		what: 'Search mobilise le réseau de l’URTEL (383 radios membres) pour diffuser les émissions et campagnes. Ce partenariat a été ajouté après l’approche prévue en octobre 2025, pour toucher plus de monde à moindre coût.',
+		m: [{ ind: 'Coût par personne atteinte, comparé à l’approche initiale d’octobre 2025', src: 'urtel' }],
+		check: 'Question d’efficience : le passage par l’URTEL a-t-il amélioré le rapport coût-efficacité ?'
 	},
 
-	// ---------- Changements visés ----------
+	// ---------- Ceux qui portent la voix (et ce qui change chez eux) ----------
 	{
-		id: 'c_voice', kind: 'change', x: 940, y: 170, os: 1,
-		label: 'OSC et médias pèsent dans les décisions',
-		what: 'Les OSC et les médias participent davantage aux processus de décision et à la formulation des politiques sur l’espace civique.',
+		id: 'osc', kind: 'porteur', x: 590, y: 250, os: 1,
 		m: [
-			{ ind: '% d’acteurs médias et OSC dont la participation aux processus décisionnels s’est améliorée', src: 'osc' },
-			{ ind: '% d’acteurs de la société civile déclarant que l’espace civique est diversifié (co-créé)', src: 'osc' }
+			{ ind: 'Indicateur 1 · % de membres d’OSC indiquant une meilleure collaboration entre médias et OSC pour le plaidoyer', b: 57, c: 70, src: 'osc' },
+			{ ind: '% de membres d’OSC estimant avoir la capacité de mener des plaidoyers constructifs sur des questions sensibles', src: 'osc' }
 		]
 	},
 	{
-		id: 'c_protect', kind: 'change', x: 940, y: 300, os: 1,
-		label: 'Journalistes et défenseurs mieux protégés',
-		what: 'Ceux qui travaillent sur l’espace civique bénéficient de plus de protection et de soutien de la part des décideurs.',
-		m: [{ ind: 'Indicateur 0.1 · % d’acteurs médias et OSC estimant que la protection des défenseurs et des journalistes s’est améliorée', b: 33, c: 50, src: 'osc' }]
+		id: 'medias', kind: 'porteur', x: 590, y: 470, os: 1,
+		m: [
+			{ ind: '% d’acteurs médias et OSC ayant accès à des sources d’information diverses, sans restriction et à temps (co-créé)', src: 'osc' },
+			{ ind: 'Indicateur 1 · Collaboration médias-OSC pour le plaidoyer (mesurée aussi côté médias)', b: 57, c: 70, src: 'osc' }
+		]
 	},
 	{
-		id: 'c_trust', kind: 'change', x: 940, y: 445, os: 2,
-		label: 'Le public fait confiance aux médias et aux OSC',
+		id: 'urtel', kind: 'porteur', x: 590, y: 700, os: 2,
+		m: [{ ind: 'Radios ayant diffusé, volume et langues des émissions, audience estimée', src: 'urtel' }]
+	},
+
+	// ---------- Comment ils atteignent les cibles ----------
+	{
+		id: 'plaid', kind: 'inter', x: 835, y: 175, icon: 'plaid', os: 1, res: 'R1.1',
+		label: 'Plaidoyer collaboratif',
+		what: 'Les OSC et les médias préparent et portent ensemble des messages constructifs auprès des décideurs, sur des questions sensibles de gouvernance.',
+		who: [['osc', 'portent le plaidoyer'], ['medias', 'portent le plaidoyer'], ['etat', 'destinataires']],
+		change: 'Les autorités associent davantage les OSC et les médias aux décisions sur l’espace civique.'
+	},
+	{
+		id: 'forum', kind: 'inter', x: 835, y: 310, icon: 'forum', os: 1, res: 'R1.2',
+		label: 'Forums OSC-Gouvernement',
+		what: 'Des espaces réguliers où la société civile et les régulateurs se rencontrent pour se comprendre et collaborer sur la protection de l’espace civique.',
+		who: [['osc', 'participent'], ['etat', 'participent'], ['search', 'facilite']],
+		change: 'Un canal régulier et reconnu existe entre société civile et autorités, et peut durer après le projet.'
+	},
+	{
+		id: 'dial', kind: 'inter', x: 835, y: 470, icon: 'dial', os: 2, res: 'R2.1',
+		label: 'Dialogues publics inclusifs',
+		what: 'Débats citoyens sur les questions civiques, ouverts aux femmes, aux jeunes et aux leaders coutumiers, avec les autorités locales, puis amplifiés à la radio.',
+		who: [['osc', 'animent'], ['coutume', 'relaient'], ['pop', 'participent'], ['etat', 'participent']],
+		change: 'Des groupes différents se parlent, et les citoyens ont le sentiment que leur avis compte.'
+	},
+	{
+		id: 'camp', kind: 'inter', x: 835, y: 640, icon: 'camp', os: 2, res: 'R2.1 · 2.3',
+		label: 'Campagnes médiatiques',
+		what: 'Émissions radio sur la paix, la cohésion sociale et le vivre-ensemble, en langues locales, diffusées par les radios URTEL et relayées sur les réseaux sociaux.',
+		who: [['urtel', 'diffusent'], ['medias', 'produisent'], ['pop', 'écoutent']],
+		change: 'Le public entend des messages de dialogue et de vivre-ensemble à grande échelle.'
+	},
+	{
+		id: 'info', kind: 'inter', x: 835, y: 790, icon: 'info', os: 2, res: 'R2.2',
+		label: 'Information électorale crédible',
+		what: 'Diffusion d’une information plus crédible, transparente et sensible aux conflits sur les élections.',
+		who: [['medias', 'vérifient et produisent'], ['urtel', 'diffusent'], ['pop', 's’informent']],
+		change: 'Le public fait davantage confiance à une information vérifiée et connaît mieux ses droits.'
+	},
+
+	// ---------- Ceux que le projet veut atteindre (et ce qui change chez eux) ----------
+	{ id: 'etat', kind: 'cible', x: 1090, y: 92 },
+	{
+		id: 'c_voice', kind: 'change', x: 1090, y: 168, os: 1,
+		label: 'Associent OSC et médias aux décisions',
+		what: 'Les autorités font davantage participer les OSC et les médias aux processus de décision et à la formulation des politiques sur l’espace civique.',
+		m: [{ ind: '% d’acteurs médias et OSC dont la participation aux processus décisionnels s’est améliorée', src: 'osc' }],
+		check: 'Croiser avec les KII auprès des autorités.'
+	},
+	{
+		id: 'c_protect', kind: 'change', x: 1090, y: 262, os: 1,
+		label: 'Protègent mieux journalistes et défenseurs',
+		what: 'Ceux qui travaillent sur l’espace civique bénéficient de plus de protection et de soutien des décideurs. Mesuré auprès des médias et OSC.',
+		m: [{ ind: 'Indicateur 0.1 · % d’acteurs médias et OSC estimant que la protection des défenseurs et des journalistes s’est améliorée', b: 33, c: 50, src: 'osc' }]
+	},
+	{ id: 'coutume', kind: 'cible', x: 1090, y: 352 },
+	{
+		id: 'c_lead', kind: 'change', x: 1090, y: 424, os: 2,
+		label: 'Relaient le dialogue dans les communautés',
+		what: 'Les leaders coutumiers et communautaires portent les messages de dialogue et facilitent la participation de leurs communautés.',
+		m: [{ ind: 'Réponse du projet aux attentes des leaders coutumiers ; rôle joué dans les dialogues', src: 'kii' }]
+	},
+	{ id: 'pop', kind: 'cible', x: 1090, y: 512 },
+	{
+		id: 'c_trust', kind: 'change', x: 1090, y: 588, os: 2,
+		label: 'Font confiance aux médias et aux OSC',
 		what: 'La population considère les médias et les OSC comme des sources fiables sur les enjeux de l’espace civique.',
 		m: [
 			{ ind: 'Indicateur 0.2 · % de la population faisant confiance aux médias et OSC comme sources fiables', b: 45, c: 60, src: 'menages' },
-			{ ind: 'Score de confiance envers les médias partenaires (Likert 1 à 5)', src: 'menages' }
+			{ ind: 'Indicateur 2.3 · % d’auditeurs déclarant que les émissions favorisent le dialogue constructif', c: 60, src: 'menages' }
 		],
-		check: 'Cible revue à la hausse en janvier 2026.'
+		check: 'Cible 0.2 revue à la hausse en janvier 2026. Pas de valeur de base pour 2.3.'
 	},
 	{
-		id: 'c_rights', kind: 'change', x: 940, y: 575, os: 2,
-		label: 'Les citoyens connaissent leurs droits et agissent',
+		id: 'c_rights', kind: 'change', x: 1090, y: 690, os: 2,
+		label: 'Connaissent leurs droits et agissent',
 		what: 'La population se sent informée de ses droits et devoirs et passe à l’action sur ce qui lui tient à cœur.',
 		m: [
 			{ ind: 'Indicateur 2.2 · % de la population se sentant informée de ses droits et devoirs de citoyen', b: 51, c: 70, src: 'menages' },
@@ -136,9 +168,9 @@ export const NODES = [
 		]
 	},
 	{
-		id: 'c_heard', kind: 'change', x: 940, y: 700, os: 2,
-		label: 'Les citoyens se sentent entendus',
-		what: 'La population pense que ses opinions et intérêts sont pris en compte dans la décision publique et se dit satisfaite des services demandés aux autorités.',
+		id: 'c_heard', kind: 'change', x: 1090, y: 792, os: 2,
+		label: 'Se sentent entendus par les autorités',
+		what: 'La population pense que ses opinions sont prises en compte dans la décision publique et se dit satisfaite des services demandés aux autorités.',
 		m: [
 			{ ind: 'Indicateur 2.1 · % de la population pensant que ses opinions sont prises en compte dans la décision publique', b: 22, c: 50, src: 'menages' },
 			{ ind: '% de la population satisfaite des services demandés aux autorités (MEAL global)', src: 'menages' }
@@ -146,21 +178,21 @@ export const NODES = [
 		check: 'Le plus gros écart à combler : +28 points.'
 	},
 	{
-		id: 'c_cohesion', kind: 'change', x: 940, y: 820, os: 2,
-		label: 'Moins de méfiance entre groupes',
-		what: 'Les écarts entre groupes se réduisent : confiance dans l’information, confiance dans les interactions, rejet de la violence.',
-		m: [{ ind: 'Écart entre groupes démographiques : confiance dans l’information et les interactions, conviction que la violence est parfois nécessaire (MEAL global)', src: 'menages' }],
-		check: 'Définir les groupes comparés dès le rapport de démarrage (région, âge, sexe, statut de déplacé…).'
+		id: 'c_cohesion', kind: 'change', x: 1090, y: 892, os: 2,
+		label: 'Se méfient moins des autres groupes',
+		what: 'Les écarts entre groupes se réduisent : confiance dans l’information et dans les interactions, rejet de la violence.',
+		m: [{ ind: 'Écart entre groupes démographiques : confiance, conviction que la violence est parfois nécessaire (MEAL global)', src: 'menages' }],
+		check: 'Définir les groupes comparés dès le rapport de démarrage.'
 	},
 
 	// ---------- Objectifs ----------
 	{
-		id: 'os1', kind: 'objectif', x: 1235, y: 235, os: 1,
+		id: 'os1', kind: 'objectif', x: 1350, y: 215, os: 1,
 		label: 'Objectif 1 · Plaidoyer collaboratif des OSC et des médias',
 		what: 'Favoriser un plaidoyer collaboratif des organisations de la société civile et des médias en faveur d’un espace civique au Mali paisible, sensible et ouvert.'
 	},
 	{
-		id: 'og', kind: 'objectif', x: 1235, y: 460, os: 0,
+		id: 'og', kind: 'objectif', x: 1350, y: 480, os: 0,
 		label: 'Objectif général · Expansion de l’espace civique',
 		what: 'Soutenir les acteurs des médias et de la société civile à promouvoir l’expansion de l’espace civique au Mali.',
 		m: [
@@ -169,84 +201,83 @@ export const NODES = [
 		]
 	},
 	{
-		id: 'os2', kind: 'objectif', x: 1235, y: 690, os: 2,
+		id: 'os2', kind: 'objectif', x: 1350, y: 740, os: 2,
 		label: 'Objectif 2 · Soutien du public à un espace civique libre',
 		what: 'Favoriser une meilleure compréhension et un soutien accru du public en faveur d’un espace civique libre et inclusif au Mali.'
 	},
 
-	// ---------- Contexte, adaptation, hypothèse ----------
+	// ---------- Contexte et hypothèse ----------
 	{
-		id: 'adapt', kind: 'contexte', sub: 'adaptation', x: 270, y: 935,
-		label: 'Adaptation : partenariat URTEL',
-		what: 'Le partenariat avec l’URTEL et ses 383 radios a été ajouté après l’approche prévue en octobre 2025, pour toucher plus de monde à moindre coût.',
-		check: 'L’évaluation doit dire si cette adaptation a amélioré la portée et le coût-efficacité (question d’efficience).'
-	},
-	{
-		id: 'ctx_secu', kind: 'contexte', sub: 'frein', x: 520, y: 935,
+		id: 'ctx_secu', kind: 'contexte', sub: 'frein', x: 470, y: 995,
 		label: 'Insécurité et transition politique',
-		what: 'Contexte sécuritaire complexe et reconfiguration des relations entre l’État et la population, qui pèsent sur la participation et sur la possibilité de se réunir.',
+		what: 'Contexte sécuritaire complexe et reconfiguration des relations entre l’État et la population, qui pèsent sur la participation et la possibilité de se réunir.',
 		check: 'Documenter les ajustements faits face au contexte et leurs effets sur les résultats.'
 	},
 	{
-		id: 'ctx_info', kind: 'contexte', sub: 'frein', x: 770, y: 935,
+		id: 'ctx_info', kind: 'contexte', sub: 'frein', x: 730, y: 995,
 		label: 'Pression informationnelle et désinformation',
 		what: 'La manipulation de l’information fragilise la confiance envers les médias et la cohésion sociale.',
 		check: 'Tenir compte de la désirabilité sociale sur les questions de confiance.'
 	},
 	{
-		id: 'ctx_auto', kind: 'contexte', sub: 'frein', x: 1020, y: 935,
+		id: 'ctx_auto', kind: 'contexte', sub: 'frein', x: 990, y: 995,
 		label: 'Autocensure, pressions et tabous',
 		what: 'Dynamiques invisibles de l’espace civique : rapports de pouvoir informels, pressions politiques ou religieuses, autocensure.',
 		check: 'Les capter surtout par les KII et les FGD, avec anonymat.'
 	},
 	{
-		id: 'hyp', kind: 'contexte', sub: 'hypothese', x: 1270, y: 935,
+		id: 'hyp', kind: 'contexte', sub: 'hypothese', x: 1250, y: 995,
 		label: 'Hypothèse critique du projet',
-		what: 'Les TDR demandent d’en tester la validité. Sa formulation exacte figure dans la théorie du changement du projet : à obtenir auprès de Search au cadrage.',
-		check: 'Question d’évaluation : l’hypothèse s’est-elle vérifiée, et sinon, comment le projet s’est-il adapté ?'
+		what: 'Les TDR demandent d’en tester la validité. Sa formulation exacte figure dans la théorie du changement : à obtenir auprès de Search au cadrage.',
+		check: 'L’hypothèse s’est-elle vérifiée, et sinon, comment le projet s’est-il adapté ?'
 	}
 ];
 
 export const LINKS = [
-	// Acteurs → interventions
+	// Pilotage
 	['bailleur', 'search', 'finance'],
-	['search', 'capa', 'agit'], ['osc', 'capa', 'agit'], ['medias', 'capa', 'agit'], ['urtel', 'capa', 'agit'],
-	['osc', 'plaid', 'agit'], ['medias', 'plaid', 'agit'],
-	['search', 'forum', 'agit'], ['osc', 'forum', 'agit'], ['etat', 'forum', 'agit'],
-	['urtel', 'camp', 'agit'], ['medias', 'camp', 'agit'],
-	['medias', 'info', 'agit'], ['urtel', 'info', 'agit'],
-	['osc', 'dial', 'agit'], ['etat', 'dial', 'agit'], ['coutume', 'dial', 'agit'], ['pop', 'dial', 'agit'],
-	// Interventions → effets
-	['capa', 'e_cap', 'produit'], ['capa', 'e_info', 'produit'],
-	['plaid', 'e_collab', 'produit'],
-	['forum', 'e_canal', 'produit'],
-	['camp', 'e_portee', 'produit'],
-	['info', 'e_info', 'produit'],
-	['dial', 'e_dial', 'produit'],
-	// Effets → changements
-	['e_cap', 'c_voice', 'contribue'],
-	['e_collab', 'c_voice', 'contribue'], ['e_collab', 'c_protect', 'contribue'],
-	['e_canal', 'c_voice', 'contribue'], ['e_canal', 'c_protect', 'contribue'], ['e_canal', 'c_heard', 'contribue'],
-	['e_portee', 'c_trust', 'contribue'], ['e_portee', 'c_rights', 'contribue'], ['e_portee', 'c_cohesion', 'contribue'],
-	['e_info', 'c_trust', 'contribue'], ['e_info', 'c_rights', 'contribue'],
-	['e_dial', 'c_heard', 'contribue'], ['e_dial', 'c_cohesion', 'contribue'],
+	['search', 's_osc', 'appui'], ['search', 's_capa', 'appui'], ['search', 's_urtel', 'appui'],
+	// Appui → porteurs de voix
+	['s_osc', 'osc', 'appui'],
+	['s_capa', 'osc', 'appui'], ['s_capa', 'medias', 'appui'], ['s_capa', 'urtel', 'appui'],
+	['s_urtel', 'urtel', 'appui'],
+	// Porteurs → interventions
+	['osc', 'plaid', 'porte'], ['medias', 'plaid', 'porte'],
+	['osc', 'forum', 'porte'],
+	['osc', 'dial', 'porte'],
+	['medias', 'camp', 'porte'], ['urtel', 'camp', 'porte'],
+	['medias', 'info', 'porte'], ['urtel', 'info', 'porte'],
+	// Interventions → changements chez les cibles
+	['plaid', 'c_voice', 'vise'], ['plaid', 'c_protect', 'vise'],
+	['forum', 'c_voice', 'vise'], ['forum', 'c_protect', 'vise'], ['forum', 'c_heard', 'vise'],
+	['dial', 'c_lead', 'vise'], ['dial', 'c_heard', 'vise'], ['dial', 'c_cohesion', 'vise'],
+	['camp', 'c_trust', 'vise'], ['camp', 'c_rights', 'vise'], ['camp', 'c_cohesion', 'vise'],
+	['info', 'c_trust', 'vise'], ['info', 'c_rights', 'vise'],
 	// Changements → objectifs
 	['c_voice', 'os1', 'objectif'], ['c_protect', 'os1', 'objectif'],
-	['c_trust', 'os2', 'objectif'], ['c_rights', 'os2', 'objectif'], ['c_heard', 'os2', 'objectif'], ['c_cohesion', 'os2', 'objectif'],
+	['c_lead', 'os2', 'objectif'], ['c_trust', 'os2', 'objectif'], ['c_rights', 'os2', 'objectif'], ['c_heard', 'os2', 'objectif'], ['c_cohesion', 'os2', 'objectif'],
 	['os1', 'og', 'objectif'], ['os2', 'og', 'objectif'],
 	// Contexte
-	['adapt', 'camp', 'adapte'],
-	['ctx_secu', 'e_dial', 'frein'],
+	['ctx_secu', 'dial', 'frein'],
 	['ctx_info', 'c_trust', 'frein'],
 	['ctx_auto', 'c_voice', 'frein'], ['ctx_auto', 'c_protect', 'frein'],
 	['hyp', 'c_heard', 'hypothese'], ['hyp', 'c_voice', 'hypothese']
 ];
 
+export const CTX_TYPES = ['frein', 'hypothese'];
 export const nodeById = Object.fromEntries(NODES.map((n) => [n.id, n]));
+
+/** Groupes cibles et leurs changements. */
+export const TARGET_CHANGES = { etat: ['c_voice', 'c_protect'], coutume: ['c_lead'], pop: ['c_trust', 'c_rights', 'c_heard', 'c_cohesion'] };
 
 /** Tous les nœuds en amont et en aval d'un nœud (chaîne complète). */
 export function chainOf(id, { withContext = true } = {}) {
-	const ok = (l) => withContext || !['frein', 'hypothese', 'adapte'].includes(l[2]);
+	if (TARGET_CHANGES[id]) {
+		const s = new Set([id]);
+		for (const c of TARGET_CHANGES[id]) for (const x of chainOf(c, { withContext })) s.add(x);
+		return s;
+	}
+	const ok = (l) => withContext || !CTX_TYPES.includes(l[2]);
 	const walk = (start, dir) => {
 		const seen = new Set([start]);
 		const stack = [start];
@@ -264,5 +295,8 @@ export function chainOf(id, { withContext = true } = {}) {
 		}
 		return seen;
 	};
-	return new Set([...walk(id, 'down'), ...walk(id, 'up')]);
+	const s = new Set([...walk(id, 'down'), ...walk(id, 'up')]);
+	// un changement allume aussi le groupe cible auquel il appartient
+	for (const [t, cs] of Object.entries(TARGET_CHANGES)) if (cs.some((c) => s.has(c))) s.add(t);
+	return s;
 }

@@ -1,18 +1,18 @@
 <script>
-	import { W, H, COLS, NODES, LINKS, SRC, nodeById, chainOf } from '$lib/data/systeme.js';
-	import { STAKE, INTER } from '$lib/data/projet.js';
+	import { W, H, COLS, NODES, LINKS, SRC, CTX_TYPES, TARGET_CHANGES, nodeById, chainOf } from '$lib/data/systeme.js';
+	import { STAKE } from '$lib/data/projet.js';
 	import { vignette, viewBoxOf } from '$lib/iso/vignettes.js';
 	import { sys } from '$lib/state.svelte.js';
 	import Shapes from './Shapes.svelte';
 	import SysIcon from './SysIcon.svelte';
 
-	const interById = Object.fromEntries(INTER.map((i) => [i.id, i]));
-
-	/** Libellé d'un nœud, où qu'il soit défini. */
-	const labelOf = (n) => (n.kind === 'acteur' ? STAKE[n.id].name : n.kind === 'inter' ? interById[n.id].name : n.label);
+	const ACTOR_KINDS = ['pilote', 'porteur', 'cible'];
+	const isActor = (n) => ACTOR_KINDS.includes(n.kind);
+	const labelOf = (n) => (isActor(n) ? STAKE[n.id].name : n.label);
+	const shortOf = (id) => STAKE[id]?.short ?? nodeById[id]?.label ?? id;
 
 	/** Coupe un texte en lignes d'au plus `max` caractères. */
-	function lines(text, max, limit = 4) {
+	function lines(text, max, limit = 3) {
 		const out = [];
 		let cur = '';
 		for (const w of text.split(' ')) {
@@ -24,71 +24,94 @@
 		if (cur) out.push(cur);
 		return out.slice(0, limit);
 	}
-
 	const firstNum = (n) => n.m?.find((x) => x.c != null);
 
+	// Vignettes isométriques (calculées une fois)
+	const vign = Object.fromEntries(NODES.filter(isActor).map((n) => [n.id, vignette(n.id)]));
+	const mini = Object.fromEntries(Object.keys(STAKE).map((k) => [k, vignette(k)]));
+
 	// ---------- Géométrie des nœuds ----------
-	const SIZE = { acteur: [210, 84], inter: [220, 76], effet: [232, 0], change: [232, 0], objectif: [236, 0], contexte: [226, 54] };
 	const geo = Object.fromEntries(
 		NODES.map((n) => {
-			let [w, h] = SIZE[n.kind];
-			let ls;
-			if (n.kind === 'acteur') ls = lines(STAKE[n.id].name, 17, 3);
-			else if (n.kind === 'inter') ls = lines(interById[n.id].name, 19, 2);
-			else if (n.kind === 'contexte') ls = lines(n.label, 30, 2);
-			else ls = lines(n.label, n.kind === 'objectif' ? 30 : 30, 3);
-			if (!h) h = 22 + ls.length * 16 + (n.m ? 26 : 4);
+			let w, h, ls;
+			switch (n.kind) {
+				case 'pilote':
+					(w = 190), (ls = lines(STAKE[n.id].name, 14)), (h = 96);
+					break;
+				case 'porteur':
+					(w = 214), (ls = lines(STAKE[n.id].name, 15)), (h = 112);
+					break;
+				case 'cible':
+					(w = 236), (ls = lines(STAKE[n.id].name, 26, 2)), (h = 50);
+					break;
+				case 'appui':
+					(w = 214), (ls = lines(n.label, 19)), (h = 30 + ls.length * 15 + 22);
+					break;
+				case 'inter':
+					(w = 214), (ls = lines(n.label, 19, 2)), (h = 36 + ls.length * 15 + 34);
+					break;
+				case 'change':
+					(w = 236), (ls = lines(n.label, 30, 2)), (h = 20 + ls.length * 15 + 28);
+					break;
+				case 'objectif':
+					(w = 214), (ls = lines(n.label, 26)), (h = 22 + ls.length * 16 + (n.m ? 26 : 6));
+					break;
+				default:
+					(w = 236), (ls = lines(n.label, 32, 2)), (h = 54);
+			}
 			return [n.id, { x: n.x - w / 2, y: n.y - h / 2, w, h, cx: n.x, cy: n.y, ls }];
 		})
 	);
 
-	// ---------- Géométrie des liens (ports répartis sur les bords) ----------
-	const isCtx = (t) => ['frein', 'hypothese', 'adapte'].includes(t);
+	// ---------- Liens ----------
+	const isCtx = (t) => CTX_TYPES.includes(t);
 	const vertical = (a, b) => Math.abs(geo[a].cx - geo[b].cx) < 20;
-
-	function ports() {
-		const outs = {}, ins = {};
-		LINKS.forEach((l, i) => {
-			const [a, b, t] = l;
+	const P = (() => {
+		const outs = {}, ins = {}, pos = {};
+		LINKS.forEach(([a, b, t], i) => {
 			if (isCtx(t) || vertical(a, b)) return;
 			(outs[a] ||= []).push(i);
 			(ins[b] ||= []).push(i);
 		});
-		const pos = {};
 		const spread = (list, node, end, other) => {
 			const g = geo[node];
 			list.sort((i, j) => geo[LINKS[i][other]].cy - geo[LINKS[j][other]].cy);
-			const n = list.length, step = Math.min(13, (g.h * 0.7) / Math.max(n - 1, 1));
+			const n = list.length, step = Math.min(12, (g.h * 0.7) / Math.max(n - 1, 1));
 			list.forEach((i, k) => ((pos[i] ||= {})[end] = g.cy + (k - (n - 1) / 2) * step));
 		};
-		for (const [node, list] of Object.entries(outs)) spread(list, node, 'from', 1);
-		for (const [node, list] of Object.entries(ins)) spread(list, node, 'to', 0);
+		for (const [node, l] of Object.entries(outs)) spread(l, node, 'from', 1);
+		for (const [node, l] of Object.entries(ins)) spread(l, node, 'to', 0);
 		return pos;
-	}
-	const P = ports();
-
-	const paths = LINKS.map((l, i) => {
-		const [a, b, t] = l;
+	})();
+	const paths = LINKS.map(([a, b, t], i) => {
 		const A = geo[a], B = geo[b];
 		let d, mid;
 		if (isCtx(t)) {
-			const x1 = A.cx, y1 = A.y, x2 = B.cx + (A.cx < B.cx ? -30 : 30) * 0, y2 = B.y + B.h + 6;
-			const k = (y1 - y2) * 0.5;
+			const x1 = A.cx, y1 = A.y, x2 = B.cx, y2 = B.y + B.h + 6, k = (y1 - y2) * 0.5;
 			d = `M${x1},${y1} C${x1},${y1 - k} ${x2},${y2 + k} ${x2},${y2}`;
 			mid = [(x1 + x2) / 2, (y1 + y2) / 2];
 		} else if (vertical(a, b)) {
-			const down = B.cy > A.cy;
-			const y1 = down ? A.y + A.h : A.y, y2 = down ? B.y - 6 : B.y + B.h + 6;
+			const down = B.cy > A.cy, y1 = down ? A.y + A.h : A.y, y2 = down ? B.y - 6 : B.y + B.h + 6;
 			d = `M${A.cx},${y1} L${B.cx},${y2}`;
 			mid = [A.cx, (y1 + y2) / 2];
 		} else {
-			const x1 = A.x + A.w, y1 = P[i].from, x2 = B.x - 6, y2 = P[i].to;
-			const k = (x2 - x1) * 0.5;
+			const x1 = A.x + A.w, y1 = P[i].from, x2 = B.x - 6, y2 = P[i].to, k = (x2 - x1) * 0.5;
 			d = `M${x1},${y1} C${x1 + k},${y1} ${x2 - k},${y2} ${x2},${y2}`;
 			mid = [(x1 + x2) / 2, (y1 + y2) / 2];
 		}
 		return { i, a, b, t, d, mid };
 	});
+
+	// Bandes de fond des trois familles
+	const bandOf = (fam) => {
+		const cs = COLS.filter((c) => c.fam === fam);
+		return { x1: cs[0].x - 122, x2: cs[cs.length - 1].x + 122 };
+	};
+	const BANDS = [
+		{ fam: 'pil', ...bandOf('pil') },
+		{ fam: 'voix', ...bandOf('voix') },
+		{ fam: 'cible', ...bandOf('cible') }
+	];
 
 	// ---------- Interaction ----------
 	let hover = $state(null);
@@ -98,17 +121,15 @@
 		['os1', 'Objectif 1 · acteurs'],
 		['os2', 'Objectif 2 · public'],
 		['mesure', 'Ce qui est mesuré'],
-		['ctx', 'Contexte et hypothèses']
+		['ctx', 'Contexte et hypothèse']
 	];
-
 	const focus = $derived(hover ?? sys.sel);
 	const showCtx = $derived(lens === 'ctx' || (focus && nodeById[focus]?.kind === 'contexte'));
-
 	const active = $derived.by(() => {
 		if (focus) return chainOf(focus, { withContext: showCtx });
 		if (lens === 'os1') return chainOf('os1', { withContext: false });
 		if (lens === 'os2') return chainOf('os2', { withContext: false });
-		if (lens === 'mesure') return new Set(NODES.filter((n) => n.m).map((n) => n.id));
+		if (lens === 'mesure') return new Set(NODES.filter((n) => n.m && n.kind !== 'appui').map((n) => n.id));
 		if (lens === 'ctx') {
 			const s = new Set();
 			for (const [a, b, t] of LINKS) if (isCtx(t)) (s.add(a), s.add(b));
@@ -116,7 +137,7 @@
 		}
 		return null;
 	});
-	const linkOn = (p) => (isCtx(p.t) ? showCtx && (!active || (active.has(p.a) && active.has(p.b))) : !active || (active.has(p.a) && active.has(p.b)));
+	const linkOn = (p) => (!isCtx(p.t) || showCtx) && (!active || (active.has(p.a) && active.has(p.b)));
 
 	function select(id) {
 		sys.sel = sys.sel === id ? null : id;
@@ -133,15 +154,46 @@
 	const sel = $derived(sys.sel ? nodeById[sys.sel] : null);
 	const up = $derived(sel ? LINKS.filter((l) => l[1] === sel.id).map((l) => nodeById[l[0]]) : []);
 	const down = $derived(sel ? LINKS.filter((l) => l[0] === sel.id).map((l) => nodeById[l[1]]) : []);
-	const KIND = { acteur: 'Acteur', inter: 'Intervention', effet: 'Effet immédiat', change: 'Changement visé', objectif: 'Objectif', contexte: 'Contexte' };
+	const interOf = (id) => NODES.filter((n) => n.kind === 'inter' && n.who.some(([w]) => w === id));
+	const KIND = {
+		pilote: 'Ceux qui pilotent',
+		appui: 'Ce que Search fait',
+		porteur: 'Ceux qui portent la voix',
+		inter: 'Intervention',
+		cible: 'Ceux que le projet veut atteindre',
+		change: 'Changement visé',
+		objectif: 'Objectif',
+		contexte: 'Contexte'
+	};
 </script>
+
+{#snippet measures(list)}
+	<div class="mlist">
+		{#each list as m}
+			<div class="m">
+				<p>{m.ind}</p>
+				{#if m.c != null}
+					<div class="gauge"><div class="tr"></div>{#if m.b != null}<div class="gp" style="left:{m.b}%;width:{m.c - m.b}%"></div><div class="dt b" style="left:{m.b}%"></div>{/if}<div class="dt c" style="left:{m.c}%"></div></div>
+					<div class="gv">Base <b>{m.b != null ? m.b + ' %' : 'NA'}</b> · Cible <b>{m.c} %</b> · Finale <b>à mesurer</b></div>
+				{:else}
+					<div class="gv">Base <b>à établir</b> · valeur finale <b>à mesurer</b></div>
+				{/if}
+				<p class="muted">{SRC[m.src]}</p>
+			</div>
+		{/each}
+	</div>
+{/snippet}
+
+{#snippet chips(list)}
+	<div class="chips">{#each list as d}<button class="chip" onclick={() => select(d.id)}>{isActor(d) ? shortOf(d.id) : d.label}</button>{/each}</div>
+{/snippet}
 
 <section id="systeme">
 	<h2 class="sh">Le système <span>du projet</span></h2>
 	<p class="intro">
-		Comment le projet est censé produire du changement, de gauche à droite : <b>qui agit</b>, par quelles <b>interventions</b>, ce
-		qu'elles <b>produisent</b>, les <b>changements visés</b> et les <b>objectifs</b>. Chaque effet indique <b>comment il sera mesuré</b>.
-		Survolez ou cliquez un élément pour suivre sa chaîne complète.
+		De gauche à droite : ce que <b>Search</b> fait pour appuyer <b>ceux qui portent la voix</b>, les <b>interventions</b> par
+		lesquelles ils atteignent <b>les cibles</b>, ce qui doit changer chez ces cibles, et comment cela mène aux <b>objectifs</b>.
+		Chaque changement indique comment il sera mesuré. Survolez ou cliquez un élément pour suivre sa chaîne.
 	</p>
 
 	<div class="sys-bar">
@@ -154,40 +206,30 @@
 	<div class="sys-wrap">
 		<svg class="sysmap" viewBox="0 0 {W} {H}" role="group" aria-label="Carte systémique du projet Sigida Herema">
 			<defs>
-				{#each ['on', 'off', 'frein', 'adapte'] as m}
+				{#each ['on', 'off', 'frein'] as m}
 					<marker id="sm-{m}" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
 						<path d="M0,1 L9,5 L0,9 z" class="sm-{m}" />
 					</marker>
 				{/each}
 			</defs>
 
-			<!-- Colonnes -->
-			{#each COLS as c, i}
-				<g class="col">
-					{#if i > 0}<line x1={c.x - 140} x2={c.x - 140} y1="62" y2={H - 110} />{/if}
-					<text x={c.x} y="26" class="col-l" text-anchor="middle">{c.label}</text>
-					<text x={c.x} y="44" class="col-s" text-anchor="middle">{c.sub.toUpperCase()}</text>
-				</g>
+			<!-- Familles -->
+			{#each BANDS as b}
+				<rect class="fam {b.fam}" x={b.x1} y="8" width={b.x2 - b.x1} height={H - 112} rx="14" />
 			{/each}
-			<line class="ctx-sep" x1="30" x2={W - 30} y1={H - 102} y2={H - 102} />
-			<text class="col-s" x="30" y={H - 112}>CONTEXTE, ADAPTATION ET HYPOTHÈSE</text>
+			{#each COLS as c}
+				<text x={c.x} y="34" class="col-l" text-anchor="middle">{c.label}</text>
+				<text x={c.x} y="51" class="col-s" text-anchor="middle">{c.sub.toUpperCase()}</text>
+			{/each}
+			<text class="col-s" x="30" y={H - 86}>CONTEXTE ET HYPOTHÈSE</text>
 
 			<!-- Liens -->
 			{#each paths as p (p.i)}
 				{#if !isCtx(p.t) || showCtx}
 					{@const on = linkOn(p)}
-					<path
-						class="lk {p.t}"
-						class:on={on && !!active}
-						class:dim={!on}
-						d={p.d}
-						marker-end="url(#sm-{p.t === 'frein' ? 'frein' : p.t === 'adapte' ? 'adapte' : on && active ? 'on' : 'off'})"
-					/>
+					<path class="lk {p.t}" class:on={on && !!active} class:dim={!on} d={p.d} marker-end="url(#sm-{p.t === 'frein' ? 'frein' : on && active ? 'on' : 'off'})" />
 					{#if isCtx(p.t)}
-						<g class="sgn {p.t}" transform="translate({p.mid[0]},{p.mid[1]})">
-							<circle r="8" />
-							<text text-anchor="middle" dy="3.8">{p.t === 'frein' ? '−' : p.t === 'adapte' ? '+' : '?'}</text>
-						</g>
+						<g class="sgn {p.t}" transform="translate({p.mid[0]},{p.mid[1]})"><circle r="8" /><text text-anchor="middle" dy="3.8">{p.t === 'frein' ? '−' : '?'}</text></g>
 					{/if}
 				{/if}
 			{/each}
@@ -209,24 +251,55 @@
 					onpointerenter={() => (hover = n.id)}
 					onpointerleave={() => (hover = null)}
 				>
-					<rect class="box" width={g.w} height={g.h} rx="8" />
-					{#if n.kind === 'acteur'}
-						<svg x="4" y="4" width="76" height={g.h - 8} viewBox={viewBoxOf(n.id)} preserveAspectRatio="xMidYMid meet"><Shapes shapes={vignette(n.id)} /></svg>
-						{#each g.ls as t, k}<text x="86" y={g.h / 2 + (k - (g.ls.length - 1) / 2) * 15 + 5} class="t">{t}</text>{/each}
-					{:else if n.kind === 'inter'}
+					<rect class="box" width={g.w} height={g.h} rx="9" />
+
+					{#if n.kind === 'pilote' || n.kind === 'porteur'}
+						{@const vh = n.kind === 'pilote' ? g.h - 8 : 70}
+						<svg x="4" y="4" width="78" height={vh} viewBox={viewBoxOf(n.id)}><Shapes shapes={vign[n.id]} /></svg>
+						{#each g.ls as t, k}<text x="86" y={(n.kind === 'pilote' ? g.h / 2 : 40) + (k - (g.ls.length - 1) / 2) * 15 + 4} class="t b">{t}</text>{/each}
+						{#if n.kind === 'porteur'}
+							<line x1="10" x2={g.w - 10} y1="80" y2="80" class="sep" />
+							<g transform="translate(12,96)" class="meas">
+								<path d="M0,-4 h12 M0,0 h12 M0,4 h12 M3,-4 v3 M6,-4 v5 M9,-4 v3" class="ruler" />
+								{#if fm}
+									<line x1="20" x2="128" y1="0" y2="0" class="tr" />
+									<line x1={20 + fm.b * 1.08} x2={20 + fm.c * 1.08} y1="0" y2="0" class="gp" /><circle cx={20 + fm.b * 1.08} cy="0" r="3.5" class="db" />
+									<circle cx={20 + fm.c * 1.08} cy="0" r="3.5" class="dc" />
+									<text x="136" y="3.5" class="mt">{fm.b} → {fm.c} %</text>
+								{:else}
+									<text x="20" y="3.5" class="mt">{n.m.length} mesure{n.m.length > 1 ? 's' : ''} · à établir</text>
+								{/if}
+							</g>
+						{/if}
+					{:else if n.kind === 'cible'}
+						<rect class="band" width={g.w} height="5" rx="2" />
+						<svg x="6" y="5" width="46" height="44" viewBox={viewBoxOf(n.id)}><Shapes shapes={vign[n.id]} /></svg>
+						{#each g.ls as t, k}<text x="58" y={g.h / 2 + 5 + (k - (g.ls.length - 1) / 2) * 15} class="t b">{t}</text>{/each}
+					{:else if n.kind === 'appui' || n.kind === 'inter'}
 						<rect class="band" width="5" height={g.h} rx="2" />
-						<g transform="translate(34,{g.h / 2})"><SysIcon id={n.id} /></g>
-						<text x="66" y="22" class="code">{interById[n.id].res}</text>
-						{#each g.ls as t, k}<text x="66" y={41 + k * 15} class="t b">{t}</text>{/each}
+						<g transform="translate(32,{n.kind === 'inter' ? 34 : g.h / 2 - 4})"><SysIcon id={n.icon} /></g>
+						<text x="62" y="22" class="code">{n.kind === 'inter' ? n.res : 'Search'}</text>
+						{#each g.ls as t, k}<text x="62" y={39 + k * 15} class="t b">{t}</text>{/each}
+						{#if n.kind === 'inter'}
+							<!-- acteurs impliqués -->
+							{@const yy = g.h - 30}
+							<line x1="10" x2={g.w - 10} y1={yy - 4} y2={yy - 4} class="sep" />
+							{#each n.who as [w], k}
+								<svg x={10 + k * 32} y={yy - 2} width="30" height="28" viewBox={viewBoxOf(w)}><Shapes shapes={mini[w]} /></svg>
+							{/each}
+							<text x={14 + n.who.length * 32} y={yy + 16} class="mt">{n.who.length} acteurs</text>
+						{:else}
+							{@const tgt = LINKS.filter((l) => l[0] === n.id)}
+							<text x="62" y={g.h - 10} class="mt">→ {tgt.length > 1 ? `${tgt.length} porteurs de voix` : shortOf(tgt[0][1])}</text>
+						{/if}
 					{:else if n.kind === 'contexte'}
-						<text x="14" y="20" class="code">{n.sub === 'frein' ? 'Frein' : n.sub === 'adapte' || n.sub === 'adaptation' ? 'Adaptation' : 'Hypothèse'}</text>
+						<text x="14" y="20" class="code">{n.sub === 'frein' ? 'Frein' : 'Hypothèse'}</text>
 						{#each g.ls as t, k}<text x="14" y={37 + k * 14} class="t s">{t}</text>{/each}
 					{:else}
 						<rect class="band" width="5" height={g.h} rx="2" />
-						{#each g.ls as t, k}<text x="16" y={24 + k * 16} class="t {n.kind === 'objectif' ? 'b' : ''}">{t}</text>{/each}
+						{#each g.ls as t, k}<text x="16" y={22 + k * 15} class="t {n.kind === 'objectif' ? 'b' : ''}">{t}</text>{/each}
 						{#if n.m}
-							{@const yb = g.h - 18}
-							<g transform="translate(16,{yb})" class="meas">
+							<g transform="translate(16,{g.h - 16})" class="meas">
 								<path d="M0,-4 h12 M0,0 h12 M0,4 h12 M3,-4 v3 M6,-4 v5 M9,-4 v3" class="ruler" />
 								{#if fm}
 									<line x1="20" x2="140" y1="0" y2="0" class="tr" />
@@ -245,73 +318,76 @@
 	</div>
 
 	<div class="sys-legend">
-		<span><i class="l-act"></i>Participe à</span>
-		<span><i class="l-cause"></i>Contribue à</span>
+		<span><i class="sw pil"></i>Ceux qui pilotent</span>
+		<span><i class="sw voix"></i>Ceux qui portent la voix</span>
+		<span><i class="sw cible"></i>Ceux que le projet veut atteindre</span>
 		<span><i class="l-frein"></i>Frein (contexte)</span>
-		<span><i class="l-adapte"></i>Adaptation</span>
-		<span><i class="sw os1"></i>Objectif 1</span>
-		<span><i class="sw os2"></i>Objectif 2</span>
 		<span>Jauge : valeur de base → cible</span>
 	</div>
 
 	{#if sel}
 		<aside class="drawer" aria-live="polite">
 			<button class="close" onclick={() => (sys.sel = null)} aria-label="Fermer">×</button>
-			<p class="kick">{KIND[sel.kind]}{sel.kind === 'inter' ? ' · ' + interById[sel.id].res : ''}</p>
+			<p class="kick">{KIND[sel.kind]}{sel.res ? ' · ' + sel.res : ''}</p>
 			<h3>{labelOf(sel)}</h3>
 
-			{#if sel.kind === 'acteur'}
-				{@const s = STAKE[sel.id]}
-				<p class="muted">{s.tag}</p>
-				<p>{s.role}</p>
-				{#if down.length}
-					<div><p class="kick">Participe à</p><div class="chips">{#each down as d}<button class="chip" onclick={() => select(d.id)}>{labelOf(d)}</button>{/each}</div></div>
+			{#if sel.kind === 'pilote'}
+				<p>{STAKE[sel.id].role}</p>
+				{#if sel.id === 'search'}
+					<div><p class="kick">Ce que Search fait pour appuyer ceux qui portent la voix</p>{@render chips(down)}</div>
+					<div><p class="kick">Interventions que Search facilite directement</p>{@render chips(interOf('search'))}</div>
+				{:else}
+					<div><p class="kick">Finance</p>{@render chips(down)}</div>
 				{/if}
-				<div class="force"><p class="kick">Méthodes de collecte auprès de cet acteur</p><p>{s.collecte}</p></div>
-			{:else if sel.kind === 'inter'}
-				{@const it = interById[sel.id]}
-				<p>{it.desc}</p>
+				<div class="force"><p class="kick">Méthodes de collecte auprès de cet acteur</p><p>{STAKE[sel.id].collecte}</p></div>
+			{:else if sel.kind === 'appui'}
+				<p>{sel.what}</p>
+				<div><p class="kick">Pour qui</p>{@render chips(down)}</div>
+				<div><p class="kick">Suivi de l'appui</p>{@render measures(sel.m)}</div>
+				{#if sel.check}<div class="force"><p class="kick">À vérifier pendant l'évaluation</p><p>{sel.check}</p></div>{/if}
+			{:else if sel.kind === 'porteur'}
+				<p>{STAKE[sel.id].role}</p>
 				<ol class="chain">
-					<li><span class="step">Qui agit</span><div class="chips">{#each up.filter((d) => d.kind === 'acteur') as d}<button class="chip" onclick={() => select(d.id)}>{STAKE[d.id].short}</button>{/each}</div></li>
-					{#each up.filter((d) => d.kind === 'contexte') as d}<li><span class="step">Adaptation</span><p>{d.what} <button class="link small" onclick={() => select(d.id)}>Voir →</button></p></li>{/each}
-					<li><span class="step">Ce que ça produit</span><div class="chips">{#each down as d}<button class="chip" onclick={() => select(d.id)}>{labelOf(d)}</button>{/each}</div></li>
-					<li><span class="step">Changement attendu</span><p><b>{it.change}</b></p></li>
+					<li><span class="step">Appuyé par Search</span>{@render chips(up)}</li>
+					<li><span class="step">Ce qui doit changer chez eux</span>{@render measures(sel.m)}</li>
+					<li><span class="step">Comment ils atteignent les cibles</span>{@render chips(down)}</li>
+				</ol>
+				<div class="force"><p class="kick">Méthodes de collecte auprès de cet acteur</p><p>{STAKE[sel.id].collecte}</p></div>
+			{:else if sel.kind === 'inter'}
+				<p>{sel.what}</p>
+				<ol class="chain">
+					<li>
+						<span class="step">Acteurs impliqués</span>
+						<ul class="who">
+							{#each sel.who as [w, role]}
+								<li><button class="link" onclick={() => select(w)}>{shortOf(w)}</button><span class="muted">{role}</span></li>
+							{/each}
+						</ul>
+					</li>
+					<li><span class="step">Changement attendu</span><p><b>{sel.change}</b></p></li>
+					<li><span class="step">Chez les cibles, cela doit produire</span>{@render chips(down)}</li>
 					<li>
 						<span class="step">Comment le mesurer</span>
 						<ul class="blist">{#each down.flatMap((d) => d.m || []) as m}<li>{m.ind} <span class="muted">· {SRC[m.src]}</span></li>{/each}</ul>
 					</li>
 				</ol>
+				{#if up.some((d) => d.kind === 'contexte')}
+					<div class="force"><p class="kick">Freins</p>{@render chips(up.filter((d) => d.kind === 'contexte'))}</div>
+				{/if}
+			{:else if sel.kind === 'cible'}
+				<p>{STAKE[sel.id].role}</p>
+				<div><p class="kick">Atteints par</p>{@render chips(interOf(sel.id))}</div>
+				<div><p class="kick">Ce qui doit changer chez eux</p>{@render chips(TARGET_CHANGES[sel.id].map((c) => nodeById[c]))}</div>
+				<div class="force"><p class="kick">Méthodes de collecte auprès de cet acteur</p><p>{STAKE[sel.id].collecte}</p></div>
 			{:else}
 				<p>{sel.what}</p>
-				{#if sel.m}
-					<div>
-						<p class="kick">Comment on le mesure</p>
-						<div class="mlist">
-							{#each sel.m as m}
-								<div class="m">
-									<p>{m.ind}</p>
-									{#if m.c != null}
-										<div class="gauge"><div class="tr"></div>{#if m.b != null}<div class="gp" style="left:{m.b}%;width:{m.c - m.b}%"></div><div class="dt b" style="left:{m.b}%"></div>{/if}<div class="dt c" style="left:{m.c}%"></div></div>
-										<div class="gv">Base <b>{m.b != null ? m.b + ' %' : 'NA'}</b> · Cible <b>{m.c} %</b> · Finale <b>à mesurer</b></div>
-									{:else}
-										<div class="gv">Base <b>à établir</b> · valeur finale <b>à mesurer</b></div>
-									{/if}
-									<p class="muted">{SRC[m.src]}</p>
-								</div>
-							{/each}
-						</div>
-					</div>
-				{/if}
+				{#if sel.m}<div><p class="kick">Comment on le mesure</p>{@render measures(sel.m)}</div>{/if}
 				{#if sel.check}<div class="force"><p class="kick">À vérifier pendant l'évaluation</p><p>{sel.check}</p></div>{/if}
-				{#if up.length}
-					<div><p class="kick">{sel.kind === 'contexte' ? '' : 'Vient de'}</p><div class="chips">{#each up as d}<button class="chip" onclick={() => select(d.id)}>{labelOf(d)}</button>{/each}</div></div>
-				{/if}
-				{#if down.length}
-					<div><p class="kick">{sel.kind === 'contexte' ? 'Agit sur' : 'Contribue à'}</p><div class="chips">{#each down as d}<button class="chip" onclick={() => select(d.id)}>{labelOf(d)}</button>{/each}</div></div>
-				{/if}
+				{#if up.length}<div><p class="kick">{sel.kind === 'change' ? 'Produit par' : 'Vient de'}</p>{@render chips(up)}</div>{/if}
+				{#if down.length}<div><p class="kick">{sel.kind === 'contexte' ? 'Agit sur' : 'Contribue à'}</p>{@render chips(down)}</div>{/if}
 			{/if}
 		</aside>
 	{:else}
-		<p class="muted sys-hint">Astuce : cliquez sur une intervention pour voir qui la porte, ce qu'elle produit, le changement attendu et sa mesure. Échap ferme le panneau.</p>
+		<p class="muted sys-hint">Astuce : cliquez sur une intervention pour voir les acteurs impliqués, le changement attendu chez les cibles et sa mesure. Échap ferme le panneau.</p>
 	{/if}
 </section>
