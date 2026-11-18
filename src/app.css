@@ -71,15 +71,27 @@ section{padding:44px 0 10px;scroll-margin-top:50px}
 .scene-bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .scene-bar .lab{font:800 .72rem/1 var(--head);text-transform:uppercase;color:var(--muted);margin-right:4px}
 svg{display:block;max-width:100%;height:auto}
-#scene .obj{cursor:pointer;transition:opacity .2s}
-#scene.focus .obj:not(.hl){opacity:.18}
-#scene.focus .pin:not(.hl){opacity:.25}
-#scene .obj.sel{filter:drop-shadow(0 0 3px var(--orange)) drop-shadow(0 0 1px var(--orange))}
-#scene .pin{cursor:pointer}
-#scene .pin rect{fill:#fff;stroke:var(--blue);stroke-width:1.2}
-#scene .pin.sel rect{fill:var(--blue)}
-#scene .pin.sel text{fill:#fff}
-#scene .pin text{font:800 9px var(--head);fill:var(--blue);text-transform:uppercase;letter-spacing:.03em}
+#scene .obj{transition:opacity .2s, filter .2s}
+#scene.focus .obj:not(.hl){opacity:.28}
+#scene .obj.hl{filter:drop-shadow(0 0 2px var(--orange)) drop-shadow(0 0 1px var(--orange))}
+#scene .obj.hov{filter:drop-shadow(0 0 3px var(--teal)) drop-shadow(0 0 1px var(--teal))}
+#scene .hits rect{fill:transparent;cursor:pointer}
+#scene .marker{cursor:pointer}
+#scene .marker circle{fill:#fff;stroke:var(--blue);stroke-width:1.6;transition:fill .15s}
+#scene .marker text{font:800 10px var(--head);fill:var(--blue);pointer-events:none}
+#scene .marker.on circle,#scene .marker.hov circle{fill:var(--blue)}
+#scene .marker.on text,#scene .marker.hov text{fill:#fff}
+#scene .marker.dim{opacity:.35}
+#scene .marker:focus-visible{outline:none}
+#scene .marker:focus-visible circle{stroke:var(--orange);stroke-width:3}
+#scene .edge{fill:none;stroke-width:2.2;stroke-linecap:round}
+#scene .edge.inter{stroke:var(--blue)}
+#scene .edge.actor{stroke:var(--teal)}
+#scene .edge.fund{stroke:var(--t-polar);stroke-dasharray:4 3}
+@media (prefers-reduced-motion: no-preference){#scene .edge.inter,#scene .edge.actor{stroke-dasharray:6 4;animation:flow 1.2s linear infinite}}
+@keyframes flow{to{stroke-dashoffset:-20}}
+#scene .tip rect{fill:var(--ink);opacity:.92}
+#scene .tip text{font:700 9.5px var(--head);fill:#fff}
 #scene .zone{font:24px var(--display);fill:rgba(18,84,178,.85);letter-spacing:.04em}
 #scene .zsub{font:700 8.5px var(--head);fill:var(--muted);text-transform:uppercase}
 .legend-s{display:flex;flex-wrap:wrap;gap:14px;font-size:.8rem;color:var(--muted)}
@@ -174,3 +186,26 @@ footer{margin:40px 0 30px}
 .attr{background:var(--cream);border-radius:6px;padding:14px 18px;font-size:.84rem;color:var(--muted)}
 .attr b{color:var(--ink)}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+
+/* Barre acteurs / interventions */
+.eco-bar{display:grid;gap:8px;margin-top:16px}
+.eco-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.eco-row .lab{font:800 .72rem/1 var(--head);text-transform:uppercase;color:var(--muted);width:100px}
+@media (max-width:600px){.eco-row .lab{width:100%}}
+.chip.actor{display:inline-flex;align-items:center;gap:6px;padding-left:5px}
+.n{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--blue);color:#fff;font:800 .68rem/1 var(--head);flex:none}
+.chip[aria-pressed="true"] .n{background:#fff;color:var(--blue)}
+.chip.reset{border-color:var(--orange);color:var(--t-polar)}
+.link{font:700 .92rem var(--head);color:var(--blue);background:none;border:0;padding:0;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-align:left}
+.link:hover{text-decoration:underline}
+.actors,.partners{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.actors li,.partners li{display:grid;gap:1px}
+.actors .muted,.partners .muted{padding-left:26px;font-size:.82rem}
+.legend-s i.a{border-top:2px solid var(--blue)}
+.legend-s i.f{border-top:2px dashed var(--t-polar)}
+/* Chaîne de changement d'une intervention */
+.chain{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:0}
+.chain>li{position:relative;padding:0 0 14px 22px;display:grid;gap:6px}
+.chain>li::before{content:"";position:absolute;left:5px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--orange)}
+.chain>li:not(:last-child)::after{content:"";position:absolute;left:9px;top:18px;bottom:2px;border-left:2px solid var(--orange)}
+.chain .step{font:800 .72rem/1.2 var(--head);text-transform:uppercase;letter-spacing:.04em;color:var(--blue)}
