@@ -13,9 +13,7 @@
 		<div class="fact"><b>383</b><span>radios membres de l'URTEL mobilisées</span></div>
 		<div class="fact t"><b>3</b><span>zones : Bamako (toutes communes), Mopti, Gao</span></div>
 		<div class="fact o"><b>5</b><span>indicateurs avec une valeur de base (avant-après)</span></div>
-		<div class="fact"><b>45 j</b><span>de mission à compter du cadrage</span></div>
 		<div class="fact t"><b>18</b><span>indicateurs à renseigner</span></div>
-		<div class="fact o"><b>60 p.</b><span>maximum pour le rapport final</span></div>
 	</div>
 </header>
 

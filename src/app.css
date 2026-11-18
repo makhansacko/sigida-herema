@@ -325,3 +325,5 @@ footer{margin:40px 0 30px}
  .ind-main .code{grid-area:c} .ind-main .t{grid-area:t} .pub-tag{grid-area:p} .bc{grid-area:b} .ap-tag{grid-area:a} .chev{grid-area:v}
  .ind-detail{grid-template-columns:1fr;padding-left:14px}
 }
+.pj-three.lean{grid-template-columns:.7fr 1.6fr}
+@media (max-width:900px){.pj-three.lean{grid-template-columns:1fr}}

@@ -74,7 +74,7 @@
 		{/each}
 	</div>
 
-	<div class="pj-three">
+	<div class="pj-three lean">
 		<div class="pj-block">
 			<p class="kick">Où</p>
 			<div class="zones-l">
@@ -90,18 +90,6 @@
 				octobre 2025, pour toucher plus de monde à moindre coût. En janvier 2026, les cibles sur la confiance envers les médias et le
 				plaidoyer des OSC ont été <b>revues à la hausse</b>. L'évaluation devra dire si ces ajustements ont marché.
 			</p>
-		</div>
-		<div class="pj-block">
-			<p class="kick">Comment on saura si ça a marché</p>
-			<p class="muted">L'étude de base a mesuré la situation au départ ; l'évaluation finale mesurera à nouveau.</p>
-			{#each [['Font confiance aux médias et OSC comme sources fiables', 45, 60, 'legit'], ['Pensent que leurs opinions sont prises en compte', 22, 50, 'legit']] as [t, b, c, d]}
-				<div class="d-{d} mini">
-					<div class="mini-t">{t}</div>
-					<div class="gauge"><div class="tr"></div><div class="gp" style="left:{b}%;width:{c - b}%"></div><div class="dt b" style="left:{b}%"></div><div class="dt c" style="left:{c}%"></div></div>
-					<div class="gv">Départ <b>{b} %</b> → cible <b>{c} %</b></div>
-				</div>
-			{/each}
-			<a class="link small" href="#indicateurs">Les 17 indicateurs →</a>
 		</div>
 	</div>
 </section>
