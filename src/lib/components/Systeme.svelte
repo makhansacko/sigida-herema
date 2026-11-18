@@ -1,5 +1,5 @@
 <script>
-	import { W, H, COLS, NODES, LINKS, SRC, CTX_TYPES, TARGET_CHANGES, nodeById, chainOf } from '$lib/data/systeme.js';
+	import { W, H, COLS, NODES, LINKS, SRC, CTX_TYPES, TARGET_CHANGES, HORIZON, nodeById, chainOf } from '$lib/data/systeme.js';
 	import { STAKE, FAMILY, TINT, FAMILY_LABEL } from '$lib/data/projet.js';
 	import { vignette, viewBoxOf } from '$lib/iso/vignettes.js';
 	import { sys } from '$lib/state.svelte.js';
@@ -186,6 +186,10 @@
 	</div>
 {/snippet}
 
+{#snippet horizon(hz)}
+	<p class="hz-line {hz}"><b>Horizon : {HORIZON[hz].label}</b> · {HORIZON[hz].text}</p>
+{/snippet}
+
 {#snippet chips(list)}
 	<div class="chips">
 		{#each list as d}
@@ -197,11 +201,12 @@
 {/snippet}
 
 <section id="systeme">
-	<h2 class="sh">Le système <span>du projet</span></h2>
+	<h2 class="sh">Le modèle logique <span>du projet</span></h2>
 	<p class="intro">
 		De gauche à droite : ce que <b>Search</b> fait pour appuyer <b>ceux qui portent la voix</b>, les <b>interventions</b> par
 		lesquelles ils atteignent <b>les cibles</b>, ce qui doit changer chez ces cibles, et comment cela mène aux <b>objectifs</b>.
-		Chaque changement indique comment il sera mesuré. Survolez ou cliquez un élément pour suivre sa chaîne.
+		Chaque changement indique comment il sera mesuré, et son <b>horizon</b> : rapide, moyen ou lent à faire bouger. La rangée du haut
+		dit quand chaque colonne se mesure. Survolez ou cliquez un élément pour suivre sa chaîne.
 	</p>
 
 	<div class="sys-bar">
@@ -228,6 +233,14 @@
 			{#each COLS as c}
 				<text x={c.x} y="34" class="col-l" text-anchor="middle">{c.label}</text>
 				<text x={c.x} y="51" class="col-s" text-anchor="middle">{c.sub.toUpperCase()}</text>
+				{#if c.when}
+					{@const tw = c.when.length * 5.6 + 26}
+					<g class="when" transform="translate({c.x - tw / 2},62)">
+						<rect width={tw} height="17" rx="8.5" />
+						<circle cx="10" cy="8.5" r="4.2" /><path d="M10,6 V8.5 L11.8,9.8" />
+						<text x="19" y="12">{c.when}</text>
+					</g>
+				{/if}
 			{/each}
 			<text class="col-s" x="30" y={H - 86}>CONTEXTE ET HYPOTHÈSE</text>
 
@@ -260,6 +273,9 @@
 					onpointerleave={() => (hover = null)}
 				>
 					<rect class="box" width={g.w} height={g.h} rx="9" />
+					{#if n.hz}
+						<g class="hz {n.hz}" transform="translate({g.w - 58},-7)"><rect width="48" height="14" rx="7" /><text x="24" y="10" text-anchor="middle">{HORIZON[n.hz].label}</text></g>
+					{/if}
 
 					{#if n.kind === 'pilote' || n.kind === 'porteur'}
 						{@const vh = n.kind === 'pilote' ? g.h - 8 : 70}
@@ -331,6 +347,7 @@
 		<span><i class="sw cible"></i>Ceux que le projet veut atteindre</span>
 		<span><i class="l-frein"></i>Frein (contexte)</span>
 		<span>Jauge : valeur de base → cible</span>
+		<span><i class="hzk rapide"></i>Rapide</span><span><i class="hzk moyen"></i>Moyen</span><span><i class="hzk lent"></i>Lent : horizon du changement</span>
 	</div>
 
 	{#if sel}
@@ -368,7 +385,7 @@
 				<p>{STAKE[sel.id].role}</p>
 				<ol class="chain">
 					<li><span class="step">Appuyé par Search</span>{@render chips(up)}</li>
-					<li><span class="step">Ce qui doit changer chez eux</span>{@render measures(sel.m)}</li>
+					<li><span class="step">Ce qui doit changer chez eux</span>{@render horizon(sel.hz)}{@render measures(sel.m)}</li>
 					<li><span class="step">Comment ils atteignent les cibles</span>{@render chips(down)}</li>
 				</ol>
 				<div class="force"><p class="kick">Méthodes de collecte auprès de cet acteur</p><p>{STAKE[sel.id].collecte}</p></div>
@@ -403,6 +420,7 @@
 				<div class="force"><p class="kick">Méthodes de collecte auprès de cet acteur</p><p>{STAKE[sel.id].collecte}</p></div>
 			{:else}
 				<p>{sel.what}</p>
+				{#if sel.hz}{@render horizon(sel.hz)}{/if}
 				{#if sel.m}<div><p class="kick">Comment on le mesure</p>{@render measures(sel.m)}</div>{/if}
 				{#if sel.check}<div class="force"><p class="kick">À vérifier pendant l'évaluation</p><p>{sel.check}</p></div>{/if}
 				{#if up.length}<div><p class="kick">{sel.kind === 'change' ? 'Produit par' : 'Vient de'}</p>{@render chips(up)}</div>{/if}

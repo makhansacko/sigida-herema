@@ -2,9 +2,8 @@
 	import Cover from '$lib/components/Cover.svelte';
 	import Projet from '$lib/components/Projet.svelte';
 	import Systeme from '$lib/components/Systeme.svelte';
-	import Loupe from '$lib/components/Loupe.svelte';
-	import Piliers from '$lib/components/Piliers.svelte';
-	import Matrice from '$lib/components/Matrice.svelte';
+	import Impact from '$lib/components/Impact.svelte';
+	import PifSimple from '$lib/components/PifSimple.svelte';
 	import Indicateurs from '$lib/components/Indicateurs.svelte';
 	import Mission from '$lib/components/Mission.svelte';
 </script>
@@ -19,9 +18,8 @@
 <main class="wrap">
 	<Projet />
 	<Systeme />
-	<Loupe />
-	<Piliers />
-	<Matrice />
+	<Impact />
+	<PifSimple />
 	<Indicateurs />
 	<Mission />
 </main>

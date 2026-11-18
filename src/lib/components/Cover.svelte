@@ -22,10 +22,9 @@
 <nav class="toc" aria-label="Sections">
 	<div class="wrap">
 		<a href="#projet">Le projet</a>
-		<a href="#systeme">Système</a>
-		<a href="#themes">5 thèmes</a>
-		<a href="#piliers">3 piliers</a>
-		<a href="#matrice">OCDE × PIF</a>
+		<a href="#systeme">Modèle logique</a>
+		<a href="#impact">Évaluer l’impact</a>
+		<a href="#pif">Le PIF</a>
 		<a href="#indicateurs">Indicateurs</a>
 		<a href="#mission">Mission</a>
 	</div>
