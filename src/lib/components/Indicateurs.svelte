@@ -69,7 +69,7 @@
 			{@const isOpen = ui.openInd.includes(i.code)}
 			<div class="ind-row" class:open={isOpen} role="row" id="ind-{i.code.replace('.', '-')}" style="--pc:{colorOf(i)}">
 				<button class="ind-main" onclick={() => toggle(i.code)} aria-expanded={isOpen}>
-					<span class="code">{i.code}{#if themesOf(i).length}<small>{PIF_THEMES[themesOf(i)[0]].label}</small>{/if}</span>
+					<span class="code">{i.code}</span>
 					<span class="t"><small>{i.table}</small>{i.t}</span>
 					<span class="pub-tag {i.pub}">{PUBLICS[i.pub].label}</span>
 					<span class="bc">
