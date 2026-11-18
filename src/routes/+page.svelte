@@ -18,9 +18,9 @@
 <main class="wrap">
 	<Projet />
 	<Systeme />
+	<Indicateurs />
 	<Impact />
 	<PifSimple />
-	<Indicateurs />
 	<Mission />
 </main>
 

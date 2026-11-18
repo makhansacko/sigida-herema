@@ -14,7 +14,7 @@
 		<div class="fact t"><b>3</b><span>zones : Bamako (toutes communes), Mopti, Gao</span></div>
 		<div class="fact o"><b>5 × 3</b><span>thèmes et piliers du PIF</span></div>
 		<div class="fact"><b>45 j</b><span>de mission à compter du cadrage</span></div>
-		<div class="fact t"><b>17</b><span>indicateurs à renseigner</span></div>
+		<div class="fact t"><b>18</b><span>indicateurs à renseigner</span></div>
 		<div class="fact o"><b>60 p.</b><span>maximum pour le rapport final</span></div>
 	</div>
 </header>
@@ -23,9 +23,9 @@
 	<div class="wrap">
 		<a href="#projet">Le projet</a>
 		<a href="#systeme">Modèle logique</a>
+		<a href="#indicateurs">Indicateurs</a>
 		<a href="#impact">Évaluer l’impact</a>
 		<a href="#pif">Le PIF</a>
-		<a href="#indicateurs">Indicateurs</a>
 		<a href="#mission">Mission</a>
 	</div>
 </nav>
