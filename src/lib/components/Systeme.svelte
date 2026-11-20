@@ -120,8 +120,8 @@
 	let lens = $state('all');
 	const LENSES = [
 		['all', 'Tout'],
-		['os1', 'Objectif 1 · acteurs'],
-		['os2', 'Objectif 2 · public'],
+		['os1', 'Objectif spécifique 1 · acteurs'],
+		['os2', 'Objectif spécifique 2 · public'],
 		['mesure', 'Ce qui est mesuré'],
 		['pif', 'Thèmes du PIF'],
 		['ctx', 'Contexte et hypothèse']

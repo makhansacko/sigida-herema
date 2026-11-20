@@ -189,7 +189,7 @@ export const NODES = [
 	// ---------- Objectifs ----------
 	{
 		id: 'os1', kind: 'objectif', x: 1425, y: 200, os: 1,
-		label: 'Objectif 1 · Plaidoyer collaboratif des OSC et des médias',
+		label: 'Objectif spécifique 1 · Plaidoyer collaboratif des OSC et des médias',
 		what: 'Favoriser un plaidoyer collaboratif des organisations de la société civile et des médias en faveur d’un espace civique au Mali paisible, sensible et ouvert.'
 	},
 	{
@@ -203,7 +203,7 @@ export const NODES = [
 	},
 	{
 		id: 'os2', kind: 'objectif', x: 1425, y: 672, os: 2,
-		label: 'Objectif 2 · Soutien du public à un espace civique libre',
+		label: 'Objectif spécifique 2 · Soutien du public à un espace civique libre',
 		what: 'Favoriser une meilleure compréhension et un soutien accru du public en faveur d’un espace civique libre et inclusif au Mali.'
 	},
 

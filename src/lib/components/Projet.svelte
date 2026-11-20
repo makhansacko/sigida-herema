@@ -40,12 +40,12 @@
 			<p class="kick">Ce que le projet veut changer</p>
 			<div class="pj-obj">
 				<div class="os">
-					<b class="code">Objectif 1 · Du côté des acteurs</b>
+					<b class="code">Objectif spécifique 1 · Du côté des acteurs</b>
 					<p>Les OSC et les médias font un plaidoyer <b>collaboratif et constructif</b> sur les sujets sensibles de gouvernance, plutôt que de s'opposer frontalement aux autorités.</p>
 					<p class="muted">Comment : renforcement des capacités (plaidoyer, vérification des faits, production d'émissions) et forums réguliers OSC-gouvernement.</p>
 				</div>
 				<div class="os t">
-					<b class="code">Objectif 2 · Du côté du public</b>
+					<b class="code">Objectif spécifique 2 · Du côté du public</b>
 					<p>Les citoyens <b>comprennent mieux leurs droits</b> et soutiennent un espace civique libre et inclusif.</p>
 					<p class="muted">Comment : dialogues publics inclusifs (femmes, jeunes, leaders coutumiers), campagnes radio sur la paix et le vivre-ensemble, information fiable notamment sur les élections.</p>
 				</div>
