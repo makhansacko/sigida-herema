@@ -89,15 +89,15 @@
 		const A = geo[a], B = geo[b];
 		let d, mid;
 		if (isCtx(t)) {
-			const x1 = A.cx, y1 = A.y, x2 = B.cx, y2 = B.y + B.h + 6, k = (y1 - y2) * 0.5;
+			const x1 = A.cx, y1 = A.y, x2 = B.cx, y2 = B.y + B.h + 1, k = (y1 - y2) * 0.5;
 			d = `M${x1},${y1} C${x1},${y1 - k} ${x2},${y2 + k} ${x2},${y2}`;
 			mid = [(x1 + x2) / 2, (y1 + y2) / 2];
 		} else if (vertical(a, b)) {
-			const down = B.cy > A.cy, y1 = down ? A.y + A.h : A.y, y2 = down ? B.y - 6 : B.y + B.h + 6;
+			const down = B.cy > A.cy, y1 = down ? A.y + A.h : A.y, y2 = down ? B.y - 1 : B.y + B.h + 1;
 			d = `M${A.cx},${y1} L${B.cx},${y2}`;
 			mid = [A.cx, (y1 + y2) / 2];
 		} else {
-			const x1 = A.x + A.w, y1 = P[i].from, x2 = B.x - 6, y2 = P[i].to, k = (x2 - x1) * 0.5;
+			const x1 = A.x + A.w, y1 = P[i].from, x2 = B.x - 1, y2 = P[i].to, k = (x2 - x1) * 0.5;
 			d = `M${x1},${y1} C${x1 + k},${y1} ${x2 - k},${y2} ${x2},${y2}`;
 			mid = [(x1 + x2) / 2, (y1 + y2) / 2];
 		}
@@ -217,7 +217,7 @@
 		<svg class="sysmap" viewBox="0 0 {W} {H}" role="group" aria-label="Carte systémique du projet Sigida Herema">
 			<defs>
 				{#each ['on', 'off', 'frein'] as m}
-					<marker id="sm-{m}" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+					<marker id="sm-{m}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
 						<path d="M0,1 L9,5 L0,9 z" class="sm-{m}" />
 					</marker>
 				{/each}
