@@ -56,7 +56,7 @@
 					(w = 236), (ls = lines(n.label, 30, 2)), (h = 20 + ls.length * 15 + 28);
 					break;
 				case 'objectif':
-					(w = 214), (ls = lines(n.label, 26)), (h = 22 + ls.length * 16 + (n.m ? 26 : 6));
+					(w = 214), (ls = lines(n.label, 26, 4)), (h = 22 + ls.length * 16 + (n.m ? 26 : 6));
 					break;
 				default:
 					(w = 236), (ls = lines(n.label, 32, 2)), (h = 54);

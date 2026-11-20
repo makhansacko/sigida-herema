@@ -203,7 +203,7 @@ export const NODES = [
 	},
 	{
 		id: 'os2', kind: 'objectif', x: 1425, y: 672, os: 2,
-		label: 'Objectif spécifique 2 · Soutien du public à un espace civique libre',
+		label: 'Objectif spécifique 2 · Soutien du public à un espace civique libre et inclusif',
 		what: 'Favoriser une meilleure compréhension et un soutien accru du public en faveur d’un espace civique libre et inclusif au Mali.'
 	},
 
