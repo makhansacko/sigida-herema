@@ -53,7 +53,7 @@ export const INDICATEURS = [
 		code: '1', node: ['osc', 'medias'], table: 'Cadre logique · objectif spécifique 1', pub: 'osc', b: 57, c: 70, ap: 'ba', dmd: 21.3,
 		t: '% de membres des OSC indiquant une meilleure collaboration entre acteurs médias et OSC pour le plaidoyer en faveur d’un espace civique plus ouvert et paisible',
 		claim: 'L’évolution de la collaboration déclarée par les membres d’OSC.',
-		watch: ['Avec 80 OSC, la DMD (≈ 21 pts) dépasse l’écart visé (13 pts) : un recensement du réseau ou un panel (mêmes OSC) est nécessaire.', 'Cible revue à la hausse en janvier 2026.']
+		watch: ['Avec 80 OSC, la DMD (≈ 21 pts) dépasse l’écart visé (13 pts) : option à arbitrer au cadrage : réinterroger les OSC de l’étude de base (panel), sans coût supplémentaire.', 'Cible revue à la hausse en janvier 2026.']
 	},
 	{
 		code: '2.1', node: ['c_heard'], table: 'Cadre logique · objectif spécifique 2', pub: 'menages', b: 22, c: 50, ap: 'ba', dmd: 9.7,

@@ -23,6 +23,8 @@
 		<a href="#systeme">Modèle logique</a>
 		<a href="#indicateurs">Indicateurs</a>
 		<a href="#questions">Questions d’évaluation</a>
+		<a href="#pif">Le PIF</a>
+		<a href="#calendrier">Calendrier</a>
 		<a href="#demandes">À demander à Search</a>
 	</div>
 </nav>

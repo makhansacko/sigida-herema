@@ -5,7 +5,7 @@
 export const DEMANDES = [
 	{
 		id: 'base', t: 'Rapport de l’étude de base, base de données et questionnaires',
-		why: 'Valeurs de base des indicateurs 7 et 8, formulation exacte des questions, mode d’entretien, listes des OSC et médias interrogés, répartition par commune.',
+		why: 'Valeurs de base des indicateurs 7 et 8, formulation exacte des questions, mode d’entretien, listes des OSC et médias interrogés avec contacts (pour les réinterroger : option panel de l’indicateur 1), répartition par commune.',
 		ind: ['0.1', '0.2', '1', '2.1', '2.2', '7', '8']
 	},
 	{

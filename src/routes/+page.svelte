@@ -4,6 +4,8 @@
 	import Systeme from '$lib/components/Systeme.svelte';
 	import Indicateurs from '$lib/components/Indicateurs.svelte';
 	import Questions from '$lib/components/Questions.svelte';
+	import Pif from '$lib/components/Pif.svelte';
+	import Calendrier from '$lib/components/Calendrier.svelte';
 	import Demandes from '$lib/components/Demandes.svelte';
 </script>
 
@@ -19,6 +21,8 @@
 	<Systeme />
 	<Indicateurs />
 	<Questions />
+	<Pif />
+	<Calendrier />
 	<Demandes />
 </main>
 

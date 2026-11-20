@@ -376,3 +376,25 @@ footer{margin:40px 0 30px}
 .qt.pif-c{color:#fff;border-color:transparent;text-shadow:0 0 2px rgba(0,0,0,.25)}
 .pif-key{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-top:14px;font:700 .78rem var(--head)}
 .pif-key i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+
+/* PIF */
+.pif2{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;margin-top:16px}
+@media (max-width:900px){.pif2{grid-template-columns:1fr}}
+.pif-h{font:800 1rem/1.3 var(--head);color:var(--teal);text-transform:uppercase;letter-spacing:.04em;margin:0 0 10px}
+.pif-th,.pif-pi,.gantt,.g-cond{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.pif-th li{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:start;background:#fff;border:1.5px solid var(--line);border-left:6px solid var(--pc);border-radius:10px;padding:10px 14px}
+.pif-name{background:var(--pc);border-radius:6px;padding:4px 8px;text-align:center;font:800 .95rem/1.3 var(--head);color:var(--ink)}
+.pif-ici{margin:0;font-weight:700}
+.pif-def{margin:2px 0 6px;font-size:.92rem}
+.pif-pi li{display:grid;gap:4px;background:#fff;border:1.5px solid var(--line);border-left:6px solid var(--blue);border-radius:10px;padding:10px 14px}
+.pif-pi b{font:800 1.05rem/1.3 var(--head);color:var(--blue)}
+/* Calendrier */
+.gantt{margin:16px 0 20px}
+.gantt li{display:grid;grid-template-columns:280px 1fr 120px;gap:12px;align-items:center}
+.g-t{font-weight:700}
+.g-track{position:relative;height:18px;background:#eef2f7;border-radius:9px}
+.g-bar{position:absolute;top:0;height:18px;border-radius:9px;background:var(--blue)}
+.g-bar.terrain{background:var(--teal)} .g-bar.rapport{background:var(--orange)} .g-bar.revue{background:#8d98a8}
+.g-d{font:700 .92rem/1 var(--head);color:var(--muted);font-variant-numeric:tabular-nums}
+.g-cond li{background:var(--cream);border-left:5px solid var(--orange);border-radius:0 8px 8px 0;padding:8px 12px}
+@media (max-width:700px){.gantt li{grid-template-columns:1fr;gap:4px}}
