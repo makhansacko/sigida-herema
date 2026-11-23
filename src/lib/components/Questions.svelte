@@ -12,7 +12,7 @@
 	<p class="intro">
 		Les questions des TDR par critère OCDE, et ce qui permet d’y répondre : un <b>indicateur</b> (cliquez pour l’ouvrir), des
 		<b>entretiens</b>, des <b>groupes de discussion</b> ou des <b>documents</b>. Quand une question touche un signe vital du PIF, il est
-		indiqué en couleur (voir <a href="#pif">le PIF dans l’évaluation</a>). Les questions finales seront arrêtées au cadrage avec Search et l’URTEL.
+		indiqué en couleur (voir <a href="/pif">le PIF dans l’évaluation</a>). Les questions finales seront arrêtées au cadrage avec Search et l’URTEL.
 	</p>
 	<div class="crit">
 		{#each CRITERES as c}

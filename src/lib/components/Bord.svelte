@@ -47,10 +47,10 @@
 						</li>
 					{/each}
 				</ul>
-				<a class="more" href="#livrables">Tous les livrables →</a>
+				<a class="more" href="/livrables">Tous les livrables →</a>
 				<h3 class="pif-h" style="margin-top:16px">Risques majeurs</h3>
 				<ul class="nx">{#each majeurs as r}<li><span class="nx-t">{r.t}</span></li>{/each}</ul>
-				<a class="more" href="#risques">Registre des risques →</a>
+				<a class="more" href="/risques">Registre des risques →</a>
 			</div>
 			<div>
 				<h3 class="pif-h">À trancher cette semaine</h3>
@@ -59,7 +59,7 @@
 						{#each urgentes as d}<li class:late={jAvant(d.ech) < 0}><span class="nx-d">{frLong(d.ech)}</span><span class="nx-t">{d.t}</span><span class="nx-w">{quand(d.ech)}</span></li>{/each}
 					</ul>
 				{:else}<p class="muted">Rien d’urgent.</p>{/if}
-				<a class="more" href="#decisions">Toutes les décisions →</a>
+				<a class="more" href="/decisions">Toutes les décisions →</a>
 
 			</div>
 		</div>
