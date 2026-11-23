@@ -28,7 +28,7 @@ export const CRITERES = [
 	{
 		id: 'effc', name: 'Efficience',
 		qs: [
-			{ t: 'Le recours aux 383 radios de l’URTEL a-t-il amélioré le rapport coût-efficacité par rapport à l’approche prévue en octobre 2025 ?', ind: [], src: ['budget', 'urtel'] },
+			{ t: 'Le recours aux 383 radios de l’URTEL a-t-il amélioré le rapport coût-efficacité par rapport à l’approche prévue en octobre 2025 ?', ind: [], src: ['budget', 'urtel'], pif: ['Coût du changement'] },
 			{ t: 'La logistique et la gestion des partenariats (URTEL, réseau Sigida Herema) ont-elles amélioré le rapport coût-résultats ?', ind: [], src: ['budget', 'kii'] },
 			{ t: 'Les ressources financières, humaines et techniques ont-elles été utilisées de façon efficiente ?', ind: [], src: ['budget', 'docs'] }
 		]
@@ -36,15 +36,15 @@ export const CRITERES = [
 	{
 		id: 'imp', name: 'Impact',
 		qs: [
-			{ t: 'Les émissions, réseaux sociaux et activités ont-ils transformé les perceptions, discours et pratiques : confiance envers les médias, participation, collaboration des OSC ?', ind: ['0.2', '2.2', '2.3', '16', '1'], src: ['fgd'], pif: ['Polarisation'] },
+			{ t: 'Les émissions, réseaux sociaux et activités ont-ils transformé les perceptions, discours et pratiques : confiance envers les médias, participation, collaboration des OSC ?', ind: ['0.2', '2.2', '2.3', '16', '1'], src: ['fgd'], pif: ['Confiance'] },
 			{ t: 'Quels changements qualitatifs dans la relation entre la population, les médias et les OSC ?', ind: [], src: ['fgd', 'kii'] },
-			{ t: 'La collaboration entre OSC, URTEL et gouvernement a-t-elle amélioré l’accès à une information vérifiée et sensible aux conflits ?', ind: ['9', '10'], src: ['kii'], pif: ['Polarisation'] }
+			{ t: 'La collaboration entre OSC, URTEL et gouvernement a-t-elle amélioré l’accès à une information vérifiée et sensible aux conflits ?', ind: ['9', '10'], src: ['kii'], pif: ['Confiance'] }
 		]
 	},
 	{
 		id: 'dur', name: 'Durabilité',
 		qs: [
-			{ t: 'Les mécanismes de collaboration, outils et partenariats vont-ils perdurer après le projet ?', ind: [], src: ['kii', 'docs'], pif: ['Investissements'] },
+			{ t: 'Les mécanismes de collaboration, outils et partenariats vont-ils perdurer après le projet ?', ind: [], src: ['kii', 'docs'], pif: ['Légitimité'] },
 			{ t: 'Quelles perspectives de pérennité institutionnelle (forums OSC-Gouvernement) et de viabilité financière ?', ind: [], src: ['kii', 'budget'] },
 			{ t: 'L’URTEL et les forums garantissent-ils une meilleure pérennité que le modèle initial ?', ind: [], src: ['kii'] },
 			{ t: 'Les capacités renforcées (plaidoyer, fact-checking, animation de débats) sont-elles ancrées dans les pratiques des partenaires ?', ind: ['8'], src: ['kii'], pif: ['Pouvoir d’agir'] }

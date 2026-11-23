@@ -123,7 +123,7 @@
 		['os1', 'Objectif spécifique 1 · acteurs'],
 		['os2', 'Objectif spécifique 2 · public'],
 		['mesure', 'Ce qui est mesuré'],
-		['pif', 'Thèmes du PIF'],
+		['pif', 'Signes vitaux du PIF'],
 		['ctx', 'Contexte et hypothèse']
 	];
 	const focus = $derived(hover ?? sys.sel);
@@ -336,7 +336,7 @@
 	{#if lens === 'pif'}
 		<div class="pif-legend">
 			{#each Object.values(PIF_THEMES) as th}<span><i style="background:{th.color}"></i><b>{th.label}</b> {th.q}</span>{/each}
-			<span class="muted">Le PIF classe les changements en 5 thèmes ; il ne change ni la mesure ni le dispositif d’évaluation.</span>
+			<span class="muted">Le PIF classe les changements selon 4 signes vitaux ; il ne change ni la mesure ni le dispositif d’évaluation.</span>
 		</div>
 	{/if}
 	<div class="sys-legend">

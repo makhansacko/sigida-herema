@@ -11,7 +11,7 @@
  *   `who` (interventions) = acteurs impliqués, avec leur rôle.
  *   `m` = mesures : { ind, b (base %), c (cible %), src (clé de SRC) }.
  *   `os` = 1 ou 2 : objectif auquel le nœud contribue (couleur).
- *   `pif` = thème du Cadre d'impact pour la paix (clé de PIF_THEMES) auquel le changement se rattache.
+ *   `pif` = signe vital du Cadre d'impact sur la paix (clé de PIF_THEMES) auquel le changement se rattache.
  * - `LINKS` : [de, vers, type]. type = finance | appui | porte | vise | objectif | frein | hypothese.
  *
  * Source : TDR Search n° SFCG ML 03-172026 (août 2026). La répartition des rôles et les effets
@@ -62,7 +62,7 @@ export const NODES = [
 		check: 'Distinguer compétences techniques et capacités relationnelles et stratégiques (question d’efficacité).'
 	},
 	{
-		id: 's_urtel', kind: 'appui', pif: 'invest', x: 360, y: 636, icon: 'reseau',
+		id: 's_urtel', kind: 'appui', pif: 'legit', x: 360, y: 636, icon: 'reseau',
 		label: 'Partenariat avec l’URTEL',
 		what: 'Search mobilise le réseau de l’URTEL (383 radios membres) pour diffuser les émissions et campagnes. Ce partenariat a été ajouté après l’approche prévue en octobre 2025, pour toucher plus de monde à moindre coût.',
 		m: [{ ind: 'Coût par personne atteinte, comparé à l’approche initiale d’octobre 2025', src: 'urtel' }],
@@ -85,7 +85,7 @@ export const NODES = [
 		]
 	},
 	{
-		id: 'urtel', kind: 'porteur', pif: 'invest', x: 620, y: 636, os: 2,
+		id: 'urtel', kind: 'porteur', pif: 'legit', x: 620, y: 636, os: 2,
 		m: [{ ind: 'Radios ayant diffusé, volume et langues des émissions, audience estimée', src: 'urtel' }]
 	},
 
@@ -98,7 +98,7 @@ export const NODES = [
 		change: 'Les autorités associent davantage les OSC et les médias aux décisions sur l’espace civique.'
 	},
 	{
-		id: 'forum', kind: 'inter', pif: 'invest', x: 880, y: 285, icon: 'forum', os: 1, res: 'R1.2',
+		id: 'forum', kind: 'inter', pif: 'legit', x: 880, y: 285, icon: 'forum', os: 1, res: 'R1.2',
 		label: 'Forums OSC-Gouvernement',
 		what: 'Des espaces réguliers où la société civile et les régulateurs se rencontrent pour se comprendre et collaborer sur la protection de l’espace civique.',
 		who: [['osc', 'participent'], ['etat', 'participent'], ['search', 'facilite']],
@@ -302,11 +302,13 @@ export function chainOf(id, { withContext = true } = {}) {
 	return s;
 }
 
-/** Les 5 thèmes du Cadre d'impact pour la paix (PIF), pour classer les changements du modèle logique. */
+/**
+ * Les 4 signes vitaux du Cadre d'impact sur la paix (PIF, version d'août 2026), pour classer les changements du modèle logique.
+ * Les clés internes sont conservées ; « Investissements » a disparu de cette version (le coût devient une dimension de restitution).
+ */
 export const PIF_THEMES = {
-	agency: { label: 'Pouvoir d’agir', q: 'Les gens se sentent-ils capables d’agir sur leur société ?', color: '#64c2b0' },
-	legit: { label: 'Légitimité', q: 'Les institutions, médias compris, gagnent-elles la confiance de ceux qu’elles servent ?', color: '#a157ab' },
-	polar: { label: 'Polarisation', q: 'La méfiance entre groupes recule-t-elle ?', color: '#fbb960' },
-	invest: { label: 'Investissements', q: 'Reste-t-il des ressources pour la paix après le projet ?', color: '#4d7fc5' },
-	violence: { label: 'Violence', q: 'Les gens sont-ils plus en sécurité ?', color: '#e0b43c' }
+	violence: { label: 'Sécurité', full: 'Sécurité / Violence', q: 'Les gens se sentent-ils en sécurité et vivent-ils sans appréhension ?', color: '#e0b43c' },
+	agency: { label: 'Pouvoir d’agir', full: 'Pouvoir d’agir / Impuissance', q: 'Les gens se sentent-ils capables d’influer sur le changement ?', color: '#64c2b0' },
+	polar: { label: 'Confiance', full: 'Confiance / Polarisation', q: 'La confiance entre individus et entre groupes progresse-t-elle (confiance horizontale) ?', color: '#fbb960' },
+	legit: { label: 'Légitimité', full: 'Légitimité / Désengagement', q: 'Les institutions, médias compris, gardent-elles la confiance de ceux qu’elles servent (confiance verticale) ?', color: '#a157ab' }
 };

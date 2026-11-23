@@ -20,7 +20,7 @@ export const STAKE = {
 		short: 'Ambassade de Belgique',
 		tag: 'Bailleur, ambassade au Mali',
 		role: "Finance le projet. Utilisera l'évaluation pour comprendre ce qui a été accompli, apprécier l'efficacité de l'investissement et orienter ses financements futurs.",
-		dims: ['invest'],
+		dims: [],
 		ind: ['Efficience et rapport coût-résultats'],
 		collecte: 'Entretien au cadrage ; relecture du rapport provisoire ; restitution finale, présentation virtuelle et note de synthèse de 2 pages.'
 	},
@@ -30,7 +30,7 @@ export const STAKE = {
 		short: 'URTEL · radios',
 		tag: 'Partenaire stratégique',
 		role: "Union des radios et télévisions libres. Ses radios membres diffusent les émissions et campagnes ; c'est le principal levier d'échelle et d'efficience du projet, introduit après l'approche prévue en octobre 2025.",
-		dims: ['polar', 'legit', 'invest'],
+		dims: ['polar', 'legit'],
 		ind: ['2.3 Émissions favorisant le dialogue', '0.2 Confiance envers les médias', "Efficience par rapport à l'approche initiale"],
 		collecte: "KII avec les responsables URTEL et les radios partenaires ; elles font partie des 40 acteurs médias de l'échantillon raisonné."
 	},
@@ -40,7 +40,7 @@ export const STAKE = {
 		short: 'OSC du réseau',
 		tag: 'Organisations de la société civile',
 		role: "OSC ayant reçu des appuis techniques et financiers. Elles mènent le plaidoyer collaboratif, animent les dialogues et portent l'intégration du genre et de l'inclusion.",
-		dims: ['agency', 'polar', 'invest'],
+		dims: ['agency', 'polar'],
 		ind: ['1 Collaboration médias-OSC pour le plaidoyer', 'Capacité de plaidoyer constructif', 'Participation aux dialogues avec les autorités', 'Espace civique perçu comme diversifié'],
 		collecte: "Enquête auprès de 80 acteurs OSC (choix raisonné) ; KII avec des représentants d'OSC ; récits de changement (MSC)."
 	},
@@ -60,7 +60,7 @@ export const STAKE = {
 		short: 'Autorités',
 		tag: "Services de l'État, collectivités",
 		role: 'Autorités administratives, régulateurs gouvernementaux, services étatiques, maires et conseillers. Ce sont les interlocuteurs du plaidoyer et des forums OSC-Gouvernement.',
-		dims: ['legit', 'invest'],
+		dims: ['legit'],
 		ind: ['2.1 Opinions prises en compte dans les décisions', 'Satisfaction envers les services des autorités', 'Institutionnalisation des forums'],
 		collecte: 'KII avec des autorités locales et des acteurs gouvernementaux, après introduction par Search.'
 	},

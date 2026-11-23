@@ -114,19 +114,19 @@ export const INDICATEURS = [
 
 	// ---------- Safeguarding ----------
 	{
-		code: '13', node: ['dial', 'forum'], table: 'Safeguarding de Search', pub: 'part', b: null, c: null, ap: 'suivi',
+		code: '13', pif: 'violence', node: ['dial', 'forum'], table: 'Safeguarding de Search', pub: 'part', b: null, c: null, ap: 'suivi',
 		t: '% de participants qui se sentent en sécurité lors de leur participation au projet et aux activités (par sexe, âge, localité)',
 		claim: 'Le niveau de sécurité ressenti par les participants à la fin.',
 		watch: ['Interroger des participants, pas des ménages : obtenir les listes auprès de Search.', 'Demander les valeurs des missions de suivi.']
 	},
 	{
-		code: '14', node: ['dial', 'forum'], table: 'Safeguarding de Search', pub: 'part', b: null, c: null, ap: 'suivi',
+		code: '14', pif: 'legit', node: ['dial', 'forum'], table: 'Safeguarding de Search', pub: 'part', b: null, c: null, ap: 'suivi',
 		t: '% de participants qui connaissent les mécanismes de signalement (par sexe, localité, âge)',
 		claim: 'La connaissance des mécanismes de signalement à la fin.',
 		watch: ['Demander les valeurs des missions de suivi.']
 	},
 	{
-		code: '15', node: ['dial', 'forum'], table: 'Safeguarding de Search', pub: 'part', b: null, c: null, ap: 'suivi',
+		code: '15', pif: 'legit', node: ['dial', 'forum'], table: 'Safeguarding de Search', pub: 'part', b: null, c: null, ap: 'suivi',
 		t: '% de participants qui estiment que leur voix et leur opinion sont prises en compte dans le projet (par sexe, âge, localité)',
 		claim: 'Le sentiment des participants d’être pris en compte dans le projet, à la fin.',
 		watch: ['Demander les valeurs des missions de suivi.']

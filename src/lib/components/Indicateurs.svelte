@@ -5,8 +5,8 @@
 	import { showInSystem, ui } from '$lib/state.svelte.js';
 
 	const nodeLabel = (id) => STAKE[id]?.short ?? nodeById[id]?.label ?? id;
-	const themesOf = (i) => [...new Set(i.node.map((n) => nodeById[n]?.pif).filter(Boolean))];
-	/** Couleur du thème PIF principal de l'indicateur (gris s'il n'en a pas). */
+	const themesOf = (i) => (i.pif ? [i.pif] : [...new Set(i.node.map((n) => nodeById[n]?.pif).filter(Boolean))]);
+	/** Couleur du signe vital PIF principal de l'indicateur (gris s'il n'en a pas). */
 	const colorOf = (i) => PIF_THEMES[themesOf(i)[0]]?.color ?? '#8d98a8';
 
 	let fAp = $state('all');
@@ -58,7 +58,7 @@
 	{/if}
 
 	<div class="pif-key">
-		<span class="muted">Couleur = thème du PIF du changement mesuré :</span>
+		<span class="muted">Couleur = signe vital du PIF du changement mesuré :</span>
 		{#each Object.values(PIF_THEMES) as th}<span><i style="background:{th.color}"></i>{th.label}</span>{/each}
 	</div>
 	<div class="ind-table" role="table" aria-label="Indicateurs de l'évaluation">
