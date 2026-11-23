@@ -21,7 +21,7 @@ export const OUTILS = [
 		qui: 'Par zone, comme à la base : femmes (OSC et communauté), jeunes mixtes, médias traditionnels, médias en ligne ; 8 personnes chacun', base: 'Guide FGD GAM de la base',
 		ind: [] },
 	{ t: 'Entretiens avec des informateurs clés', n: null, total: 35, niveau: 'Groupe secondaire et praticiens', approche: 'Observations des praticiens',
-		qui: 'Répartition proposée : autorités locales 9, responsables d’OSC 9, médias et radios 9, État et experts 4, URTEL 2, équipe Search 2', base: 'Quatre guides de la base (OSC, médias, autorités locales, État et experts)',
+		qui: 'Répartition proposée : autorités locales 9, responsables d’OSC 9, médias et radios 9, État et experts 4, URTEL 2, équipe Search 2 ; conduits surtout par Mahamadou Kane et le chef de mission', base: 'Quatre guides de la base (OSC, médias, autorités locales, État et experts)',
 		ind: [] },
 	{ t: 'Récits de changement significatif', n: null, total: null, niveau: 'Noyau', approche: 'Expérience vécue',
 		qui: 'Participants du réseau et auditeurs, recueillis pendant les groupes de discussion', base: 'Nouveau (méthode citée par le PIF)',
