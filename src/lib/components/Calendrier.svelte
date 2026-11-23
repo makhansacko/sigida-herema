@@ -8,7 +8,7 @@
 
 <section id="calendrier">
 	<h2 class="sh">Le calendrier <span>actualisé</span></h2>
-	<p class="intro">Rapport final au plus tard le <b>31 décembre 2026</b>, en 29 jours ouvrés. La collecte se termine avant les fêtes.</p>
+	<p class="intro"><b>45 jours ouvrés</b>, du 20 novembre 2026 au <b>26 janvier 2027</b>, hors délais de revue.</p>
 	<ul class="gantt">
 		{#each PHASES as p}
 			<li>
@@ -18,7 +18,7 @@
 			</li>
 		{/each}
 	</ul>
-	<h3 class="pif-h">Ce calendrier tient si…</h3>
+	<h3 class="pif-h">Points d’attention</h3>
 	<ul class="g-cond">
 		{#each CONDITIONS as c}<li>{c}</li>{/each}
 	</ul>
