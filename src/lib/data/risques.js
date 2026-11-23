@@ -1,0 +1,21 @@
+/** Registre des risques de la mission. p = probabilité, i = impact : 3 élevé, 2 moyen, 1 faible. */
+export const RISQUES = [
+	{ t: 'Base de données de l’étude de base non transmise', p: 2, i: 3,
+		parade: 'La demander en priorité ; à défaut, documenter les écarts de méthode et présenter l’avant-après avec réserve.' },
+	{ t: 'Réticence des répondants et autocensure', p: 3, i: 2,
+		parade: 'Lettres d’introduction, anonymat, enquêteurs locaux, questions sensibles en fin de questionnaire ; revue documentaire pour les institutions qui refusent (MATD et HAC à la base).' },
+	{ t: 'Insécurité à Mopti et Gao', p: 2, i: 3,
+		parade: 'Superviseurs locaux, point sécurité quotidien, localités de remplacement fixées d’avance.' },
+	{ t: 'Search injoignable pendant la collecte (22/12–03/01)', p: 3, i: 2,
+		parade: 'Outils validés, lettres et contacts obtenus avant le 19/12 ; contact d’urgence convenu.' },
+	{ t: 'Comparabilité avec la base', p: 2, i: 3,
+		parade: 'Mêmes questions et mêmes localités ; saison différente (avril pendant le Ramadan, contre décembre) et âge minimum documentés dans une note de comparabilité.' },
+	{ t: 'Délais de revue de Search en plusieurs phases', p: 3, i: 2,
+		parade: 'Calendrier présenté hors revue ; délais de revue convenus par livrable ; relances hebdomadaires.' },
+	{ t: 'Indépendance perçue (Abdoulaye Fané)', p: 2, i: 2,
+		parade: 'Lien déclaré, rôle limité au PIF, aucune participation aux entretiens ni à l’analyse des résultats.' },
+	{ t: 'Budget serré', p: 2, i: 2,
+		parade: 'Analyses simples et traçables, pas de modélisation lourde ; outils de la base réutilisés.' },
+	{ t: 'Effet plafond sur l’indicateur 2.3', p: 2, i: 1,
+		parade: 'Présenter le niveau final et sa marge d’erreur ; ne pas sur-interpréter une variation de quelques points.' }
+];

@@ -10,12 +10,13 @@
  * - `node` : où le changement se produit dans le modèle logique (identifiants de data/systeme.js).
  * - `claim` : ce qu'on pourra affirmer ; `watch` : points d'attention.
  *
- * Numérotation 7 à 18 : Sahel Analytics, pour s'y référer facilement.
+ * Numérotation : celle des TDR (0.1 à 2.3), puis 7 à 18 par Sahel Analytics. `table` donne le numéro du cadre logique quand il diffère.
+ * Sources des valeurs : rapport de base (juin 2024), cadre logique révisé (31/01/2026), analyse de contexte (avril 2026).
  */
 
 export const PUBLICS = {
-	menages: { label: 'Ménages', src: 'Enquête ménages, n = 384, tirage aléatoire proportionnel par commune, comme à la base' },
-	osc: { label: 'OSC et médias', src: 'Enquête auprès des 80 OSC et 40 médias de la base (mêmes listes ou même règle de sélection)' },
+	menages: { label: 'Ménages', src: 'Enquête ménages, n = 384 (base d’avril 2024 : sondage aléatoire de 503 personnes de 15 ans et plus, communes 1 à 6 de Bamako et 13 quartiers de Mopti et Gao)' },
+	osc: { label: 'OSC et médias', src: 'Enquête auprès de 80 OSC et 40 médias, sélection raisonnée comme à la base (mêmes listes si Search les fournit)' },
 	part: { label: 'Participants', src: 'Questionnaire court aux participants des activités (listes de Search), complété par les FGD' }
 };
 
@@ -38,54 +39,54 @@ export const ANALYSES = {
 export const INDICATEURS = [
 	// ---------- Cadre logique ----------
 	{
-		code: '0.1', node: ['c_protect'], table: 'Cadre logique · objectif général', pub: 'osc', b: 33, c: 50, ap: 'ba', dmd: 17.8,
+		code: '0.1', node: ['c_protect'], table: 'Cadre logique 0.1 · objectif général', pub: 'osc', b: 33, c: 50, ap: 'ba', dmd: 17.8,
 		t: '% des acteurs médias et OSC estimant que la protection et le soutien accordés aux défenseurs des droits de l’homme et aux journalistes travaillant sur l’espace civique se sont améliorés',
 		claim: 'L’évolution de la perception de protection chez les médias et OSC interrogés, entre la base et la fin.',
-		watch: ['Échantillon raisonné : réinterroger les mêmes acteurs ou appliquer la même règle de sélection.', 'Avec 120 répondants, la DMD (≈ 18 pts) est à peine supérieure à l’écart visé (17 pts) : résultat probablement non significatif.', 'Garder le même mode d’entretien qu’à la base (face à face ou téléphone).']
+		watch: ['Indicateur composite : 3 affirmations notées de 1 à 5 dans le questionnaire de base ; la règle qui donne 33 % est à reconstituer depuis la base de données.', 'Écarts régionaux extrêmes à la base (OSC : Gao 100 %, Mopti 11 %, Bamako 9 %) : présenter par zone.', 'Échantillon raisonné : réinterroger les mêmes acteurs ou appliquer la même règle de sélection.', 'Avec 120 répondants, la DMD (≈ 18 pts) est à peine supérieure à l’écart visé (17 pts) : résultat probablement non significatif.', 'Garder le même mode d’entretien qu’à la base (face à face ou téléphone).']
 	},
 	{
-		code: '0.2', node: ['c_trust'], table: 'Cadre logique · objectif général', pub: 'menages', b: 45, c: 60, ap: 'ba', dmd: 10.1,
+		code: '0.2', node: ['c_trust'], table: 'Cadre logique 0.2 · objectif général', pub: 'menages', b: 45, c: 60, ap: 'ba', dmd: 10.1,
 		t: '% de la population qui a confiance dans les médias et les OSC comme sources d’information fiables sur les enjeux de l’espace civique',
 		claim: 'L’évolution de la confiance dans la population, entre la base et la fin.',
-		watch: ['Cible revue à la hausse en janvier 2026.', 'Risque de désirabilité sociale sur la confiance : anonymat, enquêteurs extérieurs au projet.', 'Formulation de la question strictement identique à la base.']
+		watch: ['Deux affirmations notées de 1 à 5 (médias ; OSC) : règle de calcul des 45 % à reconstituer depuis la base de données.', 'Cible revue de 50 % à 60 % (cadre logique du 31/01/2026).', 'Risque de désirabilité sociale sur la confiance : anonymat, enquêteurs extérieurs au projet.', 'Formulation de la question strictement identique à la base.']
 	},
 	{
-		code: '1', node: ['osc', 'medias'], table: 'Cadre logique · objectif spécifique 1', pub: 'osc', b: 57, c: 70, ap: 'ba', dmd: 21.3,
+		code: '1', node: ['osc', 'medias'], table: 'Cadre logique 1 · objectif spécifique 1', pub: 'osc', b: 57, c: 70, ap: 'ba', dmd: 21.3,
 		t: '% de membres des OSC indiquant une meilleure collaboration entre acteurs médias et OSC pour le plaidoyer en faveur d’un espace civique plus ouvert et paisible',
 		claim: 'L’évolution de la collaboration déclarée par les membres d’OSC.',
-		watch: ['Avec 80 OSC, la DMD (≈ 21 pts) dépasse l’écart visé (13 pts) : option à arbitrer au cadrage : réinterroger les OSC de l’étude de base (panel), sans coût supplémentaire.', 'Cible revue à la hausse en janvier 2026.']
+		watch: ['Avec 80 OSC, la DMD (≈ 21 pts) dépasse l’écart visé (13 pts) : option à arbitrer au cadrage : réinterroger les OSC de l’étude de base (panel), sans coût supplémentaire.', 'Cible revue de 60 % à 70 % (31/01/2026).', 'Base très contrastée : Mopti 83 %, Gao 71 %, Bamako 27 % pour le partage d’informations.']
 	},
 	{
-		code: '2.1', node: ['c_heard'], table: 'Cadre logique · objectif spécifique 2', pub: 'menages', b: 22, c: 50, ap: 'ba', dmd: 9.7,
+		code: '2.1', node: ['c_heard'], table: 'Cadre logique 2 · objectif spécifique 2', pub: 'menages', b: 22, c: 50, ap: 'ba', dmd: 9.7,
 		t: '% de la population qui pense que ses opinions et intérêts sont pris en compte dans la prise de décision et la formulation des politiques publiques',
 		claim: 'L’évolution du sentiment d’être entendu, entre la base et la fin.',
 		watch: ['Cible la plus ambitieuse (+28 pts) et très dépendante du contexte politique, hors du contrôle du projet.']
 	},
 	{
-		code: '2.2', node: ['c_rights'], table: 'Cadre logique · objectif spécifique 2', pub: 'menages', b: 51, c: 70, ap: 'ba', dmd: 9.9,
+		code: '2.2', node: ['c_rights'], table: 'Cadre logique 2.1 · résultat 2.1', pub: 'menages', b: 51, c: 70, ap: 'ba', dmd: 9.9,
 		t: '% de la population qui se sent informée et consciente de ses droits et devoirs de citoyen dans l’espace civique',
 		claim: 'L’évolution de la connaissance des droits et devoirs, entre la base et la fin.',
-		watch: ['Formulation de la question strictement identique à la base.']
+		watch: ['Quatre affirmations à la base (informé, conscient, rôle des OSC et médias, réformes électorales) : règle de calcul à reconstituer.', 'Cible revue de 60 % à 70 % (31/01/2026).']
 	},
 	{
-		code: '2.3', node: ['c_trust', 'camp'], table: 'Cadre logique · objectif spécifique 2', pub: 'menages', b: null, c: 60, ap: 'cible',
+		code: '2.3', node: ['c_trust', 'camp'], table: 'Cadre logique 2.2 révisé · résultat 2.2', pub: 'menages', b: 83, c: 95, ap: 'ba', dmd: 8.5,
 		t: '% d’auditeurs déclarant que les émissions produites et diffusées sur la paix, la cohésion sociale et le vivre-ensemble favorisent le dialogue constructif et la compréhension mutuelle dans leur communauté',
-		claim: 'Le niveau atteint chez les auditeurs à la fin, comparé à la cible de 60 %.',
-		watch: ['Ne porte que sur les auditeurs : ajouter une question filtre (« avez-vous écouté ces émissions ? »).', 'Le nombre d’auditeurs dans l’échantillon de 384 peut être faible : intervalle de confiance large.', 'Les auditeurs se sélectionnent eux-mêmes : pas de conclusion sur l’ensemble de la population.']
+		claim: 'L’évolution chez les auditeurs entre mars 2026 et la fin, comparée à la cible.',
+		watch: ['Valeur de base de 83 % mesurée en mars 2026 auprès de 360 auditeurs (analyse de contexte d’avril 2026), alors que les émissions avaient déjà commencé.', 'Deux cibles en circulation : 60 % (cadre logique révisé, TDR) et 95 % (analyse de contexte) : à trancher au cadrage.', 'Effet plafond : à 83 %, il reste peu de marge ; la DMD suppose environ 150 auditeurs dans l’échantillon final.', 'Question filtre (« avez-vous écouté ces émissions ? ») et même formulation qu’en mars 2026.']
 	},
 
 	// ---------- Matrice de définition ----------
 	{
 		code: '7', node: ['c_trust'], table: 'Matrice de définition', pub: 'menages', b: null, c: null, ap: 'ba_check',
 		t: 'Confiance envers les médias : perception de la fiabilité et de l’impartialité des informations diffusées par les médias partenaires (score moyen, échelle de Likert 1 à 5)',
-		claim: 'Le score moyen de confiance à la fin ; son évolution si la base l’a mesuré.',
-		watch: ['Vérifier dans le rapport de base si ce score a été calculé.', 'Analyse sur une moyenne (et non une proportion).']
+		claim: 'Le score moyen de confiance à la fin, et son évolution si la base de données permet de le recalculer.',
+		watch: ['Le rapport de base ne le donne pas, mais la question existe (affirmation « les médias fournissent des informations précises et objectives », notée de 1 à 5) : moyenne recalculable depuis la base de données.', 'Analyse sur une moyenne (et non une proportion).']
 	},
 	{
-		code: '8', node: ['osc'], table: 'Matrice de définition', pub: 'osc', b: null, c: null, ap: 'ba_check',
+		code: '8', node: ['osc'], table: 'Cadre logique 1.1 · résultat 1.1', pub: 'osc', b: 43, c: 80, ap: 'ba', dmd: 21.7,
 		t: '% des membres d’OSC estimant avoir la capacité de mener des actions de plaidoyer constructif autour des questions sensibles de gouvernance',
-		claim: 'Le niveau de capacité déclaré à la fin ; son évolution si la valeur de base est retrouvée.',
-		watch: ['Listé « étude de base + évaluation finale » dans la matrice, mais sans valeur : la demander à Search.']
+		claim: 'L’évolution de la capacité de plaidoyer déclarée, entre la base et la fin.',
+		watch: ['Valeur de base retrouvée : 43 % (rapport de base, indicateur 1.1 du cadre logique), cible 80 %.', 'Question posée aux OSC et aux médias à la base : garder le même périmètre.', 'Écart visé (37 pts) largement supérieur à la DMD : changement démontrable.']
 	},
 	{
 		code: '9', node: ['medias'], table: 'Matrice de définition · co-créé', pub: 'osc', b: null, c: null, ap: 'fin',
@@ -106,10 +107,10 @@ export const INDICATEURS = [
 		watch: ['Notion à définir clairement dans le questionnaire.', 'Indicateur co-créé : garder la formulation définie avec les communautés.']
 	},
 	{
-		code: '12', node: ['c_voice'], table: 'Matrice de définition', pub: 'osc', b: null, c: null, ap: 'fin',
+		code: '12', node: ['c_voice'], table: 'Cadre logique 1.2 · résultat 1.2', pub: 'osc', b: 36, c: 50, ap: 'ba', dmd: 17.9,
 		t: '% des acteurs médias et OSC qui affirment que leur participation aux processus décisionnels et à la formulation des politiques liées à la protection de l’espace civique s’est améliorée',
-		claim: 'La part qui déclare une amélioration, à la fin.',
-		watch: ['La question contient déjà une comparaison dans le temps (« s’est améliorée ») : c’est une perception du changement, pas une mesure avant-après.']
+		claim: 'L’évolution de la part qui déclare une meilleure participation, entre la base et la fin.',
+		watch: ['Valeur de base retrouvée : 36 % (indicateur 1.2 du cadre logique), cible 50 %.', 'Avec 120 répondants, la DMD (≈ 18 pts) dépasse l’écart visé (14 pts).', 'La question contient déjà une comparaison dans le temps (« s’est améliorée ») : une perception du changement.']
 	},
 
 	// ---------- Safeguarding ----------
