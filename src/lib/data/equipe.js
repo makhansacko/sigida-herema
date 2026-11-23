@@ -3,9 +3,6 @@ export const EQUIPE = [
 	{ id: 'diawara', name: 'Abdoulaye Diawara', role: 'Chef de mission · suivi-évaluation',
 		profil: 'Docteur en sciences de gestion (IPU Bamako, 2026). Plus de 12 ans en conseil, suivi-évaluation, gouvernance des données et pilotage de missions multi-acteurs, dont une mission récente pour le PNUD Mali. Directeur général adjoint de Sahel Analytics.',
 		fait: ['Pilote la mission et la relation avec Search', 'Méthodologie, matrice d’évaluation, analyse de contribution', 'Rédige les rapports et anime les restitutions'] },
-	{ id: 'camara', name: 'Sékou Kader Camara', role: 'Statisticien · data manager',
-		profil: 'Ingénieur statisticien économiste (ENSEA Abidjan, 2025), spécialisé en évaluation d’impact des politiques publiques ; MicroMasters du MIT en données et politiques publiques. Enquêtes, KoboToolbox, R et Stata.',
-		fait: ['Échantillonnage et pondération', 'Programmation KoboToolbox, contrôle qualité quotidien', 'Apurement, scripts, analyses quantitatives'] },
 	{ id: 'kane', name: 'Mahamadou Kane', role: 'Expert senior · gouvernance, espace civique et médias',
 		profil: 'Journaliste et formateur, près de 20 ans d’expérience. Rédacteur en chef adjoint de Radio Kledu, correspondant de la Deutsche Welle au Mali depuis 2018, modérateur du débat politique hebdomadaire de Radio Kledu. ESJ Lille (2015), licence de sociologie. Membre du comité de pilotage des débats électoraux de 2018 ; formateur sur la documentation des violations des droits humains (Amnesty International).',
 		fait: ['Entretiens avec les médias, les radios URTEL, les OSC et les autorités', 'Analyse de la gouvernance, de l’espace civique et des médias', 'Rédige les sections médias et espace civique du rapport'] },
@@ -17,21 +14,27 @@ export const EQUIPE = [
 		fait: ['Application du Cadre d’impact sur la paix : codage par signes vitaux', 'Ni entretiens ni analyse des résultats ; interrogé comme informateur clé'] },
 	{ id: 'sacko', name: 'Makhan Sacko', role: 'Référent qualité interne',
 		profil: 'Directeur général de Sahel Analytics. Ancien responsable de l’exploration au Laboratoire d’accélération du PNUD Mali (2019–2025). MPP de Princeton (2026), MBA de l’université de Kobe.',
-		fait: ['Revue qualité de chaque livrable avant envoi', 'Cohérence entre indicateurs, modèle logique et conclusions'] }
+		fait: ['Revue qualité de chaque livrable avant envoi', 'Reprend le volet données : échantillonnage, formulaires KoboToolbox, apurement, scripts, calcul des indicateurs', 'Cohérence entre indicateurs, modèle logique et conclusions'] },
+	{ id: 'kelepily', name: 'Hassana Kelepily', role: 'Enquêteur-superviseur · Bamako et Mopti',
+		profil: 'Sociologue, agent de collecte chez Sahel Analytics depuis 2024. Enquêtes quantitatives et qualitatives (KoboCollect, ODK, SurveyCTO) pour le PNUD (UniPod), l’OIM, OCHA, le Fonds mondial ; terrain à Bandiagara et dans le centre du Mali.',
+		fait: ['Collecte et supervision à Bamako, puis à Mopti', 'Contrôle qualité et transmission quotidienne des données', 'Appui aux groupes de discussion de Mopti'] },
+	{ id: 'maiga', name: 'Issa Maiga', role: 'Enquêteur-superviseur · Gao',
+		profil: 'Gestionnaire, plus de 5 ans en administration, logistique et collecte de données ; chargé d’affaires chez Sahel Analytics depuis 2024. Supervision d’enquêtes pour le PNUD, le CNCR et Baobab (Mali, Guinée).',
+		fait: ['Collecte et supervision à Gao', 'Logistique de terrain et suivi des dépenses', 'Appui aux groupes de discussion de Gao'] }
 ];
-export const TERRAIN = '3 superviseurs et 12 enquêteurs recrutés à Bamako, Mopti et Gao, dont au moins 40 % de femmes, parlant bamanankan, fulfulde, songhay et tamasheq (2 enquêteurs de plus proposés à Bamako).';
+export const TERRAIN = 'Hassana Kelepily (Bamako, puis Mopti) et Issa Maiga (Gao) encadrent la collecte. Pour tenir 384 ménages et 120 OSC et médias en dix jours, il faut des enquêteurs d’appoint recrutés sur place (7 proposés : 3 à Bamako, 2 à Mopti, 2 à Gao), dont des femmes, parlant bamanankan, fulfulde, songhay et tamasheq.';
 
 /** Qui fait quoi, par livrable : R = réalise, A = valide côté Sahel Analytics, C = contribue. */
 export const RACI = {
-	note: { diawara: 'R', camara: 'C', kane: 'C', fane: 'C', sacko: 'A' },
-	demarrage: { diawara: 'R', camara: 'C', kane: 'C', diarra: 'C', fane: 'C', sacko: 'A' },
-	outils: { diawara: 'C', camara: 'R', kane: 'C', diarra: 'C', fane: 'C', sacko: 'A' },
-	formation: { diawara: 'A', camara: 'R', kane: 'C', diarra: 'C' },
-	restitution: { diawara: 'R', camara: 'C', kane: 'C', diarra: 'C', sacko: 'A' },
-	donnees: { camara: 'R', sacko: 'A' },
-	provisoire: { diawara: 'R', camara: 'C', kane: 'C', diarra: 'C', fane: 'C', sacko: 'A' },
-	final: { diawara: 'R', camara: 'C', kane: 'C', diarra: 'C', fane: 'C', sacko: 'A' },
+	note: { diawara: 'R', kane: 'C', fane: 'C', sacko: 'A' },
+	demarrage: { diawara: 'R', kane: 'C', diarra: 'C', fane: 'C', sacko: 'A' },
+	outils: { diawara: 'A', kane: 'C', diarra: 'C', fane: 'C', sacko: 'R', kelepily: 'C', maiga: 'C' },
+	formation: { diawara: 'R', kane: 'C', diarra: 'C', sacko: 'A', kelepily: 'C', maiga: 'C' },
+	restitution: { diawara: 'R', kane: 'C', diarra: 'C', sacko: 'A' },
+	donnees: { diawara: 'A', sacko: 'R', kelepily: 'C', maiga: 'C' },
+	provisoire: { diawara: 'R', kane: 'C', diarra: 'C', fane: 'C', sacko: 'A' },
+	final: { diawara: 'R', kane: 'C', diarra: 'C', fane: 'C', sacko: 'A' },
 	'restit-finale': { diawara: 'R', sacko: 'A' },
 	synthese: { diawara: 'C', sacko: 'R' },
-	photos: { diarra: 'R', camara: 'C' }
+	photos: { diarra: 'R', kelepily: 'C', maiga: 'C' }
 };

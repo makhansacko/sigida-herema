@@ -1,5 +1,11 @@
 /** Registre des risques de la mission. p = probabilité, i = impact : 3 élevé, 2 moyen, 1 faible. */
 export const RISQUES = [
+	{ t: 'Effectif de terrain insuffisant', p: 3, i: 3,
+		parade: 'Deux enquêteurs-superviseurs ne peuvent pas couvrir 384 ménages et 120 OSC et médias en dix jours : recruter 7 enquêteurs d’appoint sur place, ou réduire le volume et passer les OSC et médias au téléphone.' },
+	{ t: 'Volet données sans statisticien dédié', p: 2, i: 3,
+		parade: 'Le référent qualité reprend l’échantillonnage, KoboToolbox, l’apurement et les scripts ; revue croisée par le chef de mission.' },
+	{ t: 'Trésorerie : avance de 40 % absorbée par la collecte', p: 3, i: 2,
+		parade: 'Payer la collecte en priorité sur l’avance ; honoraires des experts principalement à la seconde tranche ; vérifier la TVA due sur l’avance.' },
 	{ t: 'Base de données de l’étude de base non transmise', p: 2, i: 3,
 		parade: 'La demander en priorité ; à défaut, documenter les écarts de méthode et présenter l’avant-après avec réserve.' },
 	{ t: 'Réticence des répondants et autocensure', p: 3, i: 2,

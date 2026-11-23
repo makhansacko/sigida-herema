@@ -8,7 +8,7 @@
 
 <section id="equipe">
 	<h2 class="sh">L’équipe <span>et les rôles</span></h2>
-	<p class="intro">{EQUIPE.length} experts de Sahel Analytics, appuyés par des équipes de terrain dans chaque zone.</p>
+	<p class="intro">Cinq experts et deux enquêteurs-superviseurs de Sahel Analytics, appuyés par des enquêteurs recrutés sur place.</p>
 
 	<div class="eq">
 		{#each EQUIPE as m}
