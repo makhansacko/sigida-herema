@@ -6,7 +6,7 @@ export const ZONES = ['Bamako', 'Mopti', 'Gao'];
 
 export const OUTILS = [
 	{ t: 'Enquête ménages', n: [230, 77, 77], niveau: 'Environnement systémique', approche: 'Mesures alignées',
-		qui: 'Personnes de 15 ans et plus, tirées au hasard dans les localités de la base', base: 'Questionnaire de base (sections « communautés ») + 3 questions du PIF en option',
+		qui: 'Personnes de 15 ans et plus, tirées au hasard dans les localités de la base ; plus environ 20 leaders communautaires auditeurs par zone, comme en mars 2026', base: 'Questionnaire de base (sections « communautés ») + question 2.3 de mars 2026 + 3 questions du PIF + handicap et statut de résidence',
 		ind: ['0.2', '2.1', '2.2', '2.3', '7', '16', '17', '18'] },
 	{ t: 'Enquête OSC', n: null, total: 80, niveau: 'Noyau', approche: 'Mesures alignées',
 		qui: 'Membres d’OSC, dont le réseau Sigida Herema ; sélection raisonnée comme à la base', base: 'Questionnaire de base (sections « OSC et médias »)',
@@ -18,7 +18,7 @@ export const OUTILS = [
 		qui: 'Participants aux formations, forums et dialogues (listes de Search)', base: 'Fiches d’évaluation des activités de Search',
 		ind: ['13', '14', '15'] },
 	{ t: 'Groupes de discussion (GAM)', n: [4, 4, 4], niveau: 'Noyau et groupe secondaire', approche: 'Expérience vécue',
-		qui: 'Par zone, comme à la base : femmes (OSC et communauté), jeunes mixtes, médias traditionnels, médias en ligne ; 8 personnes chacun', base: 'Guide FGD GAM de la base',
+		qui: 'Par zone, comme à la base : femmes (OSC et communauté), jeunes mixtes, médias traditionnels, médias en ligne ; 8 personnes chacun', base: 'Guide FGD GAM de la base, avec retour sur les indicateurs locaux de 2024 et un module par zone',
 		ind: [] },
 	{ t: 'Entretiens avec des informateurs clés', n: null, total: 35, niveau: 'Groupe secondaire et praticiens', approche: 'Observations des praticiens',
 		qui: 'Répartition proposée : autorités locales 9, responsables d’OSC 9, médias et radios 9, État et experts 4, URTEL 2, équipe Search 2 ; conduits surtout par Mahamadou Kane et le chef de mission', base: 'Quatre guides de la base (OSC, médias, autorités locales, État et experts)',
