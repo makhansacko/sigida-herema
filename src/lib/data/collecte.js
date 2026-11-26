@@ -6,7 +6,7 @@ export const ZONES = ['Bamako', 'Mopti', 'Gao'];
 
 export const OUTILS = [
 	{ t: 'Enquête ménages', n: [230, 77, 77], niveau: 'Environnement systémique', approche: 'Mesures alignées',
-		qui: 'Personnes de 15 ans et plus, tirées au hasard dans les localités de la base ; plus environ 20 leaders communautaires auditeurs par zone, comme en mars 2026', base: 'Questionnaire de base (sections « communautés ») + question 2.3 de mars 2026 + 3 questions du PIF + handicap et statut de résidence',
+		qui: 'Personnes de 15 ans et plus, tirées au hasard dans les localités de la base', base: 'Questionnaire de base (sections « communautés ») + question 2.3 de mars 2026 + 3 questions du PIF + handicap et statut de résidence',
 		ind: ['0.2', '2.1', '2.2', '2.3', '7', '16', '17', '18'] },
 	{ t: 'Enquête OSC', n: null, total: 80, niveau: 'Noyau', approche: 'Mesures alignées',
 		qui: 'Membres d’OSC, dont le réseau Sigida Herema ; sélection raisonnée comme à la base', base: 'Questionnaire de base (sections « OSC et médias »)',
